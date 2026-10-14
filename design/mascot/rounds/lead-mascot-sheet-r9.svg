@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1536" height="1024" viewBox="0 0 1536 1024" role="img"
+     aria-labelledby="title desc">
+  <title id="title">Sky Voice Band 9 Signal Guide character sheet</title>
+  <desc id="desc">Eight flat vector states of a tall numeral-nine IELTS guide: front, three-quarter, listening, speaking, reading, writing, feedback, and celebration.</desc>
+
+  <defs>
+    <style>
+      .navy-fill { fill: #0E2D5E; }
+      .blue-fill { fill: #1655D8; }
+      .orange-fill { fill: #EB9D13; }
+      .cream-fill { fill: #FFF6DD; }
+      .white-fill { fill: #FFFFFF; }
+      .navy-stroke { stroke: #0E2D5E; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+      .label { fill: #0E2D5E; font-family: Arial, Helvetica, sans-serif; font-size: 26px; font-weight: 800; letter-spacing: 0.8px; text-anchor: middle; dominant-baseline: middle; }
+      .dial-text { fill: #0E2D5E; font-family: Arial, Helvetica, sans-serif; font-size: 28px; font-weight: 800; text-anchor: middle; dominant-baseline: middle; }
+    </style>
+
+    <!-- Exact reusable body geometry.  Height 394, maximum body width 230: ratio 1.71. -->
+    <path id="nine-body" class="navy-fill"
+          d="M 0 -186
+             C 72 -186 114 -139 114 -72
+             C 114 -25 94 10 64 31
+             L 39 177
+             C 36 196 21 208 3 208
+             L -18 208
+             C -37 208 -49 189 -40 171
+             L 7 62
+             C -70 64 -116 13 -116 -72
+             C -116 -139 -72 -186 0 -186 Z"/>
+
+    <ellipse id="speech-counter" class="blue-fill" cx="0" cy="-78" rx="58" ry="51"/>
+
+    <rect id="module-tick" class="cream-fill" x="0" y="0" width="30" height="15" rx="7.5"/>
+    <g id="module-rail">
+      <use xlink:href="#module-tick" transform="translate(42 44) rotate(4 15 7.5)"/>
+      <use xlink:href="#module-tick" transform="translate(38 76) rotate(5 15 7.5)"/>
+      <use xlink:href="#module-tick" transform="translate(33 108) rotate(6 15 7.5)"/>
+      <use xlink:href="#module-tick" transform="translate(27 140) rotate(8 15 7.5)"/>
+    </g>
+
+    <!-- Orbit is one rigid backplate and is always placed behind the numeral. -->
+    <g id="voice-orbit" fill="none" stroke-linecap="round" stroke-width="18">
+      <path stroke="#1655D8" d="M -109 -154 A 132 132 0 0 1 42 -204"/>
+      <path stroke="#1655D8" d="M 98 -170 A 132 132 0 0 1 117 1"/>
+      <path stroke="#EB9D13" d="M -129 -43 A 132 132 0 0 1 -103 11"/>
+      <path class="orange-fill" stroke="none"
+            d="M 91 -211 L 99 -193 L 117 -185 L 99 -177 L 91 -159 L 83 -177 L 65 -185 L 83 -193 Z"/>
+    </g>
+
+    <!-- Face primitives are reused without redrawing. -->
+    <g id="narrow-eyes" class="cream-fill">
+      <rect x="-37" y="-91" width="24" height="7" rx="3.5"/>
+      <rect x="13" y="-91" width="24" height="7" rx="3.5"/>
+    </g>
+    <g id="restrained-mouth" fill="none" stroke-linecap="round">
+      <path d="M -13 -55 Q 0 -49 13 -55" stroke="#0E2D5E" stroke-width="5"/>
+      <path d="M -4 -52 Q 0 -50 4 -52" stroke="#EB9D13" stroke-width="3"/>
+    </g>
+    <g id="focus-brows" fill="none" stroke="#0E2D5E" stroke-width="5" stroke-linecap="round">
+      <path d="M -38 -105 L -14 -101"/>
+      <path d="M 14 -101 L 38 -105"/>
+    </g>
+    <g id="support-brows" fill="none" stroke="#0E2D5E" stroke-width="5" stroke-linecap="round">
+      <path d="M -38 -101 Q -26 -107 -14 -101"/>
+      <path d="M 14 -101 Q 26 -107 38 -101"/>
+    </g>
+    <g id="face-neutral">
+      <use xlink:href="#narrow-eyes"/>
+      <use xlink:href="#restrained-mouth"/>
+    </g>
+
+    <!-- One fixed-width upper arm and one fixed forearm/mitten, assembled by transforms. -->
+    <g id="upper-arm">
+      <rect x="-4" y="-8" width="64" height="16" rx="8" class="cream-fill navy-stroke"/>
+    </g>
+    <g id="forearm-mitten">
+      <path class="cream-fill navy-stroke"
+            d="M -4 -8 H 37
+               C 45 -8 52 -4 54 2
+               C 56 8 52 14 46 16
+               C 40 18 34 15 31 10
+               C 26 15 18 13 17 7
+               L 17 5 H -4 Z"/>
+    </g>
+
+    <!-- Permitted task props. Reading and writing share the same panel definition. -->
+    <g id="study-panel">
+      <rect x="-70" y="-42" width="140" height="84" rx="16" class="cream-fill navy-stroke"/>
+      <path d="M -42 -15 H 39 M -42 4 H 48 M -42 23 H 29"
+            fill="none" stroke="#1655D8" stroke-width="9" stroke-linecap="round"/>
+    </g>
+    <g id="sound-bars" fill="none" stroke="#EB9D13" stroke-width="10" stroke-linecap="round">
+      <path d="M 0 -22 H 24"/>
+      <path d="M 0 0 H 37"/>
+      <path d="M 0 22 H 24"/>
+    </g>
+    <g id="band-dial">
+      <circle r="78" class="cream-fill navy-stroke"/>
+      <g fill="#0E2D5E">
+        <rect x="-4" y="-64" width="8" height="17" rx="4"/>
+        <rect x="-4" y="-64" width="8" height="17" rx="4" transform="rotate(40)"/>
+        <rect x="-4" y="-64" width="8" height="17" rx="4" transform="rotate(80)"/>
+        <rect x="-4" y="-64" width="8" height="17" rx="4" transform="rotate(120)"/>
+        <rect x="-4" y="-64" width="8" height="17" rx="4" transform="rotate(160)"/>
+        <rect x="-4" y="-64" width="8" height="17" rx="4" transform="rotate(200)"/>
+        <rect x="-4" y="-64" width="8" height="17" rx="4" transform="rotate(240)"/>
+        <rect x="-4" y="-64" width="8" height="17" rx="4" transform="rotate(280)"/>
+        <rect x="-4" y="-64" width="8" height="17" rx="4" transform="rotate(320)"/>
+      </g>
+      <path d="M 0 5 L 34 -34" fill="none" stroke="#EB9D13" stroke-width="10" stroke-linecap="round"/>
+      <circle r="10" class="orange-fill"/>
+      <text x="-45" y="20" class="dial-text">1</text>
+      <text x="45" y="20" class="dial-text">9</text>
+    </g>
+
+    <g id="label-pill">
+      <rect x="-142" y="-23" width="284" height="46" rx="23" class="white-fill navy-stroke"/>
+    </g>
+  </defs>
+
+  <!-- TOP ROW -->
+  <g id="pose-front" transform="translate(192 228) scale(0.78)">
+    <use xlink:href="#voice-orbit"/>
+    <g transform="translate(-88 -50) rotate(205)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(-20)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <g transform="translate(88 -48) rotate(58)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(26)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <use xlink:href="#nine-body"/>
+    <use xlink:href="#speech-counter"/>
+    <use xlink:href="#module-rail"/>
+    <use xlink:href="#face-neutral"/>
+  </g>
+  <g transform="translate(192 466)">
+    <use xlink:href="#label-pill"/>
+    <text class="label">FRONT</text>
+  </g>
+
+  <g id="pose-three-quarter" transform="translate(576 228) scale(0.74 0.78) rotate(-2)">
+    <use xlink:href="#voice-orbit" transform="scale(0.76 1)"/>
+    <g transform="translate(-88 -50) rotate(198)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(-12)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <g transform="translate(88 -48) rotate(38)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(32)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <use xlink:href="#nine-body" transform="scale(0.84 1)"/>
+    <use xlink:href="#speech-counter" transform="scale(0.84 1)"/>
+    <use xlink:href="#module-rail" transform="translate(-7 0)"/>
+    <use xlink:href="#face-neutral" transform="translate(-8 0)"/>
+  </g>
+  <g transform="translate(576 466)">
+    <use xlink:href="#label-pill"/>
+    <text class="label">3/4</text>
+  </g>
+
+  <g id="pose-listening" transform="translate(960 230) scale(0.78) rotate(-7)">
+    <use xlink:href="#voice-orbit"/>
+    <g transform="translate(88 -48) rotate(64)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(22)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <use xlink:href="#nine-body"/>
+    <use xlink:href="#speech-counter"/>
+    <use xlink:href="#module-rail"/>
+    <g transform="translate(-88 -50) rotate(250)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(55)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <use xlink:href="#face-neutral"/>
+    <use xlink:href="#focus-brows"/>
+  </g>
+  <g transform="translate(960 466)">
+    <use xlink:href="#label-pill"/>
+    <text class="label">LISTENING</text>
+  </g>
+
+  <g id="pose-speaking" transform="translate(1344 228) scale(0.78) rotate(2)">
+    <use xlink:href="#voice-orbit"/>
+    <g transform="translate(-88 -50) rotate(202)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(-22)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <g transform="translate(88 -48) rotate(-18)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(16)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <use xlink:href="#nine-body"/>
+    <use xlink:href="#speech-counter"/>
+    <use xlink:href="#module-rail"/>
+    <use xlink:href="#face-neutral"/>
+    <use xlink:href="#sound-bars" transform="translate(174 -58)"/>
+  </g>
+  <g transform="translate(1344 466)">
+    <use xlink:href="#label-pill"/>
+    <text class="label">SPEAKING</text>
+  </g>
+
+  <!-- BOTTOM ROW -->
+  <g id="pose-reading" transform="translate(192 730) scale(0.76) rotate(7)">
+    <use xlink:href="#voice-orbit"/>
+    <use xlink:href="#nine-body"/>
+    <use xlink:href="#speech-counter"/>
+    <use xlink:href="#module-rail"/>
+    <use xlink:href="#study-panel" transform="translate(-2 65) rotate(-7) scale(0.86)"/>
+    <g transform="translate(-88 -50) rotate(46)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(-15)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <g transform="translate(88 -48) rotate(132)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(15)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <use xlink:href="#face-neutral"/>
+    <use xlink:href="#focus-brows" transform="rotate(4)"/>
+  </g>
+  <g transform="translate(192 968)">
+    <use xlink:href="#label-pill"/>
+    <text class="label">READING</text>
+  </g>
+
+  <g id="pose-writing" transform="translate(576 752) scale(0.77 0.69) rotate(-5)">
+    <use xlink:href="#voice-orbit"/>
+    <use xlink:href="#nine-body"/>
+    <use xlink:href="#speech-counter"/>
+    <use xlink:href="#module-rail"/>
+    <use xlink:href="#study-panel" transform="translate(-5 106) rotate(-8) scale(0.9)"/>
+    <g transform="translate(-88 -50) rotate(43)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(14)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <g transform="translate(88 -48) rotate(112)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(32)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <use xlink:href="#face-neutral"/>
+    <use xlink:href="#focus-brows"/>
+  </g>
+  <g transform="translate(576 968)">
+    <use xlink:href="#label-pill"/>
+    <text class="label">WRITING</text>
+  </g>
+
+  <g id="pose-feedback" transform="translate(924 730) scale(0.75) rotate(-3)">
+    <use xlink:href="#voice-orbit"/>
+    <use xlink:href="#nine-body"/>
+    <use xlink:href="#speech-counter"/>
+    <use xlink:href="#module-rail"/>
+    <use xlink:href="#band-dial" transform="translate(167 72) scale(0.78)"/>
+    <g transform="translate(-88 -50) rotate(178)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(-22)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <g transform="translate(88 -48) rotate(25)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(24)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <use xlink:href="#face-neutral"/>
+    <use xlink:href="#support-brows"/>
+  </g>
+  <g transform="translate(960 968)">
+    <use xlink:href="#label-pill"/>
+    <text class="label">FEEDBACK</text>
+  </g>
+
+  <g id="pose-celebration" transform="translate(1344 730) scale(0.76) rotate(-2)">
+    <use xlink:href="#voice-orbit"/>
+    <use xlink:href="#nine-body"/>
+    <use xlink:href="#speech-counter"/>
+    <use xlink:href="#module-rail"/>
+    <g transform="translate(-88 -50) rotate(225)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(10)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <g transform="translate(88 -48) rotate(-45)">
+      <use xlink:href="#upper-arm"/>
+      <g transform="translate(58 0) rotate(-10)"><use xlink:href="#forearm-mitten"/></g>
+    </g>
+    <use xlink:href="#face-neutral"/>
+    <use xlink:href="#support-brows"/>
+  </g>
+  <g transform="translate(1344 968)">
+    <use xlink:href="#label-pill"/>
+    <text class="label">CELEBRATION</text>
+  </g>
+</svg>

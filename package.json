@@ -1,0 +1,13 @@
+{
+  "name": "skyvoice-platform",
+  "private": true,
+  "packageManager": "pnpm@11.25.0",
+  "scripts": {
+    "dev": "pnpm --filter @skyvoice/web dev",
+    "build": "pnpm --filter @skyvoice/web build",
+    "lint": "pnpm --filter @skyvoice/web lint",
+    "typecheck": "pnpm --filter @skyvoice/web typecheck",
+    "test": "pnpm --filter @skyvoice/web test",
+    "test:e2e": "pnpm --filter @skyvoice/web test:e2e"
+  }
+}

@@ -1,0 +1,185 @@
+# Sky Voice Mascot Design Loop Progress
+
+Started: 2026-10-13
+
+## Status
+
+| Piece | Status | Round | Brief critic | System critic | Craft critic |
+|---|---|---:|---|---|---|
+| 1. Style bible + lead mascot | Building | 43 | FAIL | FAIL | FAIL |
+| 2. Supporting cast + pose system | Pending | 0 | Pending | Pending | Pending |
+| 3. Website artwork + integration | Pending | 0 | Pending | Pending | Pending |
+| 4. Motion loops + final QA | Blocked: Higgsfield has 0 credits | 0 | Pending | Pending | Pending |
+
+Completed pieces: 0 / 4
+
+## Gap history
+
+- Piece 1, Round 1 — Brief FAIL: generic audio-wave form lacks an unmistakable adult IELTS-preparation cue.
+- Piece 1, Round 1 — System FAIL: bean-like proportions, mitten hands, and cutesy expressions feel too childish for adult learners.
+- Piece 1, Round 1 — Craft FAIL: near-identical planted silhouettes and facial swaps lack thumbnail-readable action lines and animation-ready articulation.
+- Round 2 builder gap: replace the generic, static body design with a distinctive adult IELTS mentor identity that remains recognizable through genuinely different poses.
+- Piece 1, Round 2 — Brief FAIL: the star-tipped pointer and costume read as a generic children's fantasy mascot rather than adult IELTS preparation.
+- Piece 1, Round 2 — System FAIL: the toy-like purple figure is not yet a credible waveform-derived guide for adult learners.
+- Piece 1, Round 2 — Craft FAIL: segmented humanoid anatomy, sash, boots, pointer, and joint circles create visual noise and weaken thumbnail clarity.
+- Round 3 builder gap: remove fantasy and costume signals; reduce Aira to a compact waveform-derived coaching silhouette whose permanent IELTS meaning comes from four skill marks, assessment feedback, and calm adult gestures.
+- Piece 1, Round 3 — Brief FAIL: the abstract blob lacks clear adult IELTS-coach identity and meaningful emotional range.
+- Piece 1, Round 3 — System FAIL: purple dominates instead of Sky Voice blue/navy/orange/white, and the pose labels have inadequate contrast.
+- Piece 1, Round 3 — Craft FAIL: arm and hand construction changes between poses, breaking animation-ready consistency.
+- Round 4 builder gap: preserve the economical waveform silhouette, but lock one reusable arm rig, restore Sky Voice blue as the dominant fill, and make adult language coaching legible through integrated speaking/listening equipment and restrained assessment actions.
+- Piece 1, Round 4 — Brief FAIL: the blue blob remains too generic to be a premium, ownable long-term mascot.
+- Piece 1, Round 4 — System FAIL: low-contrast labels disappear against the preview background.
+- Piece 1, Round 4 — Craft FAIL: blue limbs merge into the blue torso, so actions depend on props and labels instead of silhouettes.
+- Round 5 builder gap: stop inventing a generic body and personify the existing Sky Voice icon itself; preserve its broken orbit, central voice path, and orange spark as the unmistakable brand silhouette, with high-contrast reusable appendages and self-explanatory coaching actions.
+- Piece 1, Round 5 — Brief FAIL: the glyph reads as an app-logo mascot with props, not a premium adult IELTS coach.
+- Piece 1, Round 5 — System FAIL: dark glow and low-contrast labels create a severe readability failure.
+- Piece 1, Round 5 — Craft FAIL: task states swap handheld cards while the body and action line stay almost unchanged.
+- Round 6 builder gap: make the lead a clearly adult human coaching character with locked Sky Voice visual signatures, readable label chips, and genuinely different full-body teaching actions; keep the logo glyph as a supporting brand motif rather than the entire body.
+- Piece 1, Round 6 — Brief FAIL: the polished corporate-vector mentor lacks a distinctive proprietary silhouette.
+- Piece 1, Round 6 — System PASS: adult audience, palette, clarity, and brand compatibility are achieved; remove residual glossy gradients.
+- Piece 1, Round 6 — Craft FAIL: the generic presenter outline is not recognizable enough across poses or at thumbnail size.
+- Round 7 builder gap: keep the adult human coach and successful IELTS actions, but add one bold fixed silhouette signature derived from the Sky Voice broken orbit, simplify to flat fills, and make that silhouette identifiable without face, color, props, or labels.
+- Piece 1, Round 7 — Brief FAIL: headset-presenter semantics read as customer support rather than a proprietary IELTS coach.
+- Piece 1, Round 7 — System PASS: palette, adult audience, clarity, and brand compatibility hold; head-to-body scale remains slightly too youthful.
+- Piece 1, Round 7 — Craft FAIL: the human silhouette still depends on fine facial, clothing, headset, and prop detail at thumbnail size.
+- Round 8 builder gap: replace the generic presenter outline with one large exam-specific shape—a personified IELTS Band 9 signal—whose numeral silhouette, four-skill rail, and Sky Voice orbit remain legible before face, props, or labels.
+- Piece 1, Round 8 — Brief FAIL: the Band 9 form reads as children's edtech rather than a mature premium exam coach.
+- Piece 1, Round 8 — System FAIL: glow, gradients, and toy-like styling violate the flat 2D language and adult tone.
+- Piece 1, Round 8 — Craft FAIL: limbs and props are not mechanically controlled, leaving states stiff and cluttered at thumbnail size.
+- Round 9 builder gap: rebuild the Band 9 concept as a precise flat SVG component system with restrained adult expression, exact reusable anatomy, and clean silhouette-led task actions.
+- Piece 1, Round 9 — Brief FAIL: the abstract body reads as a generic magnifying glass instead of an adult IELTS coach.
+- Piece 1, Round 9 — System FAIL: lollipop-like proportions feel juvenile and weaken professional trust.
+- Piece 1, Round 9 — Craft FAIL: the repeated keyhole silhouette and spindly limbs leave most actions dependent on labels and props.
+- Round 10 builder gap: return to an unmistakably adult mentor, eliminate customer-support cues, and make ownership structural through a large orbit-scarf silhouette plus permanent four-module and Band 9 markers.
+- Piece 1, Round 10 — Brief FAIL: crude anatomy, repeated expressions, and rough linework are not premium.
+- Piece 1, Round 10 — System FAIL: amateur anatomy and uneven lines undermine trust for adult learners.
+- Piece 1, Round 10 — Craft FAIL: tiny props and tangled limbs carry the task states instead of distinct whole-body action lines.
+- Round 11 builder gap: keep the proprietary orbit-scarf adult mentor concept, but re-render it at polished professional illustration quality with clean anatomy and unmistakable action silhouettes.
+- Piece 1, Round 11 — Brief FAIL: stock-vector styling and literal LRWS/9 labels do not create a premium, ownable mascot.
+- Piece 1, Round 11 — System FAIL: smoky glow conflicts with the open, flat illustration language and professional trust.
+- Piece 1, Round 11 — Craft FAIL: hair, ring, and garment layers make the silhouette muddy and difficult to articulate.
+- Round 12 builder gap: collapse the identity into one elegant signal-creature silhouette with very few reusable masses, no literal lettering, and actions carried by broad wing and tail gestures.
+- Piece 1, Round 12 — Brief FAIL: the intended sky ray reads as a generic childlike elephant, not an adult IELTS coach.
+- Piece 1, Round 12 — System FAIL: elephant-like anatomy and toy expressions feel too young for the brand.
+- Piece 1, Round 12 — Craft FAIL: the rigid face and changing wing silhouette leave actions dependent on labels and props.
+- Round 13 builder gap: use a clearly identifiable, elegant vocal-mimic species—a long-legged lyrebird—with a locked lyre-tail silhouette, restrained adult expression, and controlled wing articulation.
+- Piece 1, Round 13 — Brief FAIL: the bird still appears generic and does not visibly own premium adult IELTS coaching.
+- Piece 1, Round 13 — System FAIL: oversized eyes feel child-oriented and too close to the Duolingo category tone.
+- Piece 1, Round 13 — Craft FAIL: feather-heavy wings, crest, feet, and tail contain too many irregular shapes for repeatable animation.
+- Round 14 builder gap: retain the long lyrebird silhouette but reduce it to clean modular masses, mature the face, remove all transparency artifacts, and add one restrained permanent IELTS 9 credential.
+- Piece 1, Round 14 — Brief FAIL: sports-mascot styling and wing inconsistency do not feel like a premium adult coaching character.
+- Piece 1, Round 14 — System FAIL: the cartoon bird and repeated IELTS 9 badge feel childish and outcome-promotional.
+- Piece 1, Round 14 — Craft FAIL: legs, wings, crest, facial lines, and rear ring create a brittle silhouette with poor shape economy.
+- Round 15 builder gap: build a clearly adult mentor from three large proprietary masses—waveform hair, speech-tail coat, and four-module chevrons—with no ring, badge text, headset, or animal anatomy.
+- Piece 1, Round 15 — Brief FAIL: the silhouette reads as a generic superhero rather than an IELTS coach.
+- Piece 1, Round 15 — System FAIL: residual smoky transparency contradicts the clean flat visual language.
+- Piece 1, Round 15 — Craft FAIL: detailed anatomy, hands, layered costume, and oversized back-mark are too complex for efficient animation.
+- Round 16 builder gap: compact the identity into a head-scale waveform bob and one academic tunic mass, add a professional IELTS COACH credential, simplify anatomy, and remove every atmospheric alpha pixel.
+- Piece 1, Round 16 — Brief FAIL: the circular feedback prop reads as timekeeping rather than coaching.
+- Piece 1, Round 16 — System FAIL: the oversized chevron panel reads as a superhero uniform instead of professional teaching attire.
+- Piece 1, Round 16 — Craft FAIL: hands, shoes, facial details, and limb geometry remain too intricate and unstable for thumbnail reuse.
+- Round 17 builder gap: replace the feedback clock with a clear rectangular band-result card, reduce module marks to four small tiles, and simplify face, hands, feet, and limb geometry while preserving the waveform-bob identity.
+- Piece 1, Round 17 — Brief FAIL: repeated expressions and crude anatomy do not feel premium or emotionally expressive.
+- Piece 1, Round 17 — System FAIL: short chibi proportions and costume-like tunic weaken adult professional trust.
+- Piece 1, Round 17 — Craft FAIL: task states still rely on props and callouts more than whole-body articulation.
+- Round 18 builder gap: use mature 6.5-head proportions and normal professional clothing, differentiate expressions, and make each task state read from the whole body before props.
+- Piece 1, Round 18 — Brief FAIL: the mature corporate-vector coach lacks a distinctive, ownable identity.
+- Piece 1, Round 18 — System FAIL: the speech-wave concept is not structurally visible enough to connect the character to Sky Voice.
+- Piece 1, Round 18 — Craft FAIL: the generic human outline loses mascot identity at thumbnail scale.
+- Round 19 builder gap: preserve the mature coach and action system, but lock one bold speech-bubble/equalizer hair silhouette that is unmistakably Sky Voice in every pose and in solid silhouette.
+- Piece 1, Round 19 — Brief FAIL: stock-vector styling and jagged contours prevent premium brand ownership.
+- Piece 1, Round 19 — System FAIL: tiny credential text and dense face details fail at practical sizes.
+- Piece 1, Round 19 — Craft FAIL: the silhouette still reads as a generic illustrated coach rather than a mascot landmark.
+- Round 20 builder gap: make the exact Sky Voice broken-orbit glyph the character's head, simplify the coaching body and face, remove tiny text, and restore smooth clean edges.
+- Piece 1, Round 20 — Brief FAIL: the opaque logo-mask head prevents emotional expression.
+- Piece 1, Round 20 — System FAIL: rough distressed pose labels violate clean Nunito-led readability.
+- Piece 1, Round 20 — Craft FAIL: the mask makes every pose emotionally identical at thumbnail scale.
+- Round 21 builder gap: keep the broken-orbit head silhouette but open a clean face window with readable expressions, and typeset labels in proper Nunito.
+- Piece 1, Round 21 — Brief FAIL: flat corporate styling still feels generic rather than premium character design.
+- Piece 1, Round 21 — System FAIL: small orange 7.5 text does not meet contrast/readability expectations.
+- Piece 1, Round 21 — Craft FAIL: torso, limb, and hand proportions drift between poses, preventing animation-ready reuse.
+- Round 22 builder gap: rebuild the logo-head coach as a reusable SVG rig with exact component geometry, replace corporate blazer styling with a simple signal-navigator uniform, and increase feedback-card readability.
+- Piece 1, Round 22 — Brief FAIL: vector anatomy and linework look like an early draft rather than premium character art.
+- Piece 1, Round 22 — System FAIL: screen-face and stick-figure proportions feel too young for adult IELTS trust.
+- Piece 1, Round 22 — Craft FAIL: the three-quarter turn and joint construction remain visually unresolved despite shared components.
+- Round 23 builder gap: re-render the expressive logo-head coach at premium editorial quality using the stronger raster base, with mature facial proportions, clean joints, and a true three-quarter turn.
+- Piece 1, Round 23 — Brief FAIL: the full silhouette still collapses to a generic flat-vector tutor despite the logo-derived face.
+- Piece 1, Round 23 — System PASS: palette, adult tone, clarity, and logo compatibility now meet the Sky Voice system.
+- Piece 1, Round 23 — Craft FAIL: limb widths and hand construction shift between poses, weakening animation-ready consistency.
+- Round 24 builder gap: make the broken head arcs and waveform neck survive in silhouette, add one restrained speech-tail uniform hem, and normalize all limbs and mittens from one reusable geometry.
+- Piece 1, Round 24 — Brief FAIL: the generic flat-vector character still reads as stock edtech clip art instead of an ownable premium mascot.
+- Piece 1, Round 24 — System PASS: adult IELTS tone, palette, clarity, and Sky Voice logo compatibility remain on-system.
+- Piece 1, Round 24 — Craft FAIL: stiff limb articulation and near-identical facial expressions weaken action clarity and animation readiness.
+- Round 25 builder gap: preserve the approved system fit while replacing the generic body language with one bold Sky Voice-derived silhouette signature, consistent articulated anatomy, and materially distinct expressions.
+- Piece 1, Round 25 — Brief FAIL: rough, inconsistent anatomy and a generic clip-art finish fall short of premium long-term brand quality.
+- Piece 1, Round 25 — System PASS: the signal-shell character fits the Sky Voice palette, adult audience, clarity, and logo language.
+- Piece 1, Round 25 — Craft PASS: silhouette ownership, distinct action lines, expressions, and animation-readable state design clear the reference mechanisms.
+- Round 26 builder gap: retain the approved signal-shell concept and acting exactly, but polish anatomy, joins, contours, and surface finish to premium editorial character quality.
+- Piece 1, Round 26 — Brief FAIL: even polished, the flat human outline still lacks a distinctive long-term brand silhouette and personality.
+- Piece 1, Round 26 — System PASS: palette, adult IELTS fit, clarity, and brand compatibility remain correct.
+- Piece 1, Round 26 — Craft FAIL: the generic human construction and loose limb system do not beat the benchmark for ownership or animation readiness.
+- Round 27 builder gap: replace the exhausted human-coach form with a compact, mature signal-myna mascot whose speech-mimic anatomy and waveform tail create an ownable silhouette with fewer reusable parts.
+- Piece 1, Round 27 — Brief FAIL: the cartoon bird still feels generic rather than distinctive and sophisticated.
+- Piece 1, Round 27 — System FAIL: exaggerated bird styling and playful poses skew juvenile for adult IELTS trust.
+- Piece 1, Round 27 — Craft FAIL: wing and leg construction drifts, and the canonical views are not mechanically locked.
+- Round 28 builder gap: eliminate borrowed human/animal archetypes; personify the Sky Voice broken-orbit mark itself as a compact floating signal core with a readable face window and two reusable waveform-ribbon limbs.
+- Piece 1, Round 28 — Brief FAIL: the distinctive core is undermined by a cute, simplistic personality that lacks adult IELTS credibility.
+- Piece 1, Round 28 — System FAIL: anime-like eyes, lashes, and exaggerated tentacle gestures skew child-oriented.
+- Piece 1, Round 28 — Craft FAIL: soft tube limbs lack defined shoulder, elbow, and hand articulation, creating vague gestures and tangencies.
+- Round 29 builder gap: keep the ownable Signal Core silhouette, but replace the anime face with restrained geometric signal features and rebuild each arm as a clear two-segment ribbon rig with consistent compact hands.
+- Piece 1, Round 29 — Brief FAIL: the short circular mascot still lacks sophisticated, authoritative adult coaching presence.
+- Piece 1, Round 29 — System FAIL: chibi proportions and mitten-like hands continue to weaken professional trust.
+- Piece 1, Round 29 — Craft FAIL: the repeated circular silhouette, arm tangencies, and crude prop handling reduce action clarity and premium readiness.
+- Round 30 builder gap: elongate the brand-native core into a tall floating Signal Navigator with a tapered pen-nib/voice body, broken-orbit shoulder halo, adult proportions, and separated articulated hand/prop interactions.
+- Piece 1, Round 30 — Brief FAIL: near-identical stern expressions restrict emotional range and warmth.
+- Piece 1, Round 30 — System FAIL: consistently angry brows conflict with encouraging, optimistic adult coaching.
+- Piece 1, Round 30 — Craft FAIL: inconsistent hands, lumpy joints, and crowded overlaps prevent premium animation-ready clarity.
+- Round 31 builder gap: retain the original tall Navigator identity, introduce a controlled warm expression library, and redraw the arm/hand rig from exact reusable components with clean silhouette separation.
+- Piece 1, Round 31 — Brief FAIL: heavy flat-vector treatment still reads as generic childlike clip art instead of premium adult brand art.
+- Piece 1, Round 31 — System PASS: adult tone, palette, clarity, optimism, and Sky Voice compatibility meet the design system.
+- Piece 1, Round 31 — Craft FAIL: rigid torso, busy full halo, and limb/body overlaps feel assembled rather than naturally articulated.
+- Round 32 builder gap: preserve the Navigator identity but replace heavy outlined clip-art treatment with outline-light editorial geometry, a gently flexible tapered core, simplified orbit plates, and seamless limb attachments.
+- Piece 1, Round 32 — Brief FAIL: childlike flat-clip-art styling and rough pose anatomy still undercut premium adult identity.
+- Piece 1, Round 32 — System PASS: the simplified editorial planes remain fully aligned with the Sky Voice system.
+- Piece 1, Round 32 — Craft FAIL: inconsistent hands, awkward arm joins, and tangencies remain the dominant animation-readiness problem.
+- Round 33 builder gap: remove conventional arm/hand anatomy entirely and make the broken-orbit plates themselves the articulated signal vanes of a sophisticated kinetic-emblem mascot.
+- Piece 1, Round 33 — Brief FAIL: the remaining cute flat facial styling still feels juvenile and generic.
+- Piece 1, Round 33 — System FAIL: cute facial treatment and tiny pose details weaken adult credibility and small-size clarity.
+- Piece 1, Round 33 — Craft FAIL: orbit vanes read as shifting decoration rather than visibly articulated parts, leaving actions dependent on props and face details.
+- Round 34 builder gap: replace the cartoon face with one bold expressive signal aperture and mount three color-coded vanes on visible fixed pivots so pose mechanics dominate the silhouette at thumbnail size.
+- Piece 1, Round 34 — Brief FAIL: the faceless pen-nib mark lacks enough emotion, character, and pose differentiation for a lead mascot.
+- Piece 1, Round 34 — System PASS: mature industrial tone, palette, clarity, and brand compatibility meet the design system.
+- Piece 1, Round 34 — Craft FAIL: it reads as a static logo with rearranged radial vanes rather than an articulated character whose states work without labels or props.
+- Round 35 builder gap: keep the mature instrument aesthetic but add a single directional signal eye and brow, stronger core bends, and more extended fixed-vane action lines so character and emotion read intrinsically.
+- Piece 1, Round 35 — Brief FAIL: the pen-nib mascot still lacks premium polish and broad expression; states feel like prop swaps.
+- Piece 1, Round 35 — System PASS: adult palette and brand alignment remain correct.
+- Piece 1, Round 35 — Craft FAIL: rigid body and inconsistent vane articulation keep several actions dependent on props or labels.
+- Round 36 builder gap: pivot from the exhausted abstract emblem to the approved image-generated signal-starling direction, preserving its sophisticated adult finish while extracting a clean transparent production sheet and documenting a stable animation rig.
+- Piece 1, Round 36 — Brief FAIL: near-identical facial expression across states leaves the otherwise strong starling emotionally flat.
+- Piece 1, Round 36 — System FAIL: glossy sharp-featured rendering feels aggressive and game-mascot-like instead of flat, approachable adult coaching.
+- Piece 1, Round 36 — Craft FAIL: gradients, feather detail, and pose-specific wing construction break the economical locked shape kit.
+- Round 37 builder gap: preserve the premium starling identity while flattening the finish, softening and differentiating expression, and locking wing/tail anatomy into a repeatable animation system.
+- Piece 1, Round 37 — Brief FAIL: the polished blue bird still lacks a uniquely ownable silhouette and varied facial expression.
+- Piece 1, Round 37 — System FAIL: glossy shading and cartoon rendering conflict with the flat adult illustration language and small-size clarity.
+- Piece 1, Round 37 — Craft FAIL: over-rendered feather anatomy and pose-specific wing construction prevent an economical locked rig.
+- Round 38 builder gap: rebuild the adult signal-starling as a deterministic flat SVG component system, with a silhouette-changing broken-orbit collar and exact reusable wing, tail, face, beak, leg, and foot geometry.
+- Piece 1, Round 38 — Brief FAIL: the deterministic bird render feels amateur, generic, and child-oriented rather than premium adult coaching.
+- Piece 1, Round 38 — System FAIL: superhero-bird styling weakens professional adult trust.
+- Piece 1, Round 38 — Craft FAIL: overlapping wing details and labels still carry actions more than whole-body silhouette.
+- Round 39 builder gap: restore the premium R37 base, posterize it into controlled flat planes, add one fixed broken-orbit collar behind every pose, and differentiate expression without redrawing the mature anatomy.
+- Piece 1, Round 39 — Brief FAIL: expressions remain near-identical despite improved structural branding.
+- Piece 1, Round 39 — System FAIL: the bird remains juvenile and Duolingo-adjacent for adult IELTS positioning.
+- Piece 1, Round 39 — Craft FAIL: over-articulated feather, leg, and facial shapes still undermine economy and thumbnail clarity.
+- Round 40 builder gap: leave the bird category entirely and establish a premium adult human signal mentor whose broken-orbit hair and speech-tail scarf create the ownable silhouette across clearly acted states.
+- Piece 1, Round 40 — Brief FAIL: polished adult coach still reads as generic corporate illustration without a dominant Sky Voice signature.
+- Piece 1, Round 40 — System FAIL: soft glossy shading conflicts with the required flat 2D outlined illustration language.
+- Piece 1, Round 40 — Craft FAIL: the human silhouette lacks a compact repeatable shape kit at thumbnail size.
+- Round 41 builder gap: fuse the premium adult acting with an unmistakable brand-native construction—the broken-orbit glyph as the entire head, a tapered pen-nib core, and two locked articulated arms.
+- Piece 1, Round 41 — Brief FAIL: the distinctive glyph-head still reads as a youthful generic AI assistant rather than an authoritative premium coach.
+- Piece 1, Round 41 — System FAIL: glossy gradients, thin extremities, and tiny features weaken flat-language consistency and small-size clarity.
+- Piece 1, Round 41 — Craft FAIL: edge seams and loosely resolved joints keep the system below premium animation-ready finish.
+- Round 42 builder gap: mature the face, thicken the exact limb rig, flatten the color treatment, and clean every edge/joint while preserving the glyph-head Navigator identity.
+- Piece 1, Round 42 — Brief FAIL: the Navigator still reads as a generic sci-fi assistant without permanent adult IELTS coaching cues.
+- Piece 1, Round 42 — System FAIL: remaining glossy gradients keep it outside the flat 2D illustration language.
+- Piece 1, Round 42 — Craft FAIL: hand construction, rim highlights, and contour treatment still drift between poses.
+- Round 43 builder gap: reduce head-to-body ratio, lengthen the core, add a permanent four-skill module rail, standardize the hand rig, and enforce genuinely flat solid-plane construction.

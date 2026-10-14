@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1536" height="1024" viewBox="0 0 1536 1024" role="img"
+     aria-labelledby="title desc">
+  <title id="title">Aira, Sky Voice adult IELTS mentor character sheet</title>
+  <desc id="desc">Eight flat vector states of a tall South Asian IELTS mentor with an orbit scarf, waveform bob, signal-hem coat, four-skill rail, and Band 9 pin.</desc>
+
+  <defs>
+    <style>
+      .navy-fill { fill: #0E2D5E; }
+      .blue-fill { fill: #1655D8; }
+      .orange-fill { fill: #EB9D13; }
+      .cream-fill { fill: #FFF6DD; }
+      .skin-fill { fill: #B87552; }
+      .white-fill { fill: #FFFFFF; }
+      .navy-stroke { stroke: #0E2D5E; stroke-linecap: round; stroke-linejoin: round; }
+      .blue-stroke { stroke: #1655D8; stroke-linecap: round; stroke-linejoin: round; }
+      .label { fill: #0E2D5E; font-family: Arial, Helvetica, sans-serif; font-size: 25px; font-weight: 800; letter-spacing: 0.7px; text-anchor: middle; dominant-baseline: middle; }
+      .rail-letter { fill: #0E2D5E; font-family: Arial, Helvetica, sans-serif; font-size: 15px; font-weight: 800; text-anchor: middle; dominant-baseline: middle; }
+      .pin-text { fill: #FFF6DD; font-family: Arial, Helvetica, sans-serif; font-size: 19px; font-weight: 800; text-anchor: middle; dominant-baseline: middle; }
+      .chart-text { fill: #0E2D5E; font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-weight: 800; text-anchor: middle; dominant-baseline: middle; }
+    </style>
+
+    <!-- Permanent open-circle scarf. The doubled stroke creates a crisp navy keyline. -->
+    <g id="orbit-scarf" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M -58 -126 C -126 -151 -139 -54 -115 28 C -91 111 -13 142 70 91"
+            stroke="#0E2D5E" stroke-width="34"/>
+      <path d="M -58 -126 C -126 -151 -139 -54 -115 28 C -91 111 -13 142 70 91"
+            stroke="#FFF6DD" stroke-width="24"/>
+      <path d="M 58 78 L 93 90 L 66 114 Z" fill="#EB9D13" stroke="#0E2D5E" stroke-width="5"/>
+    </g>
+
+    <!-- Locked three-step waveform bob with one long speech-tail lock. -->
+    <path id="waveform-bob" class="blue-fill navy-stroke" stroke-width="5"
+          d="M -50 -151
+             L -58 -207 L -42 -232 L -24 -224
+             L -10 -249 L 10 -235
+             L 29 -244 L 49 -219
+             L 60 -184 L 55 -147
+             L 91 -94 L 46 -117 L 26 -139
+             L 2 -130 L -29 -137 Z"/>
+
+    <rect id="neck" x="-11" y="-153" width="22" height="31" rx="10" class="skin-fill navy-stroke" stroke-width="4"/>
+    <ellipse id="adult-head" cx="0" cy="-184" rx="39" ry="47" class="skin-fill navy-stroke" stroke-width="5"/>
+
+    <g id="adult-face" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M -25 -187 H -10 M 10 -187 H 25" stroke="#0E2D5E" stroke-width="5"/>
+      <path d="M -2 -179 L -5 -168 L 1 -168" stroke="#0E2D5E" stroke-width="3"/>
+      <path d="M -11 -158 Q 0 -154 11 -160" stroke="#0E2D5E" stroke-width="4"/>
+      <path d="M -3 -157 Q 1 -156 5 -158" stroke="#EB9D13" stroke-width="2.5"/>
+    </g>
+    <g id="brows-confident" fill="none" stroke="#0E2D5E" stroke-width="5" stroke-linecap="round">
+      <path d="M -27 -200 L -10 -204"/>
+      <path d="M 10 -204 L 27 -200"/>
+    </g>
+    <g id="brows-focus" fill="none" stroke="#0E2D5E" stroke-width="5" stroke-linecap="round">
+      <path d="M -27 -202 L -10 -198"/>
+      <path d="M 10 -198 L 27 -202"/>
+    </g>
+    <g id="brows-support" fill="none" stroke="#0E2D5E" stroke-width="5" stroke-linecap="round">
+      <path d="M -27 -199 Q -18 -205 -10 -201"/>
+      <path d="M 10 -201 Q 18 -205 27 -199"/>
+    </g>
+
+    <!-- Long coach coat with cobalt rising-signal hem. -->
+    <path id="coach-coat" class="navy-fill"
+          d="M -55 -130 Q 0 -145 55 -130 L 59 78 L 21 106 L -55 91 Z"/>
+    <path id="signal-hem" class="blue-fill"
+          d="M -55 57 L -20 78 L 3 54 L 28 68 L 59 41 L 59 78 L 21 106 L -55 91 Z"/>
+    <path id="shirt-inset" class="cream-fill"
+          d="M -18 -127 L 18 -127 L 10 -84 L -10 -84 Z"/>
+
+    <g id="four-skill-rail">
+      <rect x="-51" y="-99" width="28" height="119" rx="9" class="cream-fill" stroke="#0E2D5E" stroke-width="4"/>
+      <text x="-37" y="-78" class="rail-letter">L</text>
+      <text x="-37" y="-51" class="rail-letter">R</text>
+      <text x="-37" y="-24" class="rail-letter">W</text>
+      <text x="-37" y="3" class="rail-letter">S</text>
+    </g>
+    <g id="band-nine-pin">
+      <circle cx="31" cy="-101" r="17" class="orange-fill" stroke="#0E2D5E" stroke-width="4"/>
+      <text x="31" y="-100" class="pin-text">9</text>
+    </g>
+
+    <!-- Reusable adult limb geometry. -->
+    <g id="upper-sleeve">
+      <rect x="-4" y="-11" width="72" height="22" rx="11" class="navy-fill blue-stroke" stroke-width="4"/>
+    </g>
+    <g id="forearm-sleeve">
+      <rect x="-4" y="-10" width="61" height="20" rx="10" class="navy-fill blue-stroke" stroke-width="4"/>
+    </g>
+    <path id="adult-hand" class="skin-fill navy-stroke" stroke-width="4"
+          d="M -3 -8 H 15 C 23 -8 29 -5 34 -2 L 45 -2 L 45 4 L 31 7
+             C 27 13 18 15 12 10 L -3 8 Z"/>
+
+    <g id="thigh">
+      <rect x="-14" y="-3" width="28" height="98" rx="14" class="navy-fill blue-stroke" stroke-width="4"/>
+    </g>
+    <g id="calf">
+      <rect x="-12" y="-3" width="24" height="101" rx="12" class="navy-fill blue-stroke" stroke-width="4"/>
+    </g>
+    <path id="low-shoe" class="blue-fill navy-stroke" stroke-width="4"
+          d="M -12 -5 H 10 L 34 5 Q 38 8 35 15 H -12 Z"/>
+
+    <!-- Core is one unchanging editorial upper-body identity. -->
+    <g id="mentor-core">
+      <use xlink:href="#orbit-scarf"/>
+      <use xlink:href="#waveform-bob"/>
+      <use xlink:href="#neck"/>
+      <use xlink:href="#coach-coat"/>
+      <use xlink:href="#signal-hem"/>
+      <use xlink:href="#shirt-inset"/>
+      <use xlink:href="#adult-head"/>
+      <use xlink:href="#adult-face"/>
+      <use xlink:href="#four-skill-rail"/>
+      <use xlink:href="#band-nine-pin"/>
+    </g>
+
+    <!-- Shared props. -->
+    <g id="study-panel">
+      <rect x="-64" y="-40" width="128" height="80" rx="11" class="cream-fill navy-stroke" stroke-width="5"/>
+      <path d="M -39 -16 H 38 M -39 3 H 45 M -39 22 H 24"
+            fill="none" stroke="#1655D8" stroke-width="7" stroke-linecap="round"/>
+    </g>
+    <g id="band-chart">
+      <rect x="-48" y="-76" width="96" height="152" rx="14" class="cream-fill navy-stroke" stroke-width="5"/>
+      <path d="M -17 -50 H 21 M -17 -35 H 8 M -17 -20 H 27 M -17 -5 H 14 M -17 10 H 31 M -17 25 H 11 M -17 40 H 23"
+            fill="none" stroke="#1655D8" stroke-width="7" stroke-linecap="round"/>
+      <path d="M -17 55 H 29" fill="none" stroke="#EB9D13" stroke-width="9" stroke-linecap="round"/>
+      <text x="-34" y="-55" class="chart-text">1</text>
+      <text x="34" y="60" class="chart-text">9</text>
+    </g>
+    <g id="writing-stool" fill="none" stroke="#0E2D5E" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M -48 92 H 48"/>
+      <path d="M -34 96 L -52 198 M 34 96 L 52 198"/>
+    </g>
+
+    <g id="label-pill">
+      <rect x="-142" y="-23" width="284" height="46" rx="23" class="white-fill navy-stroke" stroke-width="6"/>
+    </g>
+  </defs>
+
+  <!-- FRONT -->
+  <g id="pose-front" transform="translate(192 246) scale(0.66)">
+    <g transform="translate(-22 70) rotate(2)">
+      <use xlink:href="#thigh"/>
+      <g transform="translate(0 91) rotate(-2)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96) scale(-1 1)"/></g>
+    </g>
+    <g transform="translate(22 70) rotate(-2)">
+      <use xlink:href="#thigh"/>
+      <g transform="translate(0 91) rotate(2)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96)"/></g>
+    </g>
+    <use xlink:href="#mentor-core"/>
+    <g transform="translate(-53 -119) rotate(150)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(10)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <g transform="translate(53 -119) rotate(60)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(18)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <use xlink:href="#brows-confident"/>
+  </g>
+  <g transform="translate(192 468)"><use xlink:href="#label-pill"/><text class="label">FRONT</text></g>
+
+  <!-- 3/4 -->
+  <g id="pose-three-quarter" transform="translate(576 246) scale(0.60 0.66) rotate(-2)">
+    <g transform="translate(-19 70) rotate(5)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(-4)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96) scale(-1 1)"/></g></g>
+    <g transform="translate(20 70) rotate(-6)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(7)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96)"/></g></g>
+    <use xlink:href="#mentor-core"/>
+    <g transform="translate(-53 -119) rotate(148)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(12)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <g transform="translate(53 -119) rotate(24)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(18)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <use xlink:href="#brows-confident"/>
+  </g>
+  <g transform="translate(576 468)"><use xlink:href="#label-pill"/><text class="label">3/4</text></g>
+
+  <!-- LISTENING -->
+  <g id="pose-listening" transform="translate(960 250) scale(0.65) rotate(-6)">
+    <g transform="translate(-22 70) rotate(6)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(-2)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96) scale(-1 1)"/></g></g>
+    <g transform="translate(22 70) rotate(-5)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(4)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96)"/></g></g>
+    <use xlink:href="#mentor-core"/>
+    <g transform="translate(-53 -119) rotate(245)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(42)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0) rotate(38)"/></g></g>
+    <g transform="translate(53 -119) rotate(55)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(20)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <use xlink:href="#brows-focus"/>
+  </g>
+  <g transform="translate(960 468)"><use xlink:href="#label-pill"/><text class="label">LISTENING</text></g>
+
+  <!-- SPEAKING -->
+  <g id="pose-speaking" transform="translate(1344 246) scale(0.66) rotate(2)">
+    <g transform="translate(-22 70) rotate(-8)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(9)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96) scale(-1 1)"/></g></g>
+    <g transform="translate(22 70) rotate(8)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(-8)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96)"/></g></g>
+    <use xlink:href="#mentor-core"/>
+    <g transform="translate(-53 -119) rotate(55)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(65)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <g transform="translate(53 -119) rotate(-18)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(6)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <use xlink:href="#brows-confident"/>
+  </g>
+  <g transform="translate(1344 468)"><use xlink:href="#label-pill"/><text class="label">SPEAKING</text></g>
+
+  <!-- READING -->
+  <g id="pose-reading" transform="translate(192 754) scale(0.64) rotate(7)">
+    <g transform="translate(-22 70) rotate(1)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(-1)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96) scale(-1 1)"/></g></g>
+    <g transform="translate(22 70) rotate(-5)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(7)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96)"/></g></g>
+    <use xlink:href="#mentor-core"/>
+    <use xlink:href="#study-panel" transform="translate(91 -1) rotate(-16) scale(0.82)"/>
+    <g transform="translate(-53 -119) rotate(45)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(-22)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <g transform="translate(53 -119) rotate(56)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(-62)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <use xlink:href="#brows-focus"/>
+  </g>
+  <g transform="translate(192 970)"><use xlink:href="#label-pill"/><text class="label">READING</text></g>
+
+  <!-- WRITING: stable seated geometry -->
+  <g id="pose-writing" transform="translate(576 777) scale(0.62) rotate(-3)">
+    <use xlink:href="#writing-stool"/>
+    <g transform="translate(-22 70) rotate(-68)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(69)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96)"/></g></g>
+    <g transform="translate(22 70) rotate(-78)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(80)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96)"/></g></g>
+    <use xlink:href="#mentor-core"/>
+    <use xlink:href="#study-panel" transform="translate(86 77) rotate(-8) scale(0.78)"/>
+    <g transform="translate(-53 -119) rotate(42)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(22)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <g transform="translate(53 -119) rotate(62)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(-33)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <use xlink:href="#brows-focus"/>
+  </g>
+  <g transform="translate(576 970)"><use xlink:href="#label-pill"/><text class="label">WRITING</text></g>
+
+  <!-- FEEDBACK -->
+  <g id="pose-feedback" transform="translate(920 754) scale(0.62 0.64) rotate(-2)">
+    <g transform="translate(-22 70) rotate(5)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(-2)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96) scale(-1 1)"/></g></g>
+    <g transform="translate(22 70) rotate(-8)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(8)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96)"/></g></g>
+    <use xlink:href="#mentor-core"/>
+    <use xlink:href="#band-chart" transform="translate(142 -18) scale(0.84)"/>
+    <g transform="translate(-53 -119) rotate(162)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(18)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <g transform="translate(53 -119) rotate(20)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(32)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <use xlink:href="#brows-support"/>
+  </g>
+  <g transform="translate(960 970)"><use xlink:href="#label-pill"/><text class="label">FEEDBACK</text></g>
+
+  <!-- CELEBRATION -->
+  <g id="pose-celebration" transform="translate(1344 750) scale(0.64) rotate(-4)">
+    <g transform="translate(-22 70) rotate(-12)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(11)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96) scale(-1 1)"/></g></g>
+    <g transform="translate(22 70) rotate(10)"><use xlink:href="#thigh"/><g transform="translate(0 91) rotate(-8)"><use xlink:href="#calf"/><use xlink:href="#low-shoe" transform="translate(0 96)"/></g></g>
+    <use xlink:href="#mentor-core"/>
+    <g transform="translate(-53 -119) rotate(225)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(5)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <g transform="translate(53 -119) rotate(-42)"><use xlink:href="#upper-sleeve"/><g transform="translate(67 0) rotate(-6)"><use xlink:href="#forearm-sleeve"/><use xlink:href="#adult-hand" transform="translate(56 0)"/></g></g>
+    <use xlink:href="#brows-support"/>
+  </g>
+  <g transform="translate(1344 970)"><use xlink:href="#label-pill"/><text class="label">CELEBRATION</text></g>
+</svg>

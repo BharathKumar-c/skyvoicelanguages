@@ -1,0 +1,221 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+  <title id="title">Aira, the Sky Voice Signal Navigator — reusable eight-pose vector rig</title>
+  <desc id="desc">Eight adult coaching poses assembled from shared head, torso, limb, hand, foot, tile, label, and learning-card symbols.</desc>
+  <defs>
+    <style>
+      .outline{stroke:#0E2D5E;stroke-width:5.5;stroke-linecap:round;stroke-linejoin:round}
+      .thin{stroke:#0E2D5E;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;fill:none}
+      .face{stroke:#0E2D5E;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round;fill:none}
+      .label{font-family:'Arial Rounded MT Bold','Arial Rounded MT',Arial,sans-serif;font-size:26px;font-weight:700;fill:#0E2D5E;text-anchor:middle;dominant-baseline:middle;letter-spacing:.4px}
+      .card-title{font-family:Arial,sans-serif;font-size:17px;font-weight:700;fill:#0E2D5E}
+      .card-score{font-family:Arial,sans-serif;font-size:40px;font-weight:700;fill:#0E2D5E}
+    </style>
+
+    <symbol id="logo-head" overflow="visible">
+      <path d="M-42 0 A42 42 0 0 1 14-39" fill="none" stroke="#1655D8" stroke-width="14" stroke-linecap="butt"/>
+      <path d="M39-13 A42 42 0 0 1-11 40" fill="none" stroke="#1655D8" stroke-width="14" stroke-linecap="butt"/>
+      <path d="M-39 11 A42 42 0 0 0-18 36" fill="none" stroke="#EB9D13" stroke-width="14" stroke-linecap="butt"/>
+      <path d="M-45 1h11c7 0 7-22 14-22s7 40 14 40S1-29 9-29s8 42 16 42h17" fill="none" stroke="#0E2D5E" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M-25-26 Q-29-26-29-20v37q0 8 8 8H5l8 9 1-9h8q8 0 8-8v-37q0-6-6-6z" fill="#FFF4D6" class="outline"/>
+      <path d="M40-45l4 10 10 4-10 4-4 10-4-10-10-4 10-4z" fill="#EB9D13"/>
+    </symbol>
+
+    <symbol id="torso" overflow="visible">
+      <path d="M-39 4Q0-8 39 4l-4 120Q0 139-35 124z" fill="#0E2D5E" class="outline"/>
+      <path d="M4 0h35l-4 124Q15 134-8 132L9 48z" fill="#1655D8"/>
+      <path d="M-12 0L0 20 12 0Q0-5-12 0z" fill="#FFF4D6" class="outline"/>
+    </symbol>
+
+    <symbol id="module-tiles" overflow="visible">
+      <rect x="3" y="3" width="19" height="14" rx="3" fill="#FFF4D6"/>
+      <rect x="3" y="23" width="19" height="14" rx="3" fill="#FFF4D6"/>
+      <rect x="3" y="43" width="19" height="14" rx="3" fill="#FFF4D6"/>
+      <rect x="3" y="63" width="19" height="14" rx="3" fill="#FFF4D6"/>
+    </symbol>
+
+    <symbol id="upper-arm" overflow="visible">
+      <path d="M-10 4Q0-5 10 4l1 61Q0 74-11 65z" fill="#FFFFFF" class="outline"/>
+    </symbol>
+    <symbol id="forearm" overflow="visible">
+      <path d="M-9 3Q0-4 9 3l1 56Q0 68-10 59z" fill="#FFFFFF" class="outline"/>
+    </symbol>
+    <symbol id="mitten-hand" overflow="visible">
+      <path d="M-8 1Q0-5 8 1l2 9 6-3q4 6-2 12l-4 3v8Q7 40 0 41-9 38-10 29l-1-18z" fill="#B56A45" class="outline"/>
+    </symbol>
+    <symbol id="thigh" overflow="visible">
+      <path d="M-15 1Q0-5 15 1l-2 85Q0 94-13 86z" fill="#0E2D5E" class="outline"/>
+    </symbol>
+    <symbol id="calf" overflow="visible">
+      <path d="M-14 1Q0-5 14 1l-1 83Q0 92-13 84z" fill="#0E2D5E" class="outline"/>
+    </symbol>
+    <symbol id="wedge-foot" overflow="visible">
+      <path d="M-12 0h24l5 12 26 8q8 3 4 10H-9q-6-2-4-9z" fill="#1655D8" class="outline"/>
+    </symbol>
+
+    <symbol id="label-pill" overflow="visible">
+      <rect x="-129" y="-21" width="258" height="42" rx="21" fill="#FFFFFF" class="outline"/>
+    </symbol>
+
+    <symbol id="passage-card" overflow="visible">
+      <path d="M-57-35Q-56-41-49-40l104 9-20 68-96-10z" fill="#FFF4D6" class="outline"/>
+      <path d="M-38-20h55M-42-7h65M-45 6h48" class="thin"/>
+      <path d="M24 6l7 7 15-22" fill="none" stroke="#1655D8" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+
+    <symbol id="feedback-card" overflow="visible">
+      <rect x="-87" y="-55" width="174" height="110" rx="9" fill="#FFF4D6" class="outline"/>
+      <text x="-73" y="-28" class="card-title">BAND</text>
+      <text x="2" y="-17" class="card-score">7.5</text>
+      <path d="M1-10h69" fill="none" stroke="#EB9D13" stroke-width="6" stroke-linecap="round"/>
+      <rect x="-72" y="7" width="142" height="17" rx="8" fill="#FFFFFF" class="outline"/>
+      <path d="M-68 11h92v9h-92z" fill="#1655D8"/>
+      <path d="M-67 38h114" class="thin"/>
+      <path d="M-67 47h72" fill="none" stroke="#0E2D5E" stroke-width="5" stroke-linecap="round"/>
+    </symbol>
+
+    <symbol id="expression-front" overflow="visible">
+      <path d="M-17-7q6-5 12 0M5-7q6-5 12 0" class="face"/>
+      <path d="M-15 0q5 4 10 0M5 0q5 4 10 0M-9 10q9 8 18 0" class="face"/>
+    </symbol>
+    <symbol id="expression-three-quarter" overflow="visible">
+      <path d="M-17-6l10-3M5-8l11 1M-14 1q5 4 9 0M6 0q5 4 9 0M-8 11q10 7 18-2" class="face"/>
+    </symbol>
+    <symbol id="expression-listening" overflow="visible">
+      <path d="M-17-4l10 2M4-9l12-3M-15 2h10M5 1h10M-7 12h14" class="face"/>
+    </symbol>
+    <symbol id="expression-speaking" overflow="visible">
+      <path d="M-17-7q6-4 12 0M5-7q6-4 12 0M-15 0q5 4 10 0M5 0q5 4 10 0" class="face"/>
+      <ellipse cx="0" cy="13" rx="8" ry="7" fill="#EB9D13" stroke="#0E2D5E" stroke-width="3"/>
+    </symbol>
+    <symbol id="expression-reading" overflow="visible">
+      <path d="M-17-6h11M5-6h11M-15 2q5-4 10 0M5 2q5-4 10 0M-6 13h12" class="face"/>
+    </symbol>
+    <symbol id="expression-writing" overflow="visible">
+      <path d="M-17-8l11 5M17-8L6-3M-15 3q5-4 10 0M5 3q5-4 10 0M-7 13h14" class="face"/>
+    </symbol>
+    <symbol id="expression-feedback" overflow="visible">
+      <path d="M-17-7h11M5-9l11-3M-15 0q5 4 10 0M5 0q5 4 10 0M-10 9q10 11 20 0" class="face"/>
+    </symbol>
+    <symbol id="expression-celebration" overflow="visible">
+      <path d="M-17-7q6-5 12 0M5-7q6-5 12 0M-16 2q6-8 12 0M4 2q6-8 12 0M-11 9q11 14 22 0" class="face"/>
+    </symbol>
+  </defs>
+
+  <!-- FRONT -->
+  <g id="pose-front" transform="translate(192 10)">
+    <g transform="translate(-18 240)"><use xlink:href="#thigh"/><g transform="translate(0 86)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83) scale(-1 1)"/></g></g>
+    <g transform="translate(18 240)"><use xlink:href="#thigh"/><g transform="translate(0 86)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83)"/></g></g>
+    <g transform="translate(-38 122) rotate(56)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(20)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(-8)"/></g></g>
+    <g transform="translate(38 122) rotate(-10)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(-5)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58)"/></g></g>
+    <use xlink:href="#torso" transform="translate(0 112)"/>
+    <use xlink:href="#module-tiles" transform="translate(11 147)"/>
+    <use xlink:href="#logo-head" transform="translate(0 61)"/>
+    <use xlink:href="#expression-front" transform="translate(0 61)"/>
+    <use xlink:href="#label-pill" transform="translate(0 461)"/>
+    <text x="0" y="462" class="label">FRONT</text>
+  </g>
+
+  <!-- THREE QUARTER -->
+  <g id="pose-three-quarter" transform="translate(576 10)">
+    <g transform="translate(-17 240) rotate(24)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(-7)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83) scale(-1 1)"/></g></g>
+    <g transform="translate(19 240) rotate(-28)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(8)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83)"/></g></g>
+    <g transform="translate(-38 122) rotate(18)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(12)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58)"/></g></g>
+    <g transform="translate(38 122) rotate(-26)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(-18)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58)"/></g></g>
+    <use xlink:href="#torso" transform="translate(0 112)"/>
+    <use xlink:href="#module-tiles" transform="translate(11 147)"/>
+    <use xlink:href="#logo-head" transform="translate(0 61) rotate(-5)"/>
+    <use xlink:href="#expression-three-quarter" transform="translate(0 61) rotate(-5)"/>
+    <use xlink:href="#label-pill" transform="translate(0 461)"/>
+    <text x="0" y="462" class="label">3/4</text>
+  </g>
+
+  <!-- LISTENING -->
+  <g id="pose-listening" transform="translate(960 10)">
+    <g transform="translate(-18 240) rotate(8)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(-8)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83) scale(-1 1)"/></g></g>
+    <g transform="translate(18 240) rotate(-4)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(4)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83)"/></g></g>
+    <g transform="translate(-38 122) rotate(18)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(8)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58)"/></g></g>
+    <g transform="translate(38 122) rotate(-40)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(-132)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(20)"/></g></g>
+    <use xlink:href="#torso" transform="translate(0 112) rotate(3)"/>
+    <use xlink:href="#module-tiles" transform="translate(11 147) rotate(3)"/>
+    <use xlink:href="#logo-head" transform="translate(-7 61) rotate(-8)"/>
+    <use xlink:href="#expression-listening" transform="translate(-7 61) rotate(-8)"/>
+    <use xlink:href="#label-pill" transform="translate(0 461)"/>
+    <text x="0" y="462" class="label">LISTENING</text>
+  </g>
+
+  <!-- SPEAKING -->
+  <g id="pose-speaking" transform="translate(1344 10)">
+    <g transform="translate(-18 240) rotate(7)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(-5)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83) scale(-1 1)"/></g></g>
+    <g transform="translate(18 240) rotate(-7)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(5)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83)"/></g></g>
+    <g transform="translate(-38 122) rotate(-38)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(-92)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(15)"/></g></g>
+    <g transform="translate(38 122) rotate(-58)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(10)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(-18)"/></g></g>
+    <use xlink:href="#torso" transform="translate(0 112)"/>
+    <use xlink:href="#module-tiles" transform="translate(11 147)"/>
+    <use xlink:href="#logo-head" transform="translate(0 61)"/>
+    <use xlink:href="#expression-speaking" transform="translate(0 61)"/>
+    <path d="M73 34l34-18M78 53l38-2M73 72l34 17" fill="none" stroke="#1655D8" stroke-width="9" stroke-linecap="round"/>
+    <use xlink:href="#label-pill" transform="translate(0 461)"/>
+    <text x="0" y="462" class="label">SPEAKING</text>
+  </g>
+
+  <!-- READING -->
+  <g id="pose-reading" transform="translate(192 522)">
+    <g transform="translate(-16 247) rotate(78)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(-68)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83)"/></g></g>
+    <g transform="translate(17 247) rotate(-72)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(78)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83)"/></g></g>
+    <path d="M-86 332v82M-86 334h94" class="thin" stroke-width="8"/>
+    <g transform="translate(-38 129) rotate(-24)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(-78)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(25)"/></g></g>
+    <g transform="translate(38 129) rotate(30)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(70)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(-20)"/></g></g>
+    <use xlink:href="#torso" transform="translate(0 119) rotate(5)"/>
+    <use xlink:href="#module-tiles" transform="translate(11 154) rotate(5)"/>
+    <use xlink:href="#logo-head" transform="translate(-3 68) rotate(5)"/>
+    <use xlink:href="#expression-reading" transform="translate(-3 68) rotate(5)"/>
+    <use xlink:href="#passage-card" transform="translate(17 247) rotate(6)"/>
+    <use xlink:href="#label-pill" transform="translate(0 461)"/>
+    <text x="0" y="462" class="label">READING</text>
+  </g>
+
+  <!-- WRITING -->
+  <g id="pose-writing" transform="translate(576 522)">
+    <g transform="translate(-16 240) rotate(54)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(36)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83) scale(-1 1)"/></g></g>
+    <g transform="translate(17 240) rotate(-4)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(5)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83)"/></g></g>
+    <g transform="translate(-38 122) rotate(-18)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(-68)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(12)"/></g></g>
+    <g transform="translate(38 122) rotate(25)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(56)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(-10)"/></g></g>
+    <use xlink:href="#torso" transform="translate(0 112) rotate(6)"/>
+    <use xlink:href="#module-tiles" transform="translate(11 147) rotate(6)"/>
+    <use xlink:href="#logo-head" transform="translate(-4 61) rotate(6)"/>
+    <use xlink:href="#expression-writing" transform="translate(-4 61) rotate(6)"/>
+    <use xlink:href="#passage-card" transform="translate(31 250) rotate(9)"/>
+    <path d="M-3 238l43-22" fill="none" stroke="#1655D8" stroke-width="5" stroke-linecap="round"/>
+    <use xlink:href="#label-pill" transform="translate(0 461)"/>
+    <text x="0" y="462" class="label">WRITING</text>
+  </g>
+
+  <!-- FEEDBACK -->
+  <g id="pose-feedback" transform="translate(960 522)">
+    <g transform="translate(-18 240) rotate(7)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(-8)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83) scale(-1 1)"/></g></g>
+    <g transform="translate(18 240) rotate(-9)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(9)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83)"/></g></g>
+    <g transform="translate(-38 122) rotate(-31)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(-70)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(20)"/></g></g>
+    <g transform="translate(38 122) rotate(-64)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(18)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(-20)"/></g></g>
+    <use xlink:href="#torso" transform="translate(0 112)"/>
+    <use xlink:href="#module-tiles" transform="translate(11 147)"/>
+    <use xlink:href="#logo-head" transform="translate(0 61)"/>
+    <use xlink:href="#expression-feedback" transform="translate(0 61)"/>
+    <use xlink:href="#feedback-card" transform="translate(70 170)"/>
+    <use xlink:href="#label-pill" transform="translate(0 461)"/>
+    <text x="0" y="462" class="label">FEEDBACK</text>
+  </g>
+
+  <!-- CELEBRATION -->
+  <g id="pose-celebration" transform="translate(1344 522)">
+    <g transform="translate(-18 240) rotate(24)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(-16)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83) scale(-1 1)"/></g></g>
+    <g transform="translate(18 240) rotate(-18)"><use xlink:href="#thigh"/><g transform="translate(0 86) rotate(14)"><use xlink:href="#calf"/><use xlink:href="#wedge-foot" transform="translate(0 83)"/></g></g>
+    <g transform="translate(-38 122) rotate(24)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(10)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58)"/></g></g>
+    <g transform="translate(38 122) rotate(-148)"><use xlink:href="#upper-arm"/><g transform="translate(0 65) rotate(-7)"><use xlink:href="#forearm"/><use xlink:href="#mitten-hand" transform="translate(0 58) rotate(-15)"/></g></g>
+    <use xlink:href="#torso" transform="translate(0 112) rotate(-4)"/>
+    <use xlink:href="#module-tiles" transform="translate(11 147) rotate(-4)"/>
+    <use xlink:href="#logo-head" transform="translate(0 61) rotate(-4)"/>
+    <use xlink:href="#expression-celebration" transform="translate(0 61) rotate(-4)"/>
+    <use xlink:href="#label-pill" transform="translate(0 461)"/>
+    <text x="0" y="462" class="label">CELEBRATION</text>
+  </g>
+</svg>

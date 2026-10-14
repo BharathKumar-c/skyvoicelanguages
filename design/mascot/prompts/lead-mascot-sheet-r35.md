@@ -1,0 +1,11 @@
+# Round 35 — Aira the Directional Lens
+
+Preserve the tall cream/navy voice-to-fountain-pen-nib core, orange spark, Sky Voice palette, three fixed-pivot color-coded orbit vanes, flat industrial/editorial finish, transparent 1536 × 1024 4 × 2 grid, and eight states: FRONT, 3/4, LISTENING, SPEAKING, READING, WRITING, FEEDBACK, CELEBRATION.
+
+Transform the single aperture into exactly one sophisticated directional eye-lens: one bold navy vertical almond, one small internal pupil/slit, and exactly one short navy brow bar above it. Use no second eye, second brow, mouth, nose, cheeks, lashes, or smile. Lens direction, lid openness, brow angle, spark position, vane angles, and core posture communicate calm confidence, attentive curiosity, listening focus, speaking projection, reading concentration, writing intent, empathetic feedback, and joyful celebration.
+
+Avoid a repeated static vertical core. Keep FRONT upright and 3/4 mechanically accurate. In task states, rotate and gently bend or lean the entire core 10–18 degrees. Allow subtle stretch/compression while preserving crest, lens, collar, waist, and nib landmarks. Listening leans toward the audio bars; speaking projects forward; reading bows toward the page; writing drives diagonally toward the traced line; feedback inclines toward the card; celebration stretches upward.
+
+Use exactly three fixed-size rigid vanes: one long cobalt arc-blade, one long navy arc-blade, and one shorter orange arc-blade, all registered to the same rear-collar pivot anchor. Preserve length, taper, curve, and color; rotate the same components into strong, state-specific diagonals. Props remain large, simple, secondary, and offset from the core. They never cover the eye-lens or dominant action line.
+
+Use premium Bauhaus/industrial editorial geometry, elegant ratios, precise curves, strong asymmetry, deliberate negative space, crisp outline-free flat planes, and the palette navy `#0E2D5E`, cobalt `#1655D8`, orange `#EB9D13`, cream `#FFF4D6`, and white `#FFFFFF`. No cute expression, limbs, hands, anatomy, wings, flexible tentacles, thick outlines, gradients, glow, haze, shadows, texture, 3D, green, clutter, tiny decoration, or watermark. Leave label pills blank and reserve the feedback card for deterministic `BAND 7.5` typography.

@@ -1,0 +1,26 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# Next.js
+.next/
+out/
+
+# test artifacts
+coverage/
+playwright-report/
+test-results/
+
+# local environment
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# system and editor files
+.DS_Store
+Thumbs.db
+*.log
+
+# local cache
+.turbo/
