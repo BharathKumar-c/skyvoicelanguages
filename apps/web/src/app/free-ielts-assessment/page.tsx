@@ -7,12 +7,13 @@ import {
   CheckCircle2,
   ChevronRight,
   CircleDot,
+  GraduationCap,
   Clock3,
   Headphones,
   Laptop2,
   MessageCircleMore,
   MousePointerClick,
-  PlayCircle,
+  Plane,
   Route,
   ShieldCheck,
   Sparkles,
@@ -25,8 +26,11 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
-import { AiraContext, AiraModule } from "@/components/mascot";
+import { AiraContext, AiraGroundShadow, SkillSignal } from "@/components/mascot";
+import { AnimatedArt } from "@/components/animated-art";
+import type { SkillSignalModule } from "@/components/mascot";
 import { BrandLogo } from "@/components/brand-logo";
+import { DrawLine } from "@/components/draw-line";
 import { FaqList } from "@/components/faq-list";
 import { LeadForm } from "@/components/lead-form";
 import { Reveal } from "@/components/reveal";
@@ -107,51 +111,59 @@ export default function FreeIeltsAssessmentPage() {
       <SiteHeader />
       <main id="main-content">
         <section className="hero section" id="top">
-          <div aria-hidden="true" className="hero-ambient hero-ambient-one" />
-          <div aria-hidden="true" className="hero-ambient hero-ambient-two" />
           <div className="site-shell hero-grid">
-            <div className="hero-content">
-              <Reveal>
-                <div className="hero-eyebrow-row">
-                  <span className="eyebrow">
-                    <Sparkles aria-hidden="true" />
-                    Online IELTS coaching
-                  </span>
-                  <span className="availability-dot">Academic + General</span>
-                </div>
-                <h1>
-                  Stuck at Band 5 or 6?
-                  <span> Find the exact gap.</span>
-                </h1>
-                <p className="hero-lede">
-                  Stop preparing blindly. Start with a free assessment that maps your
-                  current level, weak modules, target band, and clearest route forward.
-                </p>
-                <div className="hero-actions">
-                  <Link className="button button-accent button-large" href="#assessment-form">
-                    Book my free assessment
-                    <ArrowRight aria-hidden="true" />
-                  </Link>
-                  <Link className="button button-secondary button-large" href="#method">
-                    See how it works
-                  </Link>
-                </div>
-                <p className="hero-reassurance">
-                  <ShieldCheck aria-hidden="true" />
-                  Free whether you join or not. No payment details.
-                </p>
-              </Reveal>
+            <div className="hero-left">
+              <div className="hero-content">
+                <Reveal>
+                  <div className="hero-eyebrow-row">
+                    <span className="eyebrow">
+                      <Sparkles aria-hidden="true" />
+                      Online IELTS coaching
+                    </span>
+                    <span className="availability-dot">Academic + General</span>
+                  </div>
+                  <h1>
+                    Stuck at Band 5 or 6?
+                    <span> Find the exact gap.</span>
+                  </h1>
+                  <p className="hero-lede">
+                    Stop preparing blindly. Start with a free assessment that maps your
+                    current level, weak modules, target band, and clearest route forward.
+                  </p>
+                  <div className="hero-actions">
+                    <Link className="button button-accent button-large" href="#assessment-form">
+                      Book my free assessment
+                      <ArrowRight aria-hidden="true" />
+                    </Link>
+                    <Link className="button button-secondary button-large" href="#method">
+                      See how it works
+                    </Link>
+                  </div>
+                  <p className="hero-reassurance">
+                    <ShieldCheck aria-hidden="true" />
+                    Free whether you join or not. No payment details.
+                  </p>
+                </Reveal>
+              </div>
 
-              <Reveal delay={0.08}>
-                <VslPreview />
-              </Reveal>
-
-              <Reveal className="hero-mascot-wrap" delay={0.16}>
-                <AiraContext
-                  context="hero"
-                  size="xl"
-                  aria-label="Aira, your SkyVoice IELTS guide, welcomes you"
-                />
+              <Reveal className="hero-mascot-wrap" delay={0.1}>
+                <div className="hero-aira-stage">
+                  <AnimatedArt
+                    className="hero-aira-orbit"
+                    height={560}
+                    src="/assets/generated/motion-graphics/hero-aira-orbit-stage.svg"
+                    staticSrc="/assets/generated/motion-graphics/hero-aira-orbit-stage-static.svg"
+                    width={480}
+                  />
+                  <div className="aira-figure">
+                    <AiraContext
+                      context="hero-speaking"
+                      size="xl"
+                      aria-label="Aira, your SkyVoice IELTS guide, presents your next score move"
+                    />
+                    <AiraGroundShadow width={190} />
+                  </div>
+                </div>
               </Reveal>
             </div>
 
@@ -177,6 +189,14 @@ export default function FreeIeltsAssessmentPage() {
                 <span>{item.label}</span>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="assessment-preview-section" aria-label="Assessment preview">
+          <div className="site-shell assessment-preview-shell">
+            <Reveal>
+              <VslPreview />
+            </Reveal>
           </div>
         </section>
 
@@ -219,7 +239,7 @@ export default function FreeIeltsAssessmentPage() {
                 <small>Practising, but unsure why the score is not moving</small>
               </div>
               <div className="score-route" aria-hidden="true">
-                <div className="route-line" />
+                <DrawLine className="route-line" delay={0.35} />
                 <span>
                   <Route />
                 </span>
@@ -271,7 +291,7 @@ export default function FreeIeltsAssessmentPage() {
             </Reveal>
 
             <div className="method-path">
-              <div className="method-line" aria-hidden="true" />
+              <DrawLine className="method-line" duration={1.2} />
               {methodSteps.map((step, index) => (
                 <Reveal className="method-step" delay={index * 0.04} key={step.number}>
                   <div className={`method-marker ${step.free ? "is-free" : ""}`}>
@@ -298,6 +318,36 @@ export default function FreeIeltsAssessmentPage() {
               </p>
             </Reveal>
 
+            <Reveal className="module-tableau" delay={0.04}>
+              <div className="module-tableau-aira">
+                <div className="aira-figure">
+                  <AiraContext
+                    context="feedback"
+                    size="xl"
+                    aria-label="Aira connects feedback across all four IELTS skills"
+                  />
+                  <AiraGroundShadow tone="light" width={190} />
+                </div>
+              </div>
+              <div className="module-tableau-copy">
+                <strong>One guide. Four connected skill signals.</strong>
+                <p>Aira turns feedback from each module into one clear next step.</p>
+                <div className="module-tableau-signals" aria-hidden="true">
+                  {(["listening", "reading", "writing", "speaking"] as const).map(
+                    (skill) => (
+                      <SkillSignal
+                        decorative
+                        key={skill}
+                        module={skill}
+                        size={76}
+                        state="idle"
+                      />
+                    ),
+                  )}
+                </div>
+              </div>
+            </Reveal>
+
             <div className="module-grid">
               {modules.map((module, index) => (
                 <Reveal
@@ -305,18 +355,19 @@ export default function FreeIeltsAssessmentPage() {
                   delay={index * 0.05}
                   key={module.name}
                 >
-                  <div className="module-icon module-icon-mascot">
-                    <AiraModule
-                      module={
-                        module.name.toLowerCase() as
-                          | "listening"
-                          | "reading"
-                          | "writing"
-                          | "speaking"
-                      }
-                      size="md"
-                      idle="breathe"
-                      sparkPulse={false}
+                  <div className="module-signal" aria-hidden="true">
+                    <SkillSignal
+                      className="module-signal-image"
+                      module={module.name.toLowerCase() as SkillSignalModule}
+                      state="active"
+                      size={152}
+                      decorative
+                    />
+                    <SkillSignal
+                      className="module-signal-success"
+                      module={module.name.toLowerCase() as SkillSignalModule}
+                      state="success"
+                      size={152}
                       decorative
                     />
                   </div>
@@ -539,13 +590,26 @@ export default function FreeIeltsAssessmentPage() {
         <section className="section proof-section">
           <div className="site-shell proof-grid">
             <Reveal className="proof-visual">
-              <div className="proof-ring">
-                <span>
+              <div className="proof-figure">
+                {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG illustration */}
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className="proof-illustration"
+                  decoding="async"
+                  height={460}
+                  loading="lazy"
+                  src="/assets/generated/illustrations/proof-evidence-chain.svg"
+                  width={500}
+                />
+              </div>
+              <p className="proof-caption">
+                <span className="proof-caption-icon">
                   <TrendingUp aria-hidden="true" />
                 </span>
                 <strong>Progress you can explain</strong>
-                <p>Not a mystery score. A visible chain from feedback to correction.</p>
-              </div>
+                Not a mystery score. A visible chain from feedback to correction.
+              </p>
               <div className="proof-float proof-float-one">
                 <CheckCircle2 aria-hidden="true" />
                 Task 2 structure
@@ -703,9 +767,9 @@ export default function FreeIeltsAssessmentPage() {
 }
 
 function GraduationCapIcon() {
-  return <BookOpenCheck aria-hidden="true" />;
+  return <GraduationCap aria-hidden="true" />;
 }
 
 function PlaneIcon() {
-  return <PlayCircle aria-hidden="true" />;
+  return <Plane aria-hidden="true" />;
 }

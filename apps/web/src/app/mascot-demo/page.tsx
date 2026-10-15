@@ -14,8 +14,6 @@
 
 "use client";
 
-import { useState } from "react";
-
 import { AiraMascot, AiraContext, AiraModule, useAiraAnimation } from "@/components/mascot";
 import type { AiraPose, AiraSize } from "@/components/mascot";
 

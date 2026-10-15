@@ -79,7 +79,8 @@ def remove_small_islands(image, minimum_pixels=180, drop_edge_components=False):
                             seen[nidx] = 1
                             queue.append((nx, ny))
             touches_edge = min_x <= 2 or min_y <= 2 or max_x >= width - 3 or max_y >= height - 3
-            if count >= minimum_pixels and not (drop_edge_components and touches_edge):
+            edge_fragment = drop_edge_components and touches_edge and count < 5000
+            if count >= minimum_pixels and not edge_fragment:
                 kept_boxes.append((max(0, min_x - 3), max(0, min_y - 3), min(width, max_x + 4), min(height, max_y + 4)))
     mask = Image.new("L", rgba.size, 0)
     for box in kept_boxes:

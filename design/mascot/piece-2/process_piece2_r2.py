@@ -29,6 +29,7 @@ def place_on_standard_canvas(image, canvas_size=420, content_limit=380):
     content = image.copy()
     if content.width > content_limit or content.height > content_limit:
         content.thumbnail((content_limit, content_limit), Image.Resampling.LANCZOS)
+        content = flatten_to_brand(content)
     canvas = Image.new("RGBA", (canvas_size, canvas_size), (0, 0, 0, 0))
     canvas.alpha_composite(content, ((canvas_size - content.width) // 2, (canvas_size - content.height) // 2))
     return canvas
@@ -55,7 +56,13 @@ def emphasize_directional_active(image, skill):
     return flatten_to_brand(expanded)
 
 
-def build_round(version="r2", source_path=SOURCE, clean_active_marks=False):
+def build_round(
+    version="r2",
+    source_path=SOURCE,
+    clean_active_marks=False,
+    emphasize_active=True,
+    make_silhouette_proof=False,
+):
     RENDERS.mkdir(parents=True, exist_ok=True)
     QA.mkdir(parents=True, exist_ok=True)
     PUBLIC.mkdir(parents=True, exist_ok=True)
@@ -79,12 +86,12 @@ def build_round(version="r2", source_path=SOURCE, clean_active_marks=False):
             if clean_active_marks and state == "active":
                 raw = remove_detached_orange_components(raw)
             minimum = (180 if clean_active_marks else 400) if state == "active" else (100 if state == "success" else 180)
-            drop_edges = state == "success" if clean_active_marks else True
+            drop_edges = state in ("active", "success") if clean_active_marks else True
             item = trim_with_padding(
                 remove_small_islands(raw, minimum_pixels=minimum, drop_edge_components=drop_edges),
                 24,
             )
-            if clean_active_marks and state == "active":
+            if clean_active_marks and emphasize_active and state == "active":
                 item = emphasize_directional_active(item, skill)
             item = place_on_standard_canvas(item)
             versioned_name = f"{skill}-{state}-{version}.png"
@@ -153,6 +160,24 @@ def build_round(version="r2", source_path=SOURCE, clean_active_marks=False):
             cx, cy = 290 + col * 235, 130 + row * 135
             small.alpha_composite(item, (cx - item.width // 2, cy - item.height // 2))
     small.convert("RGB").save(QA / f"skill-signal-system-{version}-48px-qa.png", quality=95)
+
+    if make_silhouette_proof:
+        silhouette = Image.new("RGBA", (1180, 500), (255, 255, 255, 255))
+        sidraw = ImageDraw.Draw(silhouette)
+        label(sidraw, (590, 38), "48 PX MONOCHROME CARRIER SILHOUETTES", 28)
+        for row, state in enumerate(ROWS):
+            label(sidraw, (75, 130 + row * 135), state.upper(), 20, anchor="lm")
+            for col, skill in enumerate(COLS):
+                cleaned = remove_detached_orange_components(assets[(skill, state)])
+                mono = Image.new("RGBA", cleaned.size, PALETTE[0] + (255,))
+                mono.putalpha(cleaned.getchannel("A"))
+                item = fit(mono, (48, 48))
+                cx, cy = 290 + col * 235, 130 + row * 135
+                silhouette.alpha_composite(item, (cx - item.width // 2, cy - item.height // 2))
+        silhouette.convert("RGB").save(
+            QA / f"skill-signal-system-{version}-48px-monochrome-silhouette-qa.png",
+            quality=95,
+        )
 
     checker = Image.new("RGBA", production_master.size, (255, 255, 255, 255))
     cdraw = ImageDraw.Draw(checker)

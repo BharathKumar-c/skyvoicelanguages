@@ -135,23 +135,23 @@ export function useAiraAnimation({
     setAnimationState("idle");
   }, [clearAutoReturn, idlePose]);
 
-  // Respond to listening/speaking state from AI voice system
-  useEffect(() => {
-    if (isListening) {
-      setPoseState("listening");
-      setAnimationState("listening");
-    } else if (isSpeaking) {
-      setPoseState("speaking");
-      setAnimationState("speaking");
-    }
-  }, [isListening, isSpeaking]);
-
   // Cleanup on unmount
   useEffect(() => clearAutoReturn, [clearAutoReturn]);
 
+  const controlledPose = isListening
+    ? "listening"
+    : isSpeaking
+      ? "speaking"
+      : null;
+  const controlledState = isListening
+    ? "listening"
+    : isSpeaking
+      ? "speaking"
+      : null;
+
   return {
-    pose,
-    animationState,
+    pose: controlledPose ?? pose,
+    animationState: controlledState ?? animationState,
     setPose,
     celebrate,
     startThinking,

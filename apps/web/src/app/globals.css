@@ -415,12 +415,19 @@ p {
 }
 
 .hero-grid {
-  align-items: start;
+  align-items: center;
   display: grid;
-  gap: clamp(48px, 6vw, 82px);
-  grid-template-columns: minmax(0, 1.1fr) minmax(370px, 0.75fr);
+  gap: clamp(24px, 3vw, 46px);
+  grid-template-columns: minmax(0, 1.45fr) minmax(370px, 0.72fr);
   position: relative;
   z-index: 1;
+}
+
+.hero-left {
+  align-items: center;
+  display: grid;
+  gap: clamp(12px, 2vw, 28px);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
 }
 
 .hero-content {
@@ -2511,8 +2518,12 @@ p {
   }
 
   .hero-grid {
-    gap: 42px;
-    grid-template-columns: minmax(0, 1fr) minmax(350px, 0.82fr);
+    gap: 22px;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.78fr);
+  }
+
+  .hero-left {
+    grid-template-columns: minmax(0, 1fr) 270px;
   }
 
   .hero-form-accent {
@@ -2588,6 +2599,12 @@ p {
 
   .hero-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-mascot-wrap {
+    margin-inline: auto;
+    max-width: 300px;
+    width: 100%;
   }
 
   .hero-content {
@@ -3189,49 +3206,119 @@ p {
 /*  Placement helpers for hero, module cards, and thank-you page.     */
 /* ================================================================== */
 
-/* ------ Hero section mascot wrap ------ */
-/*
- * Displayed below VslPreview in the hero-content column.
- * Centered on mobile; left-aligned on desktop to sit under the copy.
- */
+/* ------ Hero section mascot lead ------ */
 .hero-mascot-wrap {
+  align-self: center;
   display: flex;
   justify-content: center;
-  margin-top: 32px;
-  pointer-events: none; /* decorative — never captures clicks */
+  pointer-events: none;
 }
 
-@media (min-width: 900px) {
-  .hero-mascot-wrap {
-    justify-content: flex-start;
-    margin-top: 40px;
-  }
+.hero-aira-stage {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 470px;
+  position: relative;
+  width: 100%;
 }
 
-/* ------ Module card mascot icon variant ------ */
-/*
- * Overrides the small icon-box sizing (.module-icon is 54×54px)
- * to accommodate the larger mascot. Background/border are removed
- * so the flat mascot illustration floats cleanly above the card.
- */
-.module-icon-mascot {
-  background: transparent;
-  border-radius: 0;
-  height: auto;
-  margin-bottom: 16px;
-  overflow: visible;
-  width: auto;
+.hero-aira-stage::before {
+  background: radial-gradient(circle, rgba(22, 85, 216, 0.14), transparent 66%);
+  content: "";
+  inset: 4% -16% 0;
+  position: absolute;
 }
 
-/* Remove the svg size constraint that targets the old Lucide icon */
-.module-icon-mascot svg {
-  height: unset;
-  width: unset;
+.hero-aira-stage > * {
+  position: relative;
+  z-index: 1;
 }
 
-/* Tighten card top-padding now that mascot is taller than 54px icon */
-.module-card {
-  padding-top: clamp(20px, 3vw, 32px);
+.assessment-preview-section {
+  background: var(--white);
+  padding-block: 36px 74px;
+}
+
+.assessment-preview-shell {
+  max-width: 900px;
+}
+
+.hero-form-wrap {
+  align-self: start;
+}
+
+/* ------ IELTS Skill Signals ------ */
+.module-signal {
+  align-items: center;
+  display: flex;
+  height: 132px;
+  justify-content: center;
+  margin: -12px 0 2px;
+  position: relative;
+  width: 132px;
+  z-index: 1;
+}
+
+.module-signal-image {
+  height: 132px;
+  object-fit: contain;
+  width: 132px;
+}
+
+.module-tableau {
+  align-items: center;
+  display: grid;
+  gap: 34px;
+  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1fr);
+  margin: 0 auto 34px;
+  max-width: 900px;
+  padding: 0 18px;
+}
+
+.module-tableau-aira {
+  align-items: center;
+  display: flex;
+  height: 350px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.module-tableau-aira::before {
+  background: radial-gradient(circle, rgba(22, 85, 216, 0.42), transparent 68%);
+  content: "";
+  inset: 5% -10%;
+  position: absolute;
+}
+
+.module-tableau-aira > * {
+  position: relative;
+  z-index: 1;
+}
+
+.module-tableau-copy strong {
+  color: var(--white);
+  display: block;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.module-tableau-copy > p {
+  color: #bed0e9;
+  margin: 8px 0 10px;
+}
+
+.module-tableau-signals {
+  align-items: center;
+  display: flex;
+  gap: 2px;
+}
+
+.module-tableau-signals img {
+  height: 68px;
+  object-fit: contain;
+  width: 68px;
 }
 
 /* ------ Thank-you page mascot ------ */
@@ -3252,4 +3339,477 @@ p {
     transform: scale(0.8);
     transform-origin: center top;
   }
+}
+
+@media (max-width: 920px) {
+  .hero-left {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+
+  .hero-aira-stage {
+    min-height: 390px;
+    overflow: hidden;
+  }
+
+  .hero-aira-stage > * {
+    scale: 0.78;
+  }
+
+  .assessment-preview-section {
+    padding-block: 28px 58px;
+  }
+}
+
+@media (max-width: 680px) {
+  .hero-left {
+    gap: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-mascot-wrap {
+    margin-block: -22px -12px;
+  }
+
+  .hero-aira-stage {
+    min-height: 275px;
+  }
+
+  .hero-aira-stage > * {
+    scale: 0.62;
+  }
+
+  .module-tableau {
+    gap: 12px;
+    grid-template-columns: 140px minmax(0, 1fr);
+    padding: 0;
+    text-align: left;
+  }
+
+  .module-tableau-aira {
+    height: 230px;
+    overflow: visible;
+  }
+
+  .module-tableau-aira > * {
+    scale: 0.55;
+  }
+
+  .module-tableau-signals {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 130px;
+  }
+
+  .module-tableau-signals img {
+    height: 52px;
+    width: 52px;
+  }
+
+  .module-signal,
+  .module-signal-image {
+    height: 110px;
+    width: 110px;
+  }
+}
+
+/* ================================================================== */
+/*  GENERATED VISUAL ASSETS — integration                             */
+/*  Assets: public/assets/generated/** (see visual-assets-integration-  */
+/*  guide.md). Decorative layers only; content keeps its own styles.   */
+/* ================================================================== */
+
+/* ------ Shared Aira figure + ground shadow ------ */
+.aira-figure {
+  display: inline-flex;
+  justify-content: center;
+  position: relative;
+}
+
+.aira-ground-shadow {
+  bottom: -14px;
+  height: auto;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  translate: -50% 0;
+  z-index: -1;
+}
+
+.aira-ground-shadow-light {
+  filter: brightness(0) invert(1);
+  opacity: 0.14;
+}
+
+/* ------ Hero ------ */
+.hero {
+  background:
+    url("/assets/generated/backgrounds/hero-signal-field.svg") center top / cover no-repeat,
+    linear-gradient(180deg, #f8fbff 0%, #ffffff 82%),
+    var(--white);
+}
+
+/* The signal field replaces the generic dot grid and blurred blobs. */
+.hero::before {
+  display: none;
+}
+
+.hero-aira-stage::before {
+  display: none;
+}
+
+.hero-aira-stage > .hero-aira-orbit {
+  aspect-ratio: 480 / 560;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  translate: -50% -52%;
+  width: min(125%, 480px);
+  z-index: 0;
+}
+
+.hero-aira-orbit img,
+.vsl-signal img,
+.thank-you-burst img {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+/* ------ VSL card signal rings ------ */
+.vsl-signal {
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.vsl-signal img {
+  object-fit: cover;
+  object-position: right center;
+}
+
+@media (hover: hover) {
+  .vsl-play {
+    transition: transform 180ms ease;
+  }
+
+  .vsl-card:hover .vsl-play {
+    transform: scale(1.08);
+  }
+}
+
+/* ------ Modules: orbit field + organic wave edges ------ */
+.modules-section {
+  background:
+    url("/assets/generated/backgrounds/modules-orbit-field.svg") center top / cover no-repeat,
+    var(--brand-navy-deep);
+  overflow: visible;
+}
+
+.modules-section::before,
+.modules-section::after {
+  -webkit-mask: url("/assets/generated/backgrounds/section-wave-edge.svg") center / 100% 100% no-repeat;
+  background: var(--brand-navy-deep);
+  content: "";
+  display: block;
+  height: var(--wave-edge);
+  left: 0;
+  mask: url("/assets/generated/backgrounds/section-wave-edge.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  width: auto;
+}
+
+.modules-section {
+  --wave-edge: clamp(28px, 5.5vw, 80px);
+}
+
+.modules-section::before {
+  top: calc(1px - var(--wave-edge));
+}
+
+.modules-section::after {
+  bottom: calc(1px - var(--wave-edge));
+  transform: scaleY(-1);
+}
+
+/* The wave edges overhang the neighbouring sections, so the dark band must
+   paint above them. */
+.modules-section {
+  z-index: 1;
+}
+
+.module-tableau-aira {
+  height: auto;
+  min-height: 360px;
+  overflow: visible;
+}
+
+/* Skill Signal: active → success on hover (same 420 px registration). */
+.module-signal {
+  position: relative;
+}
+
+.module-signal-success {
+  height: 132px;
+  left: 0;
+  object-fit: contain;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transition: opacity 200ms ease;
+  width: 132px;
+}
+
+.module-signal-image {
+  transition: opacity 200ms ease;
+}
+
+/* Card lifts use the independent `translate` property: these cards are Reveal
+   (Motion) wrappers whose inline `transform` would override a hover transform. */
+@media (hover: hover) {
+  .gap-card,
+  .audience-card,
+  .module-card {
+    transition:
+      translate 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .gap-card:hover,
+  .audience-card:hover {
+    translate: 0 -3px;
+  }
+
+  .module-card:hover {
+    box-shadow: 0 10px 0 rgba(0, 0, 0, 0.18);
+    translate: 0 -4px;
+  }
+
+  .module-card:hover .module-signal-success {
+    opacity: 1;
+  }
+
+  .module-card:hover .module-signal-image {
+    opacity: 0;
+  }
+}
+
+/* ------ Portal: listening wave loop ------ */
+@keyframes portal-wave-bar {
+  0%,
+  100% {
+    transform: scaleY(0.55);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.audio-wave span {
+  animation: portal-wave-bar 1.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.audio-wave span:nth-child(3n) {
+  animation-delay: 0.2s;
+}
+
+.audio-wave span:nth-child(3n + 1) {
+  animation-delay: 0.45s;
+}
+
+/* ------ Proof: evidence-chain illustration ------ */
+.proof-visual {
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+  padding-block: 12px;
+}
+
+.proof-visual::before {
+  display: none;
+}
+
+.proof-figure {
+  width: min(100%, 440px);
+}
+
+.proof-illustration {
+  aspect-ratio: 500 / 460;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.proof-caption {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 320px;
+  text-align: center;
+}
+
+.proof-caption strong {
+  color: var(--brand-navy);
+  display: block;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.proof-caption-icon {
+  display: none;
+}
+
+@keyframes proof-float-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.proof-float {
+  animation: proof-float-bob 5s ease-in-out infinite;
+  z-index: 1;
+}
+
+.proof-float-one {
+  left: 0;
+  top: 24px;
+}
+
+.proof-float-two {
+  animation-delay: 1.6s;
+  bottom: 96px;
+  left: 0;
+}
+
+.proof-float-three {
+  animation-delay: 3.2s;
+  right: 0;
+  top: 300px;
+}
+
+/* ------ Final CTA signal waves ------ */
+.final-cta {
+  background:
+    url("/assets/generated/backgrounds/final-cta-signal-waves.svg") center / cover no-repeat,
+    linear-gradient(135deg, var(--brand-navy-deep), var(--brand-blue));
+}
+
+/* ------ Thank-you celebration burst ------ */
+.thank-you-mascot {
+  position: relative;
+}
+
+.thank-you-mascot > .thank-you-burst {
+  aspect-ratio: 1;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 46%;
+  translate: -50% -50%;
+  width: min(122%, 470px);
+  z-index: 0;
+}
+
+.thank-you-mascot {
+  margin-bottom: 40px;
+}
+
+.thank-you-mascot > .aira-figure {
+  z-index: 1;
+}
+
+.utility-shell {
+  overflow: hidden;
+}
+
+.utility-shell > .brand-logo {
+  margin-inline: auto;
+}
+
+/* ------ Utility illustrations (404 / error) ------ */
+.utility-illustration {
+  display: block;
+  height: auto;
+  margin: 18px auto 10px;
+  width: min(100%, 420px);
+}
+
+.utility-illustration-compact {
+  margin-top: 0;
+  width: min(100%, 260px);
+}
+
+/* ------ Responsive ------ */
+@media (max-width: 680px) {
+  .hero {
+    background-position: 70% top, center, center;
+  }
+
+  .module-tableau-aira {
+    min-height: 230px;
+  }
+
+  .vsl-signal img {
+    object-position: right bottom;
+  }
+
+  .proof-float {
+    font-size: 0.72rem;
+    padding: 9px 11px;
+  }
+
+  .proof-float-one {
+    top: 8px;
+  }
+
+  .proof-float-two {
+    bottom: 104px;
+  }
+
+  .proof-float-three {
+    top: 236px;
+  }
+}
+
+@media (max-width: 920px) {
+  /* Keep the orbit field at native scale so its sparks never land on copy. */
+  .modules-section {
+    background-size: 1440px auto, auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .thank-you-mascot > .thank-you-burst {
+    transform: none;
+    width: 120%;
+  }
+}
+
+/* Pre-existing 320 px overflow: the nowrap route label ran past the viewport. */
+@media (max-width: 420px) {
+  .score-route b {
+    max-width: calc(50% - 40px);
+    text-align: left;
+    white-space: normal;
+  }
+}
+
+/* Pre-existing bug: form controls inherit `color` (Tailwind preflight), so in
+   the dark .final-cta the typed text and selected options rendered white on
+   white. Pin field text to the brand text colour everywhere. */
+.field input,
+.field select {
+  color: var(--text);
 }

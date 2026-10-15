@@ -12,6 +12,23 @@ test("renders the campaign promise and primary journey", async ({ page }) => {
   ).toBeVisible();
   await expect(page.getByText("₹17,499")).toBeVisible();
   await expect(page.getByText("₹19,499")).toBeVisible();
+  await expect(
+    page.getByRole("img", { name: /Aira, your SkyVoice IELTS guide/i }),
+  ).toBeVisible();
+
+  const skillSignals = page.locator("#modules .module-signal-image");
+  await expect(skillSignals).toHaveCount(4);
+  for (const signal of await skillSignals.all()) {
+    await expect(signal).toHaveAttribute("alt", "");
+    await expect(signal).toHaveAttribute("aria-hidden", "true");
+  }
+});
+
+test("uses Aira for the completion context", async ({ page }) => {
+  await page.goto("/thank-you");
+  await expect(
+    page.getByRole("img", { name: /Aira celebrates your assessment booking/i }),
+  ).toBeVisible();
 });
 
 test("shows accessible form errors and validates a preview lead", async ({ page }) => {

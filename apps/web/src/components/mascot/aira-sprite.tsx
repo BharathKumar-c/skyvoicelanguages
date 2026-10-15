@@ -8,10 +8,10 @@
  * and gives instant pose switching with zero network latency.
  */
 
-import { useMemo } from "react";
+import Image from "next/image";
 
 import type { CanonicalPose, AiraSize } from "./types";
-import { CANONICAL_POSE_CELLS, SPRITE_SHEET, resolveSize } from "./types";
+import { SPRITE_SHEET, resolveSize } from "./types";
 
 interface AiraSpriteProps {
   /** Canonical pose to display. */
@@ -28,34 +28,18 @@ interface AiraSpriteProps {
  */
 export function AiraSprite({ pose, size, className }: AiraSpriteProps) {
   const px = resolveSize(size);
-
-  const style = useMemo(() => {
-    const cell = CANONICAL_POSE_CELLS[pose];
-    const { cols, rows } = SPRITE_SHEET;
-
-    // Scale the sprite sheet so that each cell fills `px` width.
-    // The aspect ratio of each cell is cellWidth:cellHeight = 384:512 = 3:4
-    const cellAspect = SPRITE_SHEET.cellWidth / SPRITE_SHEET.cellHeight;
-    const displayHeight = px / cellAspect;
-    const sheetDisplayWidth = px * cols;
-    const sheetDisplayHeight = displayHeight * rows;
-
-    return {
-      width: px,
-      height: displayHeight,
-      backgroundImage: "url(/mascot/lead-mascot-sheet.png)",
-      backgroundSize: `${sheetDisplayWidth}px ${sheetDisplayHeight}px`,
-      backgroundPosition: `-${cell.col * px}px -${cell.row * displayHeight}px`,
-      backgroundRepeat: "no-repeat" as const,
-      imageRendering: "auto" as const,
-    };
-  }, [pose, px]);
+  const displayHeight = px * (SPRITE_SHEET.artHeight / SPRITE_SHEET.cellWidth);
 
   return (
-    <div
-      className={className}
-      style={style}
+    <Image
+      alt=""
       aria-hidden="true"
+      className={className}
+      height={SPRITE_SHEET.artHeight}
+      src={`/mascot/canonical/aira-${pose}.png`}
+      style={{ height: displayHeight, width: px }}
+      unoptimized
+      width={SPRITE_SHEET.cellWidth}
     />
   );
 }

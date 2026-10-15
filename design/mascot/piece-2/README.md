@@ -17,6 +17,9 @@ This directory contains the supporting-cast and pose/state system for the four I
 - `round-3-revision-brief.md` — silhouette-level Round 3 craft correction
 - `critic-evidence-r3.md` — Round 3 verification and critic routing
 - `process_piece2_r3.py` — Round 3 build entry point using fixed production registration
+- `round-4-revision-brief.md` — carrier-body state-mechanics correction
+- `critic-evidence-r4.md` — Round 4 silhouette and production verification
+- `process_piece2_r4.py` — Round 4 build entry point with monochrome 48 px proof
 
 The web-consumable copies live in `apps/web/public/mascot/skill-signals/`.
 

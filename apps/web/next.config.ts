@@ -1,6 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  // Playwright (playwright.config.ts) targets 127.0.0.1; without this the dev
+  // server blocks its client bundles and the page never hydrates. Dev-only.
+  allowedDevOrigins: ["127.0.0.1"],
   poweredByHeader: false,
   reactStrictMode: true,
   async headers() {

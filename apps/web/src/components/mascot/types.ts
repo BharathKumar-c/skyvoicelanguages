@@ -118,6 +118,8 @@ export const SPRITE_SHEET = {
   cellWidth: 384,
   /** Height of each cell. */
   cellHeight: 512,
+  /** Character-art height within each cell; excludes the QA pose-name pill. */
+  artHeight: 456,
 } as const;
 
 /* ------------------------------------------------------------------ */
@@ -196,3 +198,26 @@ export function resolveSize(size: AiraSize): number {
   };
   return MAP[size];
 }
+
+/* ------------------------------------------------------------------ */
+/*  Spark anchors                                                     */
+/* ------------------------------------------------------------------ */
+
+/**
+ * Centre of the orange head spark in each canonical pose, as a percentage of
+ * the 384×456 art box. Measured from public/mascot/canonical/aira-*.png; the
+ * source data lives in public/assets/generated/mascots/aira-spark-anchors.json.
+ */
+export const SPARK_ANCHORS: Record<
+  CanonicalPose,
+  { xPct: number; yPct: number; sizePct: number }
+> = {
+  front:           { xPct: 68.17, yPct: 6.46, sizePct: 10.68 },
+  "three-quarter": { xPct: 66.09, yPct: 6.53, sizePct: 10.68 },
+  listening:       { xPct: 75.2,  yPct: 7.65, sizePct: 10.16 },
+  speaking:        { xPct: 60.5,  yPct: 6.28, sizePct: 10.16 },
+  reading:         { xPct: 67.88, yPct: 6.75, sizePct: 9.38 },
+  writing:         { xPct: 64.12, yPct: 6.73, sizePct: 8.59 },
+  feedback:        { xPct: 51.76, yPct: 6.93, sizePct: 9.38 },
+  celebration:     { xPct: 69.5,  yPct: 6.67, sizePct: 10.68 },
+};

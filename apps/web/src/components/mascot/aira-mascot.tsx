@@ -14,20 +14,19 @@
  *  - Modular architecture for future AI voice integration
  */
 
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 
 import { AiraSprite } from "./aira-sprite";
 import type {
   AiraMascotProps,
   AiraPose,
-  AiraSize,
   AnimationState,
   CanonicalPose,
   IdleAnimation,
   TransitionEffect,
 } from "./types";
-import { CANONICAL_POSE_CELLS, resolveSize } from "./types";
+import { CANONICAL_POSE_CELLS, SPARK_ANCHORS, SPRITE_SHEET, resolveSize } from "./types";
 
 import styles from "./aira-mascot.module.css";
 
@@ -42,7 +41,8 @@ function isCanonicalPose(pose: AiraPose): pose is CanonicalPose {
 }
 
 /** Map a transition name to Motion spring/tween config. */
-function transitionConfig(effect: TransitionEffect) {
+function transitionConfig(effect: TransitionEffect, reduceMotion = false) {
+  if (reduceMotion) return { duration: 0 };
   switch (effect) {
     case "spring":
       return { type: "spring" as const, stiffness: 200, damping: 22, mass: 1 };
@@ -77,10 +77,13 @@ const BREATHE_KEYFRAMES = {
   },
 };
 
+/** The glow asset is 64 px wide around a 34 px spark. */
+const SPARK_GLOW_SCALE = 64 / 34;
+
 /** Spark pulse animation. */
 const SPARK_PULSE = {
-  opacity: [1, 0.6, 1],
-  scale: [1, 0.82, 1],
+  opacity: [0.85, 0.3, 0.85],
+  scale: [1, 1.2, 1],
   transition: {
     duration: 1.9,
     ease: "easeInOut" as const,
@@ -126,21 +129,16 @@ export function AiraMascot({
 }: AiraMascotProps) {
   const prefersReducedMotion = useReducedMotion();
   const prevPoseRef = useRef<AiraPose>(pose);
-  const [animState, setAnimState] = useState<AnimationState>("idle");
 
   // Resolve effective animation settings
   const effectiveIdle: IdleAnimation = prefersReducedMotion ? "none" : idle;
-  const effectiveTransition: TransitionEffect = prefersReducedMotion
-    ? "none"
-    : transition;
-  const effectiveSparkPulse = !prefersReducedMotion && sparkPulse;
+  const effectiveTransition: TransitionEffect = transition;
 
   const px = resolveSize(size);
 
   // Track animation state changes
   const updateAnimState = useCallback(
     (state: AnimationState) => {
-      setAnimState(state);
       onAnimationStateChange?.(state);
     },
     [onAnimationStateChange],
@@ -163,7 +161,7 @@ export function AiraMascot({
 
   // Accessible label
   const label = ariaLabel ?? POSE_LABELS[pose] ?? `Aira in ${pose} pose`;
-  const cellAspect = 384 / 512; // 3:4
+  const cellAspect = SPRITE_SHEET.cellWidth / SPRITE_SHEET.artHeight;
   const displayHeight = px / cellAspect;
 
   // Check if pose is a canonical sprite pose or extended
@@ -194,7 +192,7 @@ export function AiraMascot({
               ? { opacity: 0, scale: 0.95, y: -4 }
               : undefined
           }
-          transition={transitionConfig(effectiveTransition)}
+          transition={transitionConfig(effectiveTransition, Boolean(prefersReducedMotion))}
           onAnimationComplete={() => {
             updateAnimState("idle");
             onPoseTransitionEnd?.(pose);
@@ -223,11 +221,20 @@ export function AiraMascot({
       </AnimatePresence>
 
       {/* Spark pulse overlay (decorative, follows head position) */}
-      {effectiveSparkPulse && (
-        <motion.div
-          className={styles.sparkOverlay}
-          animate={SPARK_PULSE}
+      {/* Spark glow pulse, anchored to the measured spark of each canonical pose */}
+      {sparkPulse && isCanonical && (
+        <motion.img
+          key={`spark-${pose}`}
+          alt=""
           aria-hidden="true"
+          className={styles.sparkOverlay}
+          src="/assets/generated/mascots/aira-spark.svg"
+          style={{
+            left: `${SPARK_ANCHORS[pose].xPct}%`,
+            top: `${SPARK_ANCHORS[pose].yPct}%`,
+            width: `${SPARK_ANCHORS[pose].sizePct * SPARK_GLOW_SCALE}%`,
+          }}
+          animate={prefersReducedMotion ? { opacity: 0.85 } : SPARK_PULSE}
         />
       )}
     </motion.div>

@@ -37,14 +37,13 @@
   height: 100%;
 }
 
-/* Spark pulse overlay — positioned at top-right of head area */
+/* Spark glow overlay — left/top/width come from SPARK_ANCHORS per pose */
 .sparkOverlay {
   position: absolute;
-  top: 2%;
-  right: 18%;
-  width: 12%;
-  height: 9%;
+  height: auto;
   pointer-events: none;
+  translate: -50% -50%;
+  z-index: 1;
 }
 
 /* ------------------------------------------------------------------ */

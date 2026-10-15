@@ -3,6 +3,8 @@
 import { Check, Play, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
+import { AnimatedArt } from "./animated-art";
+
 const previewSteps = [
   "Find your current level",
   "Spot the module holding you back",
@@ -43,8 +45,14 @@ export function VslPreview() {
         type="button"
       >
         <span className="vsl-grid" aria-hidden="true" />
-        <span className="vsl-orbit vsl-orbit-one" aria-hidden="true" />
-        <span className="vsl-orbit vsl-orbit-two" aria-hidden="true" />
+        <AnimatedArt
+          className="vsl-signal"
+          height={240}
+          loading="lazy"
+          src="/assets/generated/motion-graphics/vsl-signal-backdrop.svg"
+          staticSrc="/assets/generated/motion-graphics/vsl-signal-backdrop-static.svg"
+          width={900}
+        />
         <span className="vsl-copy">
           <span className="vsl-kicker">Assessment preview · 3 minutes</span>
           <strong>Why your score feels stuck—and what to do next.</strong>

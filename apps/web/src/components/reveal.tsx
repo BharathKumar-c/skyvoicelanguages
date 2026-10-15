@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type { ReactNode } from "react";
 
 type RevealProps = {
@@ -20,6 +20,8 @@ export function Reveal({
   role,
   tabIndex,
 }: RevealProps) {
+  const prefersReducedMotion = useReducedMotion();
+
   return (
     <motion.div
       aria-label={ariaLabel}
@@ -27,7 +29,11 @@ export function Reveal({
       initial={{ opacity: 0, y: 24 }}
       role={role}
       tabIndex={tabIndex}
-      transition={{ duration: 0.48, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        duration: prefersReducedMotion ? 0 : 0.48,
+        delay: prefersReducedMotion ? 0 : delay,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       viewport={{ once: true, amount: 0.16 }}
       whileInView={{ opacity: 1, y: 0 }}
     >

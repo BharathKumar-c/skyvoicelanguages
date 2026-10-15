@@ -24,3 +24,6 @@ Thumbs.db
 
 # local cache
 .turbo/
+
+# python caches
+__pycache__/
