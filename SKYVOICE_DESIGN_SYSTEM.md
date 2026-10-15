@@ -359,7 +359,7 @@ No content may require horizontal scrolling at 320px. Illustration order may cha
 ## 14. Open design inputs
 
 - A second design-system reference was mentioned but not included; incorporate it only after the client supplies the link.
-- Decide whether to commission an original Sky Voice guide/mascot or launch with abstract waveform-led illustrations.
+- **Resolved 2026-10-15:** commission and use Aira, the original Sky Voice Signal Navigator. Preserve the approved broken-orbit/signal architecture; production artwork must follow the flat 2D, navy-outline, adult-audience, and originality rules in this document.
 - Approve the proposed font after testing actual IELTS content and Indian/international names.
 - Approve the degree of button depth; the preferred direction is tactile but not cartoonish.
 - Confirm whether dark mode is required. It is not recommended for the first marketing release unless the client explicitly requests it.

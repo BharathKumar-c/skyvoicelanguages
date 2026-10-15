@@ -2,12 +2,19 @@
 
 ## Benchmark
 
-- Primary rendered reference: <https://www.duolingo.com/>
+- Frozen primary rendered reference: `design/mascot/benchmark/duo-official-widget-system-2023.png`
+- Immutable SHA-256: `0BD9B9FF8D8EF77C8BB7EFB9CBD1014531EF002398D6D673B532FB9C2FD95CE5`
+- Official source: <https://blog.duolingo.com/widget-feature/>
+- Direct source asset: <https://storage.ghost.io/c/7a/33/7a33d0f4-927d-4fe8-a6bf-96131b5e76d4/content/images/2023/08/widgets.png>
 - Supporting construction reference: <https://design.duolingo.com/illustration/characters>
-- Supporting mascot reference: <https://design.duolingo.com/illustration/duo>
-- Reviewed: 2026-10-13
+- Supporting silhouette-development reference: <https://blog.duolingo.com/reshaping-duo/>
+- Frozen: 2026-10-15
 
 The benchmark is Duolingo's level of character-system discipline, not its owl, cast, palette, proprietary shapes, or trade dress. The Sky Voice result must remain visibly original.
+
+The benchmark is stored solely for internal comparative evaluation. Duolingo retains all rights in Duo and the source artwork. It must not be redistributed as a Sky Voice asset, shipped in the product, traced, recolored, or used as an image-generation identity input.
+
+For static Piece 1 validation, mechanisms 1, 2, 3, 5, and 6 apply. Mechanism 4 belongs to website integration and mechanism 7 belongs to motion; neither may fail a static mascot sheet.
 
 ## Observable mechanisms
 

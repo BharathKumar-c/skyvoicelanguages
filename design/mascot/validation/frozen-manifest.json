@@ -1,0 +1,23 @@
+{
+  "frozenAt": "2026-10-15T14:35:00+05:30",
+  "scope": ["r43-revalidation", "r44"],
+  "toolVersions": {
+    "python": "3.13.3",
+    "pillow": "11.3.0",
+    "numpy": "2.3.2"
+  },
+  "files": {
+    "design/mascot/validation/README.md": "B9E627E6D88D5114D771EF98ABC1166FE0BF00D5E9ABA59B753B963DE16D21A5",
+    "design/mascot/validation/brief-critic.md": "86277ABA496549D7FF5C56EAD9DD3F54EBF79BB4F37F00731907F146AD12ECC4",
+    "design/mascot/validation/system-critic.md": "C845C8D8ADE00237DB5835ADD0C3A15BCE8E002C5025B2D7CC9349C38513565A",
+    "design/mascot/validation/craft-critic.md": "E0035569A8B792A8835351B8F1635FEFD87BB30BE50BCA189558EE0CBCB424B3",
+    "design/mascot/validation/validate_candidate.py": "6F723FAA375922D0D3247BC25B54F3B28E5D78F1693F6D2992929E31CAF87BF4",
+    "design/mascot/validation/create_comparison_board.py": "6F9D3267323DA55A67D8767A28E4077397D878F12950FAB199D9ABF300DF37F4",
+    "design/mascot/validation/frozen-style-bible-r44.md": "0953F4A9E1C08BD2B82D144F52A07D5D1DAE7615A54839F54E793E0728971667",
+    "SKYVOICE_DESIGN_SYSTEM.md": "E2095C0242B76A57E67997F651697D0ABE28DBAEFB508D5141B2341B6226C555",
+    "bar.md": "98EF734B8B8B42AAA329DC2C96CA0BBADFB190862804F87E6292D6DD90394AA2",
+    "design/mascot/prompts/lead-mascot-sheet-r44.md": "B197959490EE4D4B2F4713D84168C4CA9C6B2975261D9A458DD9EBF8B2E4EF31",
+    "design/mascot/benchmark/duo-official-widget-system-2023.png": "0BD9B9FF8D8EF77C8BB7EFB9CBD1014531EF002398D6D673B532FB9C2FD95CE5"
+  },
+  "changeControl": "Any change invalidates this freeze for Round 44 and requires a future-round decision record."
+}

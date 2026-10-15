@@ -6,14 +6,51 @@ Started: 2026-10-13
 
 | Piece | Status | Round | Brief critic | System critic | Craft critic |
 |---|---|---:|---|---|---|
-| 1. Style bible + lead mascot | Building | 43 | FAIL | FAIL | FAIL |
-| 2. Supporting cast + pose system | Pending | 0 | Pending | Pending | Pending |
+| 1. Style bible + lead mascot | **Complete** | 44 | **PASS** | **PASS** | **PASS** |
+| 2. Supporting cast + pose system | **In progress** | 2 | **PASS** | **PASS** | **FAIL** |
 | 3. Website artwork + integration | Pending | 0 | Pending | Pending | Pending |
-| 4. Motion loops + final QA | Blocked: Higgsfield has 0 credits | 0 | Pending | Pending | Pending |
+| 4. Motion loops + final QA | Blocked: new Higgsfield account session is not yet bound to this chat | 0 | Pending | Pending | Pending |
 
-Completed pieces: 0 / 4
+Completed pieces: 1 / 4
+
+## Round 44 completion — 2026-10-15
+
+- Round 43 was revalidated against the corrected frozen pack: Brief PASS, System FAIL, Craft FAIL.
+- Round 44 preserved the Signal Navigator architecture and corrected only measured rendering, geometry, and acting failures.
+- Revision 1 passed deterministic technical and palette checks but retained a Craft acting gap.
+- Revision 2 improved whole-character action and emotional clarity without changing the frozen validation criteria.
+- Fresh-context Brief critic: PASS.
+- Fresh-context System critic: PASS.
+- Fresh-context Craft critic: PASS; Aira selected as stronger for this specific adult IELTS brief.
+- Overall: **PASS / PASS / PASS**.
+- Validated master: `apps/web/public/mascot/lead-mascot-sheet.png`.
+- Master SHA-256: `B136C4B028581DA512D655DB69D3FE5F38909F90B7F2EA2C8067AA3AC791412B`.
+- Full evidence: `design/mascot/validation/results/`.
+- Production checks: lint PASS; typecheck PASS; Vitest PASS (3/3); optimized Next.js build PASS.
+- The frontend does not currently reference the mascot; integration remains Piece 3.
+- The public SVG is a legacy unused human rig, not a Round 44 vector asset.
+- Piece 2 may begin separately. Pieces 3–4 remain pending/blocked as recorded below.
+
+## Root-cause audit — 2026-10-15 (historical checkpoint)
+
+- At this checkpoint, creative generation was stopped and Round 44 had not yet started. The recovery was subsequently completed above.
+- Full report: `design/mascot/piece-1-root-cause-analysis.md`.
+- Audit contact sheet: `design/mascot/audit-contact-sheet-r1-r43.png`.
+- Round 42 was the last pre-audit round with a complete recorded critic set: FAIL / FAIL / FAIL.
+- Round 43 originally had no critic evidence; it was later revalidated with the frozen pack as PASS / FAIL / FAIL.
+- Confirmed process root causes: Brief critic role contamination; missing fixed Craft reference and blind comparison; mutable/contradictory source of truth; overly broad Piece 1 scope; concept replacement instead of bounded correction; technical QA conflated with design validation; scope-inapplicable Craft mechanisms; unresolved design-system decisions; incomplete evidence retention.
+- The audit's recommended recovery was executed without changing the frozen criteria; see the Round 44 completion record above.
 
 ## Gap history
+
+- Piece 2, Round 1 — Brief PASS: four functional roles, three states, Aira hierarchy, and 48 px usability are present.
+- Piece 2, Round 1 — System FAIL: Reading and Writing abandon the distinctive broken-orbit/module architecture and read as generic file icons.
+- Piece 2, Round 1 — Craft FAIL: state changes rely on rays, sparkles, and small tilts rather than materially different signal behavior; the reference remains stronger in authored state variation and finish.
+- Round 2 builder gap: make all four companions one coherent Aira-derived signal family and express Idle, Active, and Success through visible carrier deformation, direction, and release—not decorative marks alone.
+- Piece 2, Round 2 — Brief PASS: roles, state grammar, Aira hierarchy, and 48 px usability are functionally clear.
+- Piece 2, Round 2 — System PASS: all four roles now share the Aira-derived broken-orbit/module family with correct palette, rendering, tone, transparency, and originality.
+- Piece 2, Round 2 — Craft FAIL: the common circular outer carrier makes identity depend on tiny center pictograms, while Active/Success still depend too much on peripheral rays and sparkles at 48 px.
+- Round 3 builder gap: give each skill a distinct outer carrier silhouette and make state changes reshape that silhouette so both identity and state read instantly at 48 px.
 
 - Piece 1, Round 1 — Brief FAIL: generic audio-wave form lacks an unmistakable adult IELTS-preparation cue.
 - Piece 1, Round 1 — System FAIL: bean-like proportions, mitten hands, and cutesy expressions feel too childish for adult learners.

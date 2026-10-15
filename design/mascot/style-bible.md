@@ -4,7 +4,7 @@
 **Identity:** Premium adult coaching guide built from the Sky Voice broken-orbit and speech-signal language  
 **Canonical source:** `apps/web/public/mascot/lead-mascot-sheet.png`  
 **Tone:** Intelligent, composed, warm, observant, encouraging, energetic  
-**Revision:** Round 42 — refined production Signal Navigator system
+**Revision:** Round 44 validated production system — PASS / PASS / PASS
 
 ## 1. Identity
 
@@ -78,9 +78,9 @@ Facial changes occur only through brows, lids, pupil direction, and mouth. The f
 | Warm brown family | source-rendered | Eyes, brows, mouth |
 | White | `#FFFFFF` | Open negative space and label chips |
 
-- Preserve the clean solid-plane illustration from the Round 42 built-in image-generation source.
-- Do not posterize, vectorize, repaint, sharpen aggressively, or add a sticker outline.
-- Do not add gradients. Volume comes only from the locked navy/cobalt/orange planes already present in the source artwork.
+- Preserve the Round 43 Signal Navigator architecture and landmarks, not its glossy pixel rendering.
+- Render rounded flat 2D artwork with consistent confident navy contour lines and deliberately separated solid planes.
+- Use no gradient, glossy highlight, soft volumetric shading, posterization band, sticker rim, or aggressive sharpening. Volume comes only from the locked navy/cobalt/orange planes and clean overlap.
 - No atmospheric background, cast shadow, glow, haze, or texture overlay.
 - Transparent extraction must preserve cream foreground forms while keeping the orbit gaps open and edges free of white matte.
 
@@ -98,13 +98,13 @@ Facial changes occur only through brows, lids, pupil direction, and mouth. The f
 
 ## 10. Production and QA
 
-- Master: `apps/web/public/mascot/lead-mascot-sheet.png`, 1536 × 1024 RGBA.
-- Built-in image-generation source: `design/mascot/rounds/lead-mascot-sheet-r42-imagegen-white.png`.
-- Extracted raw: `design/mascot/rounds/lead-mascot-sheet-r42-raw.png`.
-- Archive: `design/mascot/rounds/lead-mascot-sheet-r42.png`.
-- QA: `lead-mascot-sheet-r42-white-qa.png`, `-black-qa.png`, `-checker-qa.png`, `-silhouette-qa.png`, and `-96px-qa.png`.
-- Processor: `design/mascot/process_r42.py`.
-- Preserve Round 41 and all earlier assets unchanged.
+- Validated master: `apps/web/public/mascot/lead-mascot-sheet.png`, 1536 × 1024 RGBA; SHA-256 `B136C4B028581DA512D655DB69D3FE5F38909F90B7F2EA2C8067AA3AC791412B`.
+- Generated source: `design/mascot/rounds/lead-mascot-sheet-r44-imagegen-white.png`.
+- Archive: `design/mascot/rounds/lead-mascot-sheet-r44.png`.
+- QA: `lead-mascot-sheet-r44-white-qa.png`, `-black-qa.png`, `-checker-qa.png`, `-silhouette-qa.png`, and `-96px-qa.png`.
+- Processor: `design/mascot/process_r44.py`.
+- Validation evidence: `design/mascot/validation/results/`.
+- Preserve Round 43 and all earlier assets unchanged.
 
 ## 11. Acceptance checks
 

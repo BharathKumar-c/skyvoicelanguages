@@ -1,0 +1,43 @@
+{
+  "candidate": "C:\\Bharath\\my-projects\\skyvoicelanguages\\design\\mascot\\rounds\\lead-mascot-sheet-r43.png",
+  "round": "r43",
+  "sha256": "1D54A8811BDFD8ED334B77BDB2CC3F4F24BC02EEAF89DA9E9F3CE210AE1CB1DE",
+  "tool_versions": {
+    "python": "3.13.3",
+    "pillow": "11.3.0",
+    "numpy": "2.3.2"
+  },
+  "image": {
+    "mode": "RGBA",
+    "size": [
+      1536,
+      1024
+    ],
+    "transparent_fraction": 0.704628,
+    "transparent_rgb_contamination_fraction": 0.0,
+    "opaque_palette_coverage_within_rgb_distance_18": 0.298846,
+    "unique_fully_opaque_rgb_colors": 56024,
+    "outer_edge_clear": true
+  },
+  "proofs": {
+    "white-qa": true,
+    "black-qa": true,
+    "checker-qa": true,
+    "silhouette-qa": true,
+    "96px-qa": true
+  },
+  "checks": {
+    "canvas_1536x1024": true,
+    "source_mode_rgba": true,
+    "transparent_area_at_least_25_percent": true,
+    "transparent_rgb_contamination_at_most_0_1_percent": true,
+    "outer_edge_clear": true,
+    "all_required_proofs_exist": true
+  },
+  "technical_gate": "PASS",
+  "system_palette_evidence": "FAIL",
+  "notes": [
+    "Palette evidence supports the System critic but cannot prove visual flatness or outline consistency.",
+    "This tool does not issue Brief, System, or Craft verdicts."
+  ]
+}
