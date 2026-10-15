@@ -13,6 +13,7 @@ export default function NotFound() {
           aria-hidden="true"
           className="utility-illustration"
           height={360}
+          loading="lazy"
           src="/assets/generated/illustrations/route-lost-404.svg"
           width={560}
         />

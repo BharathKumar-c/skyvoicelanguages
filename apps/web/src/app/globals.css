@@ -27,7 +27,8 @@
   --radius-md: 16px;
   --radius-lg: 22px;
   --radius-xl: 30px;
-  --shell: 1200px;
+  --shell: 1360px;
+  --header-h: 80px;
 }
 
 * {
@@ -137,7 +138,7 @@ p {
 .site-shell {
   margin-inline: auto;
   max-width: var(--shell);
-  padding-inline: 24px;
+  padding-inline: clamp(24px, 2.6vw, 40px);
   width: 100%;
 }
 
@@ -529,146 +530,21 @@ p {
 }
 
 /* VSL preview */
-.vsl-card {
-  background:
-    radial-gradient(circle at 82% 26%, rgba(235, 157, 19, 0.48), transparent 22%),
-    linear-gradient(135deg, var(--brand-navy-deep), var(--brand-blue));
-  border: 0;
-  border-radius: 24px;
-  box-shadow: 0 7px 0 #071a39, var(--shadow-md);
-  color: var(--white);
-  cursor: pointer;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 160px;
-  min-height: 230px;
-  overflow: hidden;
-  padding: 28px;
-  position: relative;
-  text-align: left;
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
-  width: 100%;
-}
 
-.vsl-card:hover {
-  box-shadow: 0 10px 0 #071a39, var(--shadow-lg);
-  transform: translateY(-3px);
-}
 
-.vsl-card:active {
-  box-shadow: 0 3px 0 #071a39, var(--shadow-sm);
-  transform: translateY(4px);
-}
 
-.vsl-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 32px 32px;
-  inset: 0;
-  position: absolute;
-}
 
-.vsl-orbit {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 50%;
-  position: absolute;
-}
 
-.vsl-orbit-one {
-  height: 210px;
-  right: -40px;
-  top: -70px;
-  width: 210px;
-}
 
-.vsl-orbit-two {
-  bottom: -120px;
-  height: 250px;
-  right: 80px;
-  width: 250px;
-}
 
-.vsl-copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-}
 
-.vsl-kicker {
-  color: #ffd582;
-  font-size: 0.75rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-}
 
-.vsl-copy strong {
-  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
-  letter-spacing: -0.025em;
-  line-height: 1.22;
-  max-width: 440px;
-}
 
-.vsl-action {
-  align-items: center;
-  color: #dce8ff;
-  display: flex;
-  font-size: 0.84rem;
-  font-weight: 750;
-  gap: 10px;
-  margin-top: 22px;
-}
 
-.vsl-play {
-  align-items: center;
-  background: var(--brand-orange);
-  border-radius: 50%;
-  color: var(--brand-navy);
-  display: inline-flex;
-  height: 40px;
-  justify-content: center;
-  width: 40px;
-}
 
-.vsl-score {
-  align-items: center;
-  align-self: center;
-  background: rgba(255, 255, 255, 0.94);
-  border: 4px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  color: var(--brand-navy);
-  display: flex;
-  flex-direction: column;
-  height: 150px;
-  justify-content: center;
-  position: relative;
-  width: 150px;
-  z-index: 1;
-}
 
-.vsl-score small {
-  color: var(--text-muted);
-  font-size: 0.66rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
 
-.vsl-score b {
-  color: var(--brand-blue);
-  font-size: 2.6rem;
-  line-height: 1.05;
-}
 
-.vsl-score span {
-  font-size: 0.66rem;
-  font-weight: 750;
-}
 
 .dialog-backdrop {
   align-items: center;
@@ -2760,32 +2636,10 @@ p {
     width: 100%;
   }
 
-  .vsl-card {
-    grid-template-columns: 1fr;
-    min-height: 310px;
-    padding: 24px;
-  }
 
-  .vsl-copy {
-    justify-content: flex-start;
-    max-width: 85%;
-  }
 
-  .vsl-score {
-    bottom: 26px;
-    height: 116px;
-    position: absolute;
-    right: 22px;
-    width: 116px;
-  }
 
-  .vsl-score b {
-    font-size: 2.1rem;
-  }
 
-  .vsl-score span {
-    display: none;
-  }
 
   .dialog-card {
     max-height: calc(100svh - 32px);
@@ -3235,14 +3089,7 @@ p {
   z-index: 1;
 }
 
-.assessment-preview-section {
-  background: var(--white);
-  padding-block: 36px 74px;
-}
 
-.assessment-preview-shell {
-  max-width: 900px;
-}
 
 .hero-form-wrap {
   align-self: start;
@@ -3355,9 +3202,7 @@ p {
     scale: 0.78;
   }
 
-  .assessment-preview-section {
-    padding-block: 28px 58px;
-  }
+
 }
 
 @media (max-width: 680px) {
@@ -3469,33 +3314,10 @@ p {
 }
 
 .hero-aira-orbit img,
-.vsl-signal img,
 .thank-you-burst img {
   display: block;
   height: 100%;
   width: 100%;
-}
-
-/* ------ VSL card signal rings ------ */
-.vsl-signal {
-  inset: 0;
-  pointer-events: none;
-  position: absolute;
-}
-
-.vsl-signal img {
-  object-fit: cover;
-  object-position: right center;
-}
-
-@media (hover: hover) {
-  .vsl-play {
-    transition: transform 180ms ease;
-  }
-
-  .vsl-card:hover .vsl-play {
-    transform: scale(1.08);
-  }
 }
 
 /* ------ Modules: orbit field + organic wave edges ------ */
@@ -3761,9 +3583,6 @@ p {
     min-height: 230px;
   }
 
-  .vsl-signal img {
-    object-position: right bottom;
-  }
 
   .proof-float {
     font-size: 0.72rem;
@@ -3812,4 +3631,651 @@ p {
 .field input,
 .field select {
   color: var(--text);
+}
+
+/* ================================================================== */
+/*  LANDING PAGE — premium upgrade (video section, waves, depth)      */
+/* ================================================================== */
+
+/* ------ Interactive waves (landing hero + final CTA only) ------ */
+.interactive-waves {
+  display: block;
+  height: 100%;
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+/* ------ Header: lifts once the page scrolls ------ */
+.site-header {
+  transition:
+    box-shadow 220ms ease,
+    background-color 220ms ease;
+}
+
+.site-header[data-scrolled="true"] {
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 30px rgba(14, 45, 94, 0.08);
+}
+
+/* ------ Hero: headline accent + elevated trust bar ------ */
+.hero-underline {
+  position: relative;
+  white-space: nowrap;
+}
+
+.hero-underline::after {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 16' preserveAspectRatio='none'%3E%3Cpath d='M3 11C70 4 160 2 297 8' stroke='%23000' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  background: var(--brand-orange);
+  bottom: -0.06em;
+  content: "";
+  height: 0.16em;
+  left: 0.25em;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 16' preserveAspectRatio='none'%3E%3Cpath d='M3 11C70 4 160 2 297 8' stroke='%23000' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  position: absolute;
+  right: 0;
+}
+
+.trust-strip {
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 6px 0 #dfe7f2, var(--shadow-md);
+  padding-block: 18px;
+}
+
+/* ------ Service video section ------ */
+.video-section {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(22, 85, 216, 0.07), transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, var(--surface-soft) 100%);
+  overflow-x: clip;
+  padding-block: 72px 104px;
+}
+
+.video-shell {
+  max-width: 1040px;
+}
+
+.video-heading {
+  margin-bottom: 40px;
+}
+
+.video-stage {
+  position: relative;
+}
+
+.video-stage::before {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(22, 85, 216, 0.22), transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(235, 157, 19, 0.16), transparent 55%);
+  content: "";
+  filter: blur(24px);
+  inset: 6% -4% -8%;
+  position: absolute;
+  z-index: -1;
+}
+
+.service-video {
+  aspect-ratio: 16 / 9;
+  background: var(--brand-navy-deep);
+  border-radius: 28px;
+  box-shadow: 0 10px 0 #071a39, var(--shadow-lg);
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.service-video-media {
+  background: var(--brand-navy-deep);
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: contain;
+  position: absolute;
+  width: 100%;
+}
+
+.service-video-preview {
+  background: none;
+  border: 0;
+  border-radius: inherit;
+  color: var(--white);
+  cursor: pointer;
+  display: block;
+  height: 100%;
+  inset: 0;
+  padding: 0;
+  position: absolute;
+  text-align: left;
+  width: 100%;
+  z-index: 1;
+}
+
+.service-video-preview:focus-visible {
+  outline: 3px solid var(--brand-orange);
+  outline-offset: -8px;
+}
+
+.service-video-poster {
+  filter: blur(6px) saturate(1.05);
+  inset: -2%;
+  position: absolute;
+  transform: scale(1.05);
+  transition:
+    filter 360ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-video-poster img {
+  object-fit: cover;
+}
+
+.service-video-scrim {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(7, 29, 63, 0) 25%, rgba(7, 29, 63, 0.4) 100%),
+    linear-gradient(180deg, rgba(7, 29, 63, 0.05) 40%, rgba(7, 29, 63, 0.72) 100%);
+  inset: 0;
+  position: absolute;
+}
+
+.service-video-play {
+  align-items: center;
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow:
+    0 6px 0 rgba(7, 26, 57, 0.55),
+    0 22px 50px rgba(7, 29, 63, 0.45);
+  color: var(--brand-blue);
+  display: flex;
+  height: clamp(68px, 9vw, 96px);
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms ease;
+  translate: -50% -50%;
+  width: clamp(68px, 9vw, 96px);
+}
+
+.service-video-play svg {
+  height: 36%;
+  translate: 6% 0;
+  width: 36%;
+}
+
+@keyframes service-video-pulse {
+  0% {
+    opacity: 0.75;
+    transform: scale(0.92);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+.service-video-play-ring {
+  animation: service-video-pulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  inset: 0;
+  position: absolute;
+}
+
+.service-video-meta {
+  bottom: clamp(16px, 3vw, 30px);
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  left: clamp(16px, 3vw, 32px);
+  position: absolute;
+  right: clamp(16px, 3vw, 32px);
+}
+
+.service-video-kicker {
+  align-items: center;
+  background: var(--brand-orange);
+  border-radius: 999px;
+  color: var(--brand-navy);
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 900;
+  gap: 6px;
+  letter-spacing: 0.06em;
+  padding: 6px 12px;
+  text-transform: uppercase;
+}
+
+.service-video-kicker svg {
+  height: 13px;
+  width: 13px;
+}
+
+.service-video-meta strong {
+  font-size: clamp(1.05rem, 2.2vw, 1.6rem);
+  line-height: 1.2;
+  max-width: 560px;
+  text-shadow: 0 2px 18px rgba(7, 29, 63, 0.5);
+}
+
+@media (hover: hover) {
+  .service-video-preview:hover .service-video-poster {
+    filter: blur(3px) saturate(1.1);
+    transform: scale(1.03);
+  }
+
+  .service-video-preview:hover .service-video-play {
+    box-shadow:
+      0 8px 0 rgba(7, 26, 57, 0.55),
+      0 26px 60px rgba(7, 29, 63, 0.5);
+    transform: scale(1.07);
+  }
+}
+
+.service-video-preview:active .service-video-play {
+  transform: scale(0.96);
+}
+
+.video-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 34px;
+}
+
+.video-points span {
+  align-items: center;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  color: var(--brand-navy);
+  display: inline-flex;
+  font-size: 0.88rem;
+  font-weight: 800;
+  gap: 8px;
+  padding: 9px 16px;
+}
+
+.video-points svg {
+  color: var(--brand-blue);
+  height: 18px;
+  width: 18px;
+}
+
+@media (max-width: 680px) {
+  .video-section {
+    padding-block: 48px 72px;
+  }
+
+  .video-heading {
+    margin-bottom: 28px;
+  }
+
+  .service-video {
+    border-radius: 20px;
+    box-shadow: 0 7px 0 #071a39, var(--shadow-md);
+  }
+
+  .service-video-kicker {
+    font-size: 0.64rem;
+    padding: 5px 10px;
+  }
+
+  .video-points {
+    align-items: stretch;
+    flex-direction: column;
+    margin-top: 26px;
+  }
+
+  .video-points span {
+    border-radius: 16px;
+  }
+
+  .trust-strip {
+    padding-block: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .service-video-meta strong {
+    display: none;
+  }
+}
+
+/* ================================================================== */
+/*  HERO — viewport-fit layout, video preview above a compact form    */
+/*  Primary hero content (copy, both CTAs, Aira, video, form) fits    */
+/*  the first viewport on desktop/laptop; lower sections scroll.      */
+/* ================================================================== */
+
+.hero-right {
+  display: grid;
+  gap: 16px;
+}
+
+/* ------ Compact hero video (reuses ServiceVideo) ------ */
+.service-video-compact {
+  border-radius: 20px;
+  box-shadow: 0 6px 0 #071a39, var(--shadow-md);
+}
+
+.service-video-compact .service-video-play {
+  height: 58px;
+  width: 58px;
+}
+
+.service-video-compact .service-video-play-ring {
+  border-width: 1.5px;
+}
+
+.service-video-compact .service-video-meta {
+  bottom: 12px;
+  gap: 6px;
+  left: 14px;
+  right: 14px;
+}
+
+.service-video-compact .service-video-kicker {
+  font-size: 0.6rem;
+  padding: 4px 9px;
+}
+
+.service-video-compact .service-video-meta strong {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.service-video-expand {
+  align-items: center;
+  background: rgba(7, 29, 63, 0.72);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+  width: 40px;
+  z-index: 2;
+}
+
+.service-video-expand svg {
+  height: 18px;
+  width: 18px;
+}
+
+.service-video-expand:hover {
+  background: var(--brand-blue);
+}
+
+.service-video-expand:focus-visible {
+  outline: 3px solid var(--brand-orange);
+  outline-offset: 2px;
+}
+
+/* ------ Desktop + laptop: three-part hero sized to the viewport ------ */
+@media (min-width: 921px) {
+  .hero {
+    --aira-scale-w: 1;
+    --aira-scale-h: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100dvh - var(--header-h));
+    padding-block: clamp(14px, 2.6vh, 36px) clamp(18px, 3vh, 40px);
+  }
+
+  .hero-grid {
+    align-items: center;
+    gap: clamp(20px, 2.6vw, 44px);
+    grid-template-columns: minmax(0, 1fr) clamp(320px, 24vw, 410px);
+  }
+
+  .hero-left {
+    gap: clamp(8px, 1.4vw, 24px);
+    grid-template-columns: minmax(0, 1fr) clamp(220px, 19vw, 340px);
+  }
+
+  .hero-content {
+    padding-top: 0;
+  }
+
+  .hero-eyebrow-row {
+    margin-bottom: clamp(4px, 1vh, 10px);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.3rem, min(4.3vw, 7.4vh), 4.3rem);
+    margin-bottom: clamp(10px, 2vh, 20px);
+  }
+
+  .hero-lede {
+    font-size: clamp(0.98rem, min(1.3vw, 2.2vh), 1.18rem);
+    line-height: 1.6;
+    margin-bottom: clamp(14px, 2.6vh, 26px);
+  }
+
+  .hero-reassurance {
+    margin: clamp(10px, 1.8vh, 20px) 0 0;
+  }
+
+  /* Aira keeps her validated art; the stage simply scales with the column. */
+  .hero-aira-stage {
+    min-height: calc(470px * min(var(--aira-scale-w), var(--aira-scale-h)));
+  }
+
+  .hero-aira-stage > * {
+    scale: min(var(--aira-scale-w), var(--aira-scale-h));
+  }
+
+  .hero-right {
+    align-content: center;
+    gap: clamp(10px, 1.8vh, 18px);
+  }
+
+  /* The "Start here" accent has no clear space between Aira and the form in
+     this layout (it collided with her hand or the form badge); the form now
+     sits directly under the video, which already leads the eye to it. */
+  .hero-form-accent {
+    display: none;
+  }
+
+  /* Compact assessment form: same fields, labels and behaviour, less height. */
+  .hero .lead-form {
+    border-radius: 22px;
+    box-shadow: 0 6px 0 #d9e4f2, var(--shadow-md);
+    padding: clamp(14px, 2vh, 22px) clamp(16px, 1.5vw, 24px);
+  }
+
+  .hero .lead-form::before {
+    left: 24px;
+    right: 24px;
+  }
+
+  .hero .form-heading {
+    margin-bottom: clamp(8px, 1.4vh, 14px);
+  }
+
+  .hero .form-heading h2 {
+    font-size: clamp(1.15rem, min(1.5vw, 2.8vh), 1.5rem);
+    margin: 6px 0 2px;
+  }
+
+  .hero .form-heading p {
+    font-size: 0.8rem;
+  }
+
+  .hero .form-badge {
+    font-size: 0.66rem;
+    padding: 4px 9px;
+  }
+
+  .hero .form-grid {
+    gap: clamp(6px, 1.1vh, 12px) 10px;
+  }
+
+  .hero .field {
+    gap: 3px;
+  }
+
+  .hero .field label {
+    font-size: 0.74rem;
+  }
+
+  .hero .field input,
+  .hero .field select {
+    border-radius: 12px;
+    font-size: 0.92rem;
+    min-height: 44px;
+    padding: 8px 12px;
+  }
+
+  .hero .field select {
+    background-position:
+      calc(100% - 17px) 18px,
+      calc(100% - 12px) 18px;
+    padding-right: 32px;
+  }
+
+  .hero .form-submit {
+    margin-top: clamp(10px, 1.4vh, 14px);
+    min-height: 48px;
+  }
+
+  .hero .form-privacy {
+    font-size: 0.68rem;
+    margin-top: 8px;
+  }
+
+  .trust-strip {
+    margin-top: clamp(20px, 4vh, 48px);
+  }
+}
+
+@media (min-width: 921px) and (max-width: 1599px) {
+  .hero {
+    --aira-scale-w: 0.86;
+  }
+}
+
+@media (min-width: 921px) and (max-width: 1366px) {
+  .hero {
+    --aira-scale-w: 0.78;
+  }
+}
+
+@media (min-width: 921px) and (max-width: 1180px) {
+  .hero {
+    --aira-scale-w: 0.64;
+  }
+}
+
+/* Shorter laptop screens: slimmer header, tighter art, no form subtitle. */
+@media (min-width: 921px) and (max-height: 860px) {
+  .hero {
+    --aira-scale-h: 0.8;
+  }
+}
+
+@media (min-width: 921px) and (max-height: 820px) {
+  :root {
+    --header-h: 68px;
+  }
+
+  .header-inner {
+    min-height: 68px;
+  }
+
+  .hero .form-heading p {
+    display: none;
+  }
+}
+
+@media (min-width: 921px) and (max-height: 740px) {
+  .hero {
+    --aira-scale-h: 0.7;
+  }
+
+  .hero .form-badge {
+    display: none;
+  }
+}
+
+/* Very short laptop viewports (browser chrome on 768 px screens):
+   a wider preview strip buys back height; playback returns to 16:9. */
+@media (min-width: 921px) and (max-height: 690px) {
+  .hero {
+    padding-block: 10px 14px;
+  }
+
+  .service-video-compact {
+    aspect-ratio: 2 / 1;
+  }
+
+  .service-video-compact[data-state="playing"] {
+    aspect-ratio: 16 / 9;
+  }
+
+  .hero-right {
+    gap: 10px;
+  }
+
+  .hero .lead-form {
+    padding-block: 12px;
+  }
+
+  .hero .form-privacy {
+    margin-top: 6px;
+  }
+}
+
+@media (min-width: 921px) and (max-height: 620px) {
+  .service-video-compact {
+    aspect-ratio: 21 / 9;
+  }
+
+  .hero .form-grid {
+    gap: 5px 10px;
+  }
+
+  .hero .form-heading {
+    margin-bottom: 6px;
+  }
+}
+
+/* ------ Tablet + mobile: stacked, video then form ------ */
+@media (max-width: 920px) {
+  .hero-right {
+    margin-inline: auto;
+    max-width: 660px;
+    width: 100%;
+  }
+}
+
+/* Tablet: video beside the form, so neither pushes the other off-screen. */
+@media (min-width: 681px) and (max-width: 920px) {
+  .hero-right {
+    align-items: start;
+    gap: 16px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    max-width: none;
+  }
+
+  .hero-right .hero-form-wrap {
+    max-width: none;
+  }
 }

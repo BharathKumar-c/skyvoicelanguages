@@ -1,0 +1,48 @@
+<!doctype html>
+<!--
+  Service-video poster composition (1600×900). Rendered by render_poster.cjs
+  against the running dev server so /assets and /mascot paths resolve.
+  Uses only validated brand art; contains no text, numbers or claims.
+-->
+<html><head><style>
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1600px; height: 900px; overflow: hidden; }
+  .frame { position: relative; width: 1600px; height: 900px; overflow: hidden;
+    background:
+      radial-gradient(circle at 82% 18%, rgba(235,157,19,.30), transparent 26%),
+      radial-gradient(circle at 18% 70%, rgba(22,85,216,.55), transparent 42%),
+      linear-gradient(135deg, #071d3f 0%, #0e2d5e 45%, #1655d8 100%); }
+  .field { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .9; }
+  .glow { position: absolute; left: 160px; top: 190px; width: 500px; height: 500px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(64,124,255,.55) 0%, rgba(22,85,216,.25) 45%, transparent 70%); }
+  .aira { position: absolute; left: 218px; top: 210px; width: 384px; height: 456px; }
+  .shadow { position: absolute; left: 300px; top: 676px; width: 220px; filter: brightness(0) invert(1); opacity: .18; }
+  .board { position: absolute; left: 790px; top: 190px; width: 650px; height: 500px; background: #fff;
+    border-radius: 34px; border: 4px solid #0e2d5e; box-shadow: 0 16px 0 rgba(4,16,40,.45), 0 40px 90px rgba(4,16,40,.45); padding: 44px 48px; }
+  .bar-title { height: 18px; width: 260px; border-radius: 9px; background: #0e2d5e; }
+  .bar-sub { height: 12px; width: 380px; border-radius: 6px; background: #d7e1ef; margin-top: 16px; }
+  .rows { margin-top: 36px; display: grid; gap: 20px; }
+  .row { display: grid; grid-template-columns: 72px 1fr; align-items: center; gap: 22px; }
+  .row img { width: 72px; height: 72px; }
+  .track { height: 18px; border-radius: 9px; background: #edf3ff; border: 2px solid #d7e1ef; overflow: hidden; }
+  .fill { height: 100%; border-radius: 9px; background: #1655d8; }
+  .fill.focus { background: #eb9d13; }
+  .spark { position: absolute; right: -26px; top: -30px; width: 84px; }
+</style></head><body>
+<div class="frame">
+  <img class="field" src="/assets/generated/backgrounds/modules-orbit-field.svg" alt="">
+  <div class="glow"></div>
+  <img class="shadow" src="/assets/generated/mascots/aira-ground-shadow.svg" alt="">
+  <img class="aira" src="/mascot/canonical/aira-speaking.png" alt="">
+  <div class="board">
+    <div class="bar-title"></div><div class="bar-sub"></div>
+    <div class="rows">
+      <div class="row"><img src="/mascot/skill-signals/listening-active.png" alt=""><div class="track"><div class="fill" style="width:72%"></div></div></div>
+      <div class="row"><img src="/mascot/skill-signals/reading-active.png" alt=""><div class="track"><div class="fill" style="width:64%"></div></div></div>
+      <div class="row"><img src="/mascot/skill-signals/writing-active.png" alt=""><div class="track"><div class="fill focus" style="width:41%"></div></div></div>
+      <div class="row"><img src="/mascot/skill-signals/speaking-active.png" alt=""><div class="track"><div class="fill" style="width:58%"></div></div></div>
+    </div>
+    <img class="spark" src="/assets/generated/mascots/aira-spark.svg" alt="">
+  </div>
+</div>
+</body></html>

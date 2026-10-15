@@ -15,6 +15,7 @@ import {
   MousePointerClick,
   Plane,
   Route,
+  SearchCheck,
   ShieldCheck,
   Sparkles,
   Star,
@@ -32,10 +33,12 @@ import type { SkillSignalModule } from "@/components/mascot";
 import { BrandLogo } from "@/components/brand-logo";
 import { DrawLine } from "@/components/draw-line";
 import { FaqList } from "@/components/faq-list";
+import { InteractiveWaves } from "@/components/interactive-waves";
 import { LeadForm } from "@/components/lead-form";
 import { Reveal } from "@/components/reveal";
 import { SiteHeader } from "@/components/site-header";
-import { VslPreview } from "@/components/vsl-preview";
+import { ServiceVideo } from "@/components/service-video";
+import { heroVideo } from "@/config/media";
 import { siteConfig } from "@/config/site";
 import {
   audiences,
@@ -111,6 +114,7 @@ export default function FreeIeltsAssessmentPage() {
       <SiteHeader />
       <main id="main-content">
         <section className="hero section" id="top">
+          <InteractiveWaves band={0.56} bandCompact={0.3} fadeLeft />
           <div className="site-shell hero-grid">
             <div className="hero-left">
               <div className="hero-content">
@@ -124,7 +128,10 @@ export default function FreeIeltsAssessmentPage() {
                   </div>
                   <h1>
                     Stuck at Band 5 or 6?
-                    <span> Find the exact gap.</span>
+                    <span>
+                      {" "}
+                      Find the <span className="hero-underline">exact gap.</span>
+                    </span>
                   </h1>
                   <p className="hero-lede">
                     Stop preparing blindly. Start with a free assessment that maps your
@@ -167,13 +174,18 @@ export default function FreeIeltsAssessmentPage() {
               </Reveal>
             </div>
 
-            <Reveal className="hero-form-wrap" delay={0.12}>
-              <div className="hero-form-accent" aria-hidden="true">
-                <span>Start here</span>
-                <ArrowRight />
-              </div>
-              <LeadForm idPrefix="assessment" />
-            </Reveal>
+            <div className="hero-right">
+              <Reveal className="hero-video" delay={0.1}>
+                <ServiceVideo variant="compact" video={heroVideo} />
+              </Reveal>
+              <Reveal className="hero-form-wrap" delay={0.14}>
+                <div className="hero-form-accent" aria-hidden="true">
+                  <span>Start here</span>
+                  <ArrowRight />
+                </div>
+                <LeadForm idPrefix="assessment" />
+              </Reveal>
+            </div>
           </div>
 
           <div className="site-shell trust-strip" aria-label="Course highlights">
@@ -192,10 +204,29 @@ export default function FreeIeltsAssessmentPage() {
           </div>
         </section>
 
-        <section className="assessment-preview-section" aria-label="Assessment preview">
-          <div className="site-shell assessment-preview-shell">
-            <Reveal>
-              <VslPreview />
+        <section aria-labelledby="video-title" className="section video-section" id="video">
+          <div className="site-shell video-shell">
+            <Reveal className="section-heading centered-heading video-heading">
+              <span className="eyebrow">Meet Sky Voice</span>
+              <h2 id="video-title">See how one assessment turns into a clear plan.</h2>
+              <p>
+                A short introduction to the free assessment, the personalised roadmap,
+                and how coaching works week to week.
+              </p>
+            </Reveal>
+            <Reveal className="video-stage" delay={0.06}>
+              <ServiceVideo />
+            </Reveal>
+            <Reveal className="video-points" delay={0.1}>
+              <span>
+                <SearchCheck aria-hidden="true" /> Find your current level
+              </span>
+              <span>
+                <Target aria-hidden="true" /> Spot the module holding you back
+              </span>
+              <span>
+                <Route aria-hidden="true" /> Leave with a written roadmap
+              </span>
             </Reveal>
           </div>
         </section>
@@ -680,6 +711,7 @@ export default function FreeIeltsAssessmentPage() {
         </section>
 
         <section className="section final-cta" id="final-assessment">
+          <InteractiveWaves band={0.84} tone="dark" />
           <div aria-hidden="true" className="final-orbit final-orbit-one" />
           <div aria-hidden="true" className="final-orbit final-orbit-two" />
           <div className="site-shell final-grid">

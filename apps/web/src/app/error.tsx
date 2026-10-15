@@ -12,6 +12,7 @@ export default function ErrorPage({ reset }: { reset: () => void }) {
           aria-hidden="true"
           className="utility-illustration utility-illustration-compact"
           height={220}
+          loading="lazy"
           src="/assets/generated/illustrations/signal-interrupted-error.svg"
           width={320}
         />

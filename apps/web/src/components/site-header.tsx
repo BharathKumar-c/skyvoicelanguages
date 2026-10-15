@@ -10,6 +10,14 @@ import { BrandLogo } from "./brand-logo";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 8);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
 
   useEffect(() => {
     document.body.dataset.menuOpen = open ? "true" : "false";
@@ -19,7 +27,7 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header className="site-header">
+    <header className="site-header" data-scrolled={scrolled}>
       <div className="site-shell header-inner">
         <Link aria-label="Sky Voice Languages home" className="header-brand" href="/">
           <BrandLogo />

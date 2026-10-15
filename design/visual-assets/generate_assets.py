@@ -223,11 +223,7 @@ def section_wave_edge() -> str:
 def final_cta_signal_waves() -> str:
     """White line-work over the navy→blue final CTA gradient."""
     body = []
-    for i, (amp, op, ph) in enumerate([(26, 0.10, 0), (18, 0.08, 1.2), (34, 0.06, 2.4)]):
-        body.append(
-            f'<path d="{sine(-20, 1460, 560 + i * 26, amp, 520 + i * 60, ph)}" stroke="{WHITE}" '
-            f'stroke-opacity="{op}" stroke-width="2" stroke-linecap="round"/>'
-        )
+    # Lower sine waves are drawn live by components/interactive-waves.tsx.
     body.append(
         f'<path d="{signal_pulse(-20, 1460, 120, 60, 46, 1180, 130)}" stroke="{WHITE}" '
         'stroke-opacity=".12" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/>'

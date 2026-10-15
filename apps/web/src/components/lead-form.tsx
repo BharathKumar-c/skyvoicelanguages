@@ -208,8 +208,10 @@ export function LeadForm({ idPrefix, compact = false }: LeadFormProps) {
 
       <p className="form-privacy">
         <ShieldCheck aria-hidden="true" />
-        Your details are used only to arrange the assessment. Read our{" "}
-        <Link href="/privacy">privacy notice</Link>.
+        <span>
+          Your details are used only to arrange the assessment. Read our{" "}
+          <Link href="/privacy">privacy notice</Link>.
+        </span>
       </p>
     </form>
   );

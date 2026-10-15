@@ -11,6 +11,11 @@
 > - Line draws use `apps/web/src/components/draw-line.tsx`, which observes the **parent**. A fully clip-path-ed element never reports as intersecting, so `whileInView` on the line itself never fired.
 > - Card hover lifts use the CSS `translate` property. `Reveal` (Motion) writes an inline `transform` that silently overrode the existing `.gap-card` and `.audience-card` hover transforms.
 > - All integration CSS is one block at the end of `apps/web/src/app/globals.css` ("GENERATED VISUAL ASSETS — integration").
+>
+> **Landing page upgrade (later pass):**
+> - **Service video:** `#video` section directly below the hero, using `apps/web/src/components/service-video.tsx`. The source is configured in `apps/web/src/config/media.ts` through `NEXT_PUBLIC_SERVICE_VIDEO_SRC` (plus optional `_TYPE` and `_CAPTIONS`), documented in `.env.example`. The poster `public/assets/generated/images/service-video-poster.webp` is rendered from `design/visual-assets/poster/`. Until a source is set, the play control opens the written assessment overview. `components/vsl-preview.tsx` was removed, and `motion-graphics/vsl-signal-backdrop*.svg` is now unused.
+> - **Hero layout:** the hero now fits the first viewport on desktop and laptop. It uses `min-height: calc(100dvh - var(--header-h))` with `clamp()` and `vh`-aware type, and a scaled Aira column (`--aira-scale-w/-h`). `.hero-right` holds a compact `ServiceVideo` (`variant="compact"`, config `heroVideo` / `NEXT_PUBLIC_HERO_VIDEO_SRC`) above a CSS-compacted `LeadForm`. `--shell` is now 1360px with a `clamp(24px, 2.6vw, 40px)` gutter.
+> - **Interactive waves:** `apps/web/src/components/interactive-waves.tsx` (Canvas 2D), mounted only in the landing hero and final CTA. The final-CTA SVG no longer carries static sine lines.
 
 ---
 
