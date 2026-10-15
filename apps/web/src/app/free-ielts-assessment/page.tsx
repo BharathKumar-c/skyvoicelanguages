@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 
+import { AiraContext, AiraModule } from "@/components/mascot";
 import { BrandLogo } from "@/components/brand-logo";
 import { FaqList } from "@/components/faq-list";
 import { LeadForm } from "@/components/lead-form";
@@ -143,6 +144,14 @@ export default function FreeIeltsAssessmentPage() {
 
               <Reveal delay={0.08}>
                 <VslPreview />
+              </Reveal>
+
+              <Reveal className="hero-mascot-wrap" delay={0.16}>
+                <AiraContext
+                  context="hero"
+                  size="xl"
+                  aria-label="Aira, your SkyVoice IELTS guide, welcomes you"
+                />
               </Reveal>
             </div>
 
@@ -296,8 +305,20 @@ export default function FreeIeltsAssessmentPage() {
                   delay={index * 0.05}
                   key={module.name}
                 >
-                  <div className="module-icon">
-                    <module.icon aria-hidden="true" />
+                  <div className="module-icon module-icon-mascot">
+                    <AiraModule
+                      module={
+                        module.name.toLowerCase() as
+                          | "listening"
+                          | "reading"
+                          | "writing"
+                          | "speaking"
+                      }
+                      size="md"
+                      idle="breathe"
+                      sparkPulse={false}
+                      decorative
+                    />
                   </div>
                   <span className="module-kicker">{module.kicker}</span>
                   <h3>{module.name}</h3>

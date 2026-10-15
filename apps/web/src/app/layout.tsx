@@ -43,8 +43,8 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html className={nunito.variable} lang="en">
-      <body>
+    <html className={nunito.variable} lang="en" suppressHydrationWarning>
+      <body suppressHydrationWarning>
         <a className="skip-link" href="#main-content">
           Skip to main content
         </a>

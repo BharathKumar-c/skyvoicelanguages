@@ -1,0 +1,154 @@
+/**
+ * Aira Mascot — CSS Module
+ *
+ * Styles for the mascot component. Uses CSS custom properties
+ * from the global design system for brand consistency.
+ *
+ * All animations respect `prefers-reduced-motion` — the component
+ * disables motion at the React level, and these keyframes serve
+ * as CSS-only fallback.
+ */
+
+/* Root container — sets the bounding box for the mascot */
+.mascotRoot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex-shrink: 0;
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+  will-change: transform;
+  contain: layout style;
+}
+
+/* Each pose layer is absolutely positioned for cross-fade */
+.poseLayer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  will-change: transform, opacity;
+}
+
+/* Extended pose (non-sprite, individual image) */
+.extendedPose {
+  width: 100%;
+  height: 100%;
+}
+
+/* Spark pulse overlay — positioned at top-right of head area */
+.sparkOverlay {
+  position: absolute;
+  top: 2%;
+  right: 18%;
+  width: 12%;
+  height: 9%;
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/*  CSS-only idle animations (fallback / supplementary)               */
+/* ------------------------------------------------------------------ */
+
+@keyframes aira-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes aira-breathe {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.015);
+  }
+}
+
+@keyframes aira-spark-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(0.82);
+  }
+}
+
+@keyframes aira-enter {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  60% {
+    transform: translateY(-4px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes aira-celebrate {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-12px) rotate(-3deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(2deg);
+  }
+  75% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes aira-wave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-8deg);
+  }
+  60% {
+    transform: rotate(10deg);
+  }
+  80% {
+    transform: rotate(-4deg);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  Reduced-motion: disable all animation                             */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .mascotRoot,
+  .poseLayer,
+  .sparkOverlay {
+    animation: none !important;
+    transition: none !important;
+    will-change: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  GPU acceleration hint for smooth compositing                      */
+/* ------------------------------------------------------------------ */
+
+.mascotRoot {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}

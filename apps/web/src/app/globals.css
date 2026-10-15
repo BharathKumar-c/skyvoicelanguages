@@ -3064,3 +3064,192 @@ p {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ================================================================== */
+/*  Aira Mascot — Global animation utilities                          */
+/*                                                                    */
+/*  These classes work alongside the CSS module in                    */
+/*  components/mascot/aira-mascot.module.css.                        */
+/*  They can be used without the React component for simple           */
+/*  CSS-only mascot placements (e.g. static hero illustrations).     */
+/* ================================================================== */
+
+/* ------ Idle float ------ */
+.aira-float {
+  animation: aira-float 2.6s ease-in-out infinite;
+}
+
+/* ------ Idle breathe ------ */
+.aira-breathe {
+  animation: aira-breathe 3.2s ease-in-out infinite;
+}
+
+/* ------ Spark pulse ------ */
+.aira-spark {
+  animation: aira-spark-pulse 1.9s ease-in-out infinite;
+}
+
+/* ------ Entrance ------ */
+.aira-enter {
+  animation: aira-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ------ Celebration bounce ------ */
+.aira-celebrate {
+  animation: aira-celebrate 0.45s ease-in-out 3;
+}
+
+/* ------ Wave gesture ------ */
+.aira-wave {
+  animation: aira-wave 0.8s ease-in-out 3;
+}
+
+/* ------ Thinking pulse ------ */
+@keyframes aira-think-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.75; }
+}
+
+.aira-think {
+  animation: aira-think-pulse 1.6s ease-in-out infinite;
+}
+
+/* ------ Shared keyframes (also used by CSS module) ------ */
+@keyframes aira-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes aira-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.015); }
+}
+
+@keyframes aira-spark-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.82); }
+}
+
+@keyframes aira-enter {
+  0% { opacity: 0; transform: translateY(20px) scale(0.9); }
+  60% { transform: translateY(-4px) scale(1.02); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes aira-celebrate {
+  0%   { transform: translateY(0) rotate(0deg); }
+  25%  { transform: translateY(-12px) rotate(-3deg); }
+  50%  { transform: translateY(-6px) rotate(2deg); }
+  75%  { transform: translateY(-10px) rotate(-1deg); }
+  100% { transform: translateY(0) rotate(0deg); }
+}
+
+@keyframes aira-wave {
+  0%, 100% { transform: rotate(0deg); }
+  20%  { transform: rotate(14deg); }
+  40%  { transform: rotate(-8deg); }
+  60%  { transform: rotate(10deg); }
+  80%  { transform: rotate(-4deg); }
+}
+
+/* ------ Responsive sizing utilities ------ */
+.aira-xs   { width: 48px; }
+.aira-sm   { width: 96px; }
+.aira-md   { width: 160px; }
+.aira-lg   { width: 240px; }
+.aira-xl   { width: 360px; }
+.aira-full { width: 480px; }
+
+/* All aira images maintain aspect ratio */
+.aira-xs img,
+.aira-sm img,
+.aira-md img,
+.aira-lg img,
+.aira-xl img,
+.aira-full img {
+  height: auto;
+  width: 100%;
+}
+
+/* ------ Reduced-motion: disable all Aira animation ------ */
+@media (prefers-reduced-motion: reduce) {
+  .aira-float,
+  .aira-breathe,
+  .aira-spark,
+  .aira-enter,
+  .aira-celebrate,
+  .aira-wave,
+  .aira-think {
+    animation: none !important;
+  }
+}
+
+/* ================================================================== */
+/*  AIRA MASCOT — PAGE INTEGRATION STYLES                             */
+/*  Placement helpers for hero, module cards, and thank-you page.     */
+/* ================================================================== */
+
+/* ------ Hero section mascot wrap ------ */
+/*
+ * Displayed below VslPreview in the hero-content column.
+ * Centered on mobile; left-aligned on desktop to sit under the copy.
+ */
+.hero-mascot-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  pointer-events: none; /* decorative — never captures clicks */
+}
+
+@media (min-width: 900px) {
+  .hero-mascot-wrap {
+    justify-content: flex-start;
+    margin-top: 40px;
+  }
+}
+
+/* ------ Module card mascot icon variant ------ */
+/*
+ * Overrides the small icon-box sizing (.module-icon is 54×54px)
+ * to accommodate the larger mascot. Background/border are removed
+ * so the flat mascot illustration floats cleanly above the card.
+ */
+.module-icon-mascot {
+  background: transparent;
+  border-radius: 0;
+  height: auto;
+  margin-bottom: 16px;
+  overflow: visible;
+  width: auto;
+}
+
+/* Remove the svg size constraint that targets the old Lucide icon */
+.module-icon-mascot svg {
+  height: unset;
+  width: unset;
+}
+
+/* Tighten card top-padding now that mascot is taller than 54px icon */
+.module-card {
+  padding-top: clamp(20px, 3vw, 32px);
+}
+
+/* ------ Thank-you page mascot ------ */
+/*
+ * Replaces the circular success-icon badge.
+ * Centered, with a bottom margin matching what .success-icon had.
+ */
+.thank-you-mascot {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto 24px;
+  pointer-events: none;
+}
+
+/* On small screens tighten the mascot a little */
+@media (max-width: 480px) {
+  .thank-you-mascot > * {
+    transform: scale(0.8);
+    transform-origin: center top;
+  }
+}

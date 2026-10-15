@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ArrowRight, CheckCircle2, Clock3, Map, MessageCircleMore } from "lucide-react";
 import Link from "next/link";
 
+import { AiraContext } from "@/components/mascot";
 import { BrandLogo } from "@/components/brand-logo";
 
 export const metadata: Metadata = {
@@ -16,9 +17,13 @@ export default function ThankYouPage() {
         <Link aria-label="Sky Voice Languages home" href="/">
           <BrandLogo />
         </Link>
-        <span className="success-icon">
-          <CheckCircle2 aria-hidden="true" />
-        </span>
+        <div className="thank-you-mascot">
+          <AiraContext
+            context="thank-you"
+            size="xl"
+            aria-label="Aira celebrates your assessment booking!"
+          />
+        </div>
         <span className="eyebrow">Request received</span>
         <h1>Your IELTS roadmap starts here.</h1>
         <p>
