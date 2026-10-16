@@ -36,6 +36,7 @@ import { FaqList } from "@/components/faq-list";
 import { InteractiveWaves } from "@/components/interactive-waves";
 import { LeadForm } from "@/components/lead-form";
 import { Reveal } from "@/components/reveal";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ServiceVideo } from "@/components/service-video";
 import { heroVideo } from "@/config/media";
@@ -111,6 +112,10 @@ export default function FreeIeltsAssessmentPage() {
         }}
         type="application/ld+json"
       />
+      <noscript>
+        {/* Without JavaScript nothing reveals or toggles: show it all. */}
+        <style>{"[data-reveal],.header-cta,.mobile-cta-bar{opacity:1!important;transform:none!important;visibility:visible!important;pointer-events:auto!important}"}</style>
+      </noscript>
       <SiteHeader />
       <main id="main-content">
         <section className="hero section" id="top">
@@ -118,7 +123,7 @@ export default function FreeIeltsAssessmentPage() {
           <div className="site-shell hero-grid">
             <div className="hero-left">
               <div className="hero-content">
-                <Reveal>
+                <div className="hero-enter">
                   <div className="hero-eyebrow-row">
                     <span className="eyebrow">
                       <Sparkles aria-hidden="true" />
@@ -150,10 +155,10 @@ export default function FreeIeltsAssessmentPage() {
                     <ShieldCheck aria-hidden="true" />
                     Free whether you join or not. No payment details.
                   </p>
-                </Reveal>
+                </div>
               </div>
 
-              <Reveal className="hero-mascot-wrap" delay={0.1}>
+              <div className="hero-mascot-wrap hero-enter hero-enter-2">
                 <div className="hero-aira-stage">
                   <AnimatedArt
                     className="hero-aira-orbit"
@@ -165,26 +170,27 @@ export default function FreeIeltsAssessmentPage() {
                   <div className="aira-figure">
                     <AiraContext
                       context="hero-speaking"
+                      eager
                       size="xl"
                       aria-label="Aira, your SkyVoice IELTS guide, presents your next score move"
                     />
                     <AiraGroundShadow width={190} />
                   </div>
                 </div>
-              </Reveal>
+              </div>
             </div>
 
             <div className="hero-right">
-              <Reveal className="hero-video" delay={0.1}>
+              <div className="hero-video hero-enter hero-enter-2">
                 <ServiceVideo variant="compact" video={heroVideo} />
-              </Reveal>
-              <Reveal className="hero-form-wrap" delay={0.14}>
+              </div>
+              <div className="hero-form-wrap hero-enter hero-enter-3">
                 <div className="hero-form-accent" aria-hidden="true">
                   <span>Start here</span>
                   <ArrowRight />
                 </div>
                 <LeadForm idPrefix="assessment" />
-              </Reveal>
+              </div>
             </div>
           </div>
 
@@ -217,7 +223,7 @@ export default function FreeIeltsAssessmentPage() {
             <Reveal className="video-stage" delay={0.06}>
               <ServiceVideo />
             </Reveal>
-            <Reveal className="video-points" delay={0.1}>
+            <div className="video-points">
               <span>
                 <SearchCheck aria-hidden="true" /> Find your current level
               </span>
@@ -227,7 +233,7 @@ export default function FreeIeltsAssessmentPage() {
               <span>
                 <Route aria-hidden="true" /> Leave with a written roadmap
               </span>
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -286,8 +292,8 @@ export default function FreeIeltsAssessmentPage() {
         </section>
 
         <section className="section section-soft" id="why-stuck">
-          <div className="site-shell">
-            <Reveal className="section-heading centered-heading">
+          <div className="site-shell feature-split">
+            <Reveal className="feature-head">
               <span className="eyebrow">Why scores get stuck</span>
               <h2>Practice tells you the score. Diagnosis tells you what to change.</h2>
               <p>
@@ -295,14 +301,32 @@ export default function FreeIeltsAssessmentPage() {
                 gives you.
               </p>
             </Reveal>
-            <div className="gap-grid">
+            <Reveal className="feature-art" delay={0.06}>
+              <div className="feature-art-stage">
+                {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG */}
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className="feature-art-orbit"
+                  height={560}
+                  loading="lazy"
+                  src="/assets/generated/motion-graphics/hero-aira-orbit-stage-static.svg"
+                  width={480}
+                />
+                <div className="aira-figure">
+                  <AiraContext context="why-stuck" decorative />
+                  <AiraGroundShadow width={170} />
+                </div>
+              </div>
+            </Reveal>
+            <div className="feature-body gap-grid">
               {scoreGaps.map((gap, index) => (
-                <Reveal className="gap-card" delay={index * 0.04} key={gap.title}>
+                <div className="gap-card" key={gap.title}>
                   <span className="number-chip">0{index + 1}</span>
                   <gap.icon aria-hidden="true" />
                   <h3>{gap.title}</h3>
                   <p>{gap.body}</p>
-                </Reveal>
+                </div>
               ))}
             </div>
           </div>
@@ -323,8 +347,8 @@ export default function FreeIeltsAssessmentPage() {
 
             <div className="method-path">
               <DrawLine className="method-line" duration={1.2} />
-              {methodSteps.map((step, index) => (
-                <Reveal className="method-step" delay={index * 0.04} key={step.number}>
+              {methodSteps.map((step) => (
+                <div className="method-step" key={step.number}>
                   <div className={`method-marker ${step.free ? "is-free" : ""}`}>
                     <step.icon aria-hidden="true" />
                     {step.free ? <span>Free</span> : null}
@@ -332,7 +356,7 @@ export default function FreeIeltsAssessmentPage() {
                   <span className="step-number">{step.number}</span>
                   <h3>{step.label}</h3>
                   <p>{step.body}</p>
-                </Reveal>
+                </div>
               ))}
             </div>
           </div>
@@ -379,11 +403,10 @@ export default function FreeIeltsAssessmentPage() {
               </div>
             </Reveal>
 
-            <div className="module-grid">
+            <div aria-label="The four IELTS modules" className="module-grid" role="region" tabIndex={0}>
               {modules.map((module, index) => (
-                <Reveal
+                <div
                   className={`module-card module-card-${index + 1}`}
-                  delay={index * 0.05}
                   key={module.name}
                 >
                   <div className="module-signal" aria-hidden="true">
@@ -413,11 +436,11 @@ export default function FreeIeltsAssessmentPage() {
                       </li>
                     ))}
                   </ul>
-                </Reveal>
+                </div>
               ))}
             </div>
 
-            <Reveal className="test-type-banner">
+            <div className="test-type-banner">
               <div>
                 <span className="type-icon">
                   <GraduationCapIcon />
@@ -437,7 +460,7 @@ export default function FreeIeltsAssessmentPage() {
                 </div>
               </div>
               <Link href="#assessment-form">Not sure? We’ll help you choose.</Link>
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -470,86 +493,112 @@ export default function FreeIeltsAssessmentPage() {
               </p>
             </Reveal>
 
-            <Reveal
-              ariaLabel="IELTS practice portal concept preview"
-              className="portal-preview"
-              delay={0.08}
-              role="region"
-              tabIndex={0}
-            >
-              <div className="portal-window-bar">
-                <span />
-                <span />
-                <span />
-                <small>Concept preview · final screenshots pending</small>
-              </div>
-              <div className="portal-body">
-                <aside>
-                  <BrandLogo />
-                  <nav aria-label="Concept portal navigation">
-                    <span className="active">
-                      <Headphones aria-hidden="true" /> Practice
-                    </span>
-                    <span>
-                      <Target aria-hidden="true" /> Progress
-                    </span>
-                    <span>
-                      <MessageCircleMore aria-hidden="true" /> Tutor
-                    </span>
-                  </nav>
-                </aside>
-                <div className="portal-question">
-                  <div className="portal-topline">
-                    <span>Listening · Set 12</span>
-                    <b>
-                      <TimerReset aria-hidden="true" /> 24:18
-                    </b>
-                  </div>
-                  <div className="audio-wave" aria-hidden="true">
-                    {[18, 32, 44, 24, 52, 38, 64, 30, 46, 28, 58, 36].map((height, i) => (
-                      <span key={`${height}-${i}`} style={{ height }} />
-                    ))}
-                  </div>
-                  <p>Choose the answer that best matches the speaker’s purpose.</p>
-                  <div className="portal-options">
-                    <span>A · To compare two study plans</span>
-                    <span className="selected">B · To explain a change in schedule</span>
-                    <span>C · To recommend a preparation book</span>
-                  </div>
-                  <div className="portal-progress">
-                    <span style={{ width: "62%" }} />
+            <div className="portal-stage">
+              <Reveal
+                ariaLabel="IELTS practice portal concept preview"
+                className="portal-preview"
+                delay={0.08}
+                role="region"
+                tabIndex={0}
+              >
+                <div className="portal-window-bar">
+                  <span />
+                  <span />
+                  <span />
+                  <small>Concept preview · final screenshots pending</small>
+                </div>
+                <div className="portal-body">
+                  <aside>
+                    <BrandLogo />
+                    <nav aria-label="Concept portal navigation">
+                      <span className="active">
+                        <Headphones aria-hidden="true" /> Practice
+                      </span>
+                      <span>
+                        <Target aria-hidden="true" /> Progress
+                      </span>
+                      <span>
+                        <MessageCircleMore aria-hidden="true" /> Tutor
+                      </span>
+                    </nav>
+                  </aside>
+                  <div className="portal-question">
+                    <div className="portal-topline">
+                      <span>Listening · Set 12</span>
+                      <b>
+                        <TimerReset aria-hidden="true" /> 24:18
+                      </b>
+                    </div>
+                    <div className="audio-wave" aria-hidden="true">
+                      {[18, 32, 44, 24, 52, 38, 64, 30, 46, 28, 58, 36].map((height, i) => (
+                        <span key={`${height}-${i}`} style={{ height }} />
+                      ))}
+                    </div>
+                    <p>Choose the answer that best matches the speaker’s purpose.</p>
+                    <div className="portal-options">
+                      <span>A · To compare two study plans</span>
+                      <span className="selected">B · To explain a change in schedule</span>
+                      <span>C · To recommend a preparation book</span>
+                    </div>
+                    <div className="portal-progress">
+                      <span style={{ width: "62%" }} />
+                    </div>
                   </div>
                 </div>
+              </Reveal>
+              <div aria-hidden="true" className="portal-aira">
+                <div className="aira-figure">
+                  <AiraContext context="portal" decorative />
+                  <AiraGroundShadow width={130} />
+                </div>
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
 
         <section className="section audience-section" id="audience">
-          <div className="site-shell">
-            <Reveal className="section-heading centered-heading">
+          <div className="site-shell feature-split">
+            <Reveal className="feature-head">
               <span className="eyebrow">Built around real life</span>
               <h2>For people preparing with a deadline, a job, or a second attempt.</h2>
             </Reveal>
-            <div className="audience-grid">
-              {audiences.map((audience, index) => (
-                <Reveal className="audience-card" delay={index * 0.035} key={audience.title}>
+            <Reveal className="feature-art" delay={0.06}>
+              <div className="feature-art-stage">
+                {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG */}
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className="feature-art-orbit"
+                  height={560}
+                  loading="lazy"
+                  src="/assets/generated/motion-graphics/hero-aira-orbit-stage-static.svg"
+                  width={480}
+                />
+                <div className="aira-figure">
+                  <AiraContext context="audience" decorative />
+                  <AiraGroundShadow width={160} />
+                </div>
+              </div>
+            </Reveal>
+            <div className="feature-body audience-grid">
+              {audiences.map((audience) => (
+                <div className="audience-card" key={audience.title}>
                   <audience.icon aria-hidden="true" />
                   <div>
                     <h3>{audience.title}</h3>
                     <p>{audience.body}</p>
                   </div>
-                </Reveal>
+                </div>
               ))}
             </div>
-            <Reveal className="not-for-card">
+            <div className="feature-foot not-for-card">
               <span>Probably not for you if…</span>
               <p>
                 You only want last-minute exam tips at 7.5+, or the lowest-cost
                 40-student lecture batch. Sky Voice is built around small groups and
                 personalised 1-on-1 attention.
               </p>
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -561,10 +610,9 @@ export default function FreeIeltsAssessmentPage() {
               <p>Both include the assessment, roadmap, portal, and tutor support.</p>
             </Reveal>
             <div className="pricing-grid">
-              {pricing.map((plan, index) => (
-                <Reveal
+              {pricing.map((plan) => (
+                <div
                   className={`pricing-card ${plan.featured ? "is-featured" : ""}`}
-                  delay={index * 0.08}
                   key={plan.name}
                 >
                   {plan.featured ? <span className="popular-badge">Most focused</span> : null}
@@ -605,16 +653,16 @@ export default function FreeIeltsAssessmentPage() {
                     Find my best format
                     <ArrowRight aria-hidden="true" />
                   </Link>
-                </Reveal>
+                </div>
               ))}
             </div>
-            <Reveal className="price-note">
+            <div className="price-note">
               <WandSparkles aria-hidden="true" />
               <div>
                 <strong>Not sure which format fits?</strong>
                 <p>Your free assessment ends with a format recommendation—before you pay.</p>
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -753,40 +801,7 @@ export default function FreeIeltsAssessmentPage() {
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="site-shell footer-grid">
-          <div className="footer-brand">
-            <BrandLogo variant="white" />
-            <p>
-              Personalised online IELTS preparation for people with a real target and a
-              reason to reach it.
-            </p>
-          </div>
-          <div className="footer-links">
-            <div>
-              <strong>Explore</strong>
-              <Link href="#method">Method</Link>
-              <Link href="#modules">Modules</Link>
-              <Link href="#portal">Portal</Link>
-              <Link href="#fees">Fees</Link>
-            </div>
-            <div>
-              <strong>Support</strong>
-              <Link href="#faq">FAQ</Link>
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/terms">Terms</Link>
-            </div>
-          </div>
-        </div>
-        <div className="site-shell footer-bottom">
-          <p>© {new Date().getFullYear()} Sky Voice Languages.</p>
-          <p>
-            Sky Voice is an independent coaching provider. IELTS is jointly owned by
-            the British Council, IDP: IELTS Australia, and Cambridge University Press
-            &amp; Assessment. Results vary by student effort and starting level.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
 
       <aside aria-label="Mobile assessment shortcut" className="mobile-cta-bar">
         <Link className="button button-accent" href="#assessment-form">

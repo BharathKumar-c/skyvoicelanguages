@@ -1,29 +1,12 @@
 import { NextResponse } from "next/server";
 
 import { assessmentLeadSchema } from "@/lib/leads/schema";
+import { clientKey, createRateLimiter } from "@/lib/rate-limit";
 
-const requests = new Map<string, { count: number; resetAt: number }>();
-const RATE_WINDOW_MS = 10 * 60 * 1000;
-const RATE_LIMIT = 5;
-
-function isRateLimited(key: string) {
-  const now = Date.now();
-  const current = requests.get(key);
-
-  if (!current || current.resetAt < now) {
-    requests.set(key, { count: 1, resetAt: now + RATE_WINDOW_MS });
-    return false;
-  }
-
-  current.count += 1;
-  return current.count > RATE_LIMIT;
-}
+const isRateLimited = createRateLimiter({ limit: 5, windowMs: 10 * 60 * 1000 });
 
 export async function POST(request: Request) {
-  const forwarded = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim();
-  const clientKey = forwarded || "local";
-
-  if (isRateLimited(clientKey)) {
+  if (isRateLimited(clientKey(request))) {
     return NextResponse.json(
       { message: "Too many attempts. Please wait a few minutes and try again." },
       { status: 429 },

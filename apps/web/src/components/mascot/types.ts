@@ -162,6 +162,9 @@ export interface AiraMascotProps {
   /** Whether the mascot is purely decorative. Defaults to false. */
   decorative?: boolean;
 
+  /** Load the pose image eagerly (above-the-fold placements). */
+  eager?: boolean;
+
   /** Called when an animation state changes. */
   onAnimationStateChange?: (state: AnimationState) => void;
 

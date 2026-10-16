@@ -27,6 +27,8 @@ const RIPPLE_LIFE = 1.7; // seconds
 const RIPPLE_SPEED = 380; // px per second
 const MAX_RIPPLES = 4;
 const NO_RIPPLE = "input, select, textarea, label, [data-no-ripple]";
+/** After this long without pointer activity the ambient flow drops to ~30 fps. */
+const IDLE_AFTER_MS = 4000;
 
 /**
  * Brand "signal" lines that flow slowly, part smoothly around the cursor and
@@ -68,6 +70,8 @@ export function InteractiveWaves({
     let onScreen = false;
     let lastFrame = 0;
     let clock = 0;
+    let lastInput = 0;
+    let frameCount = 0;
     const pointer = { x: 0, y: 0, targetX: 0, targetY: 0, energy: 0, targetEnergy: 0 };
     const ripples: Ripple[] = [];
 
@@ -165,7 +169,17 @@ export function InteractiveWaves({
 
       while (ripples.length && (now - ripples[0].start) / 1000 > RIPPLE_LIFE) ripples.shift();
 
-      draw(now);
+      // Idle and calm: only the slow ambient flow is moving, so every other
+      // frame is enough. The clock still advances by real time, so the motion
+      // speed is unchanged.
+      frameCount += 1;
+      // A resting cursor counts as idle once the lines have settled around it.
+      const settled =
+        Math.abs(pointer.targetX - pointer.x) < 0.5 &&
+        Math.abs(pointer.targetY - pointer.y) < 0.5 &&
+        Math.abs(pointer.targetEnergy - pointer.energy) < 0.01;
+      const idle = now - lastInput > IDLE_AFTER_MS && ripples.length === 0 && settled;
+      if (!idle || frameCount % 2 === 0) draw(now);
       frameId = requestAnimationFrame(frame);
     }
 
@@ -211,6 +225,7 @@ export function InteractiveWaves({
     }
 
     function handleMove(event: PointerEvent) {
+      lastInput = performance.now();
       if (!running || event.pointerType !== "mouse") return;
       const point = localPoint(event);
       if (pointer.energy < 0.02) {
@@ -228,6 +243,7 @@ export function InteractiveWaves({
     }
 
     function handleDown(event: PointerEvent) {
+      lastInput = performance.now();
       if (!running) return;
       if (event.target instanceof Element && event.target.closest(NO_RIPPLE)) return;
       const point = localPoint(event);

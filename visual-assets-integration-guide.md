@@ -2,7 +2,7 @@
 
 **Prepared:** 15 October 2026
 **Scope:** Codebase analysis, visual asset plan, generated asset pack, and exact integration instructions for the next coding AI.
-**Status of the application code:** **Integrated (16 Oct 2026).** All P1/P2 items and the P3 motion items (§14.5, §14.7–§14.10) are live. P3 OG image and `AiraSprite` optimisation remain open.
+**Status of the application code:** **Integrated (15 Oct 2026).** All P1/P2 items and the P3 motion items (§14.5, §14.7–§14.10) are live. P3 OG image and `AiraSprite` optimisation remain open.
 
 > **Deviations from this guide made during integration (code is the source of truth):**
 > - Animated SVGs ship through a shared `apps/web/src/components/animated-art.tsx` (`<picture>` + reduced-motion `<source>`). `aria-hidden` sits on the `<img>`, because jsx-a11y forbids it on `<picture>`.

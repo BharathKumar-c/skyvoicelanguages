@@ -1,0 +1,44 @@
+<!doctype html>
+<!--
+  "Meet Sky Voice" video poster (1600×900): Aira's feedback pose beside a
+  completed four-skill roadmap. Rendered by render_poster.cjs against the
+  running dev server. Validated brand art only; no text, numbers or claims.
+-->
+<html><head><style>
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1600px; height: 900px; overflow: hidden; }
+  .frame { position: relative; width: 1600px; height: 900px; overflow: hidden;
+    background:
+      radial-gradient(circle at 20% 22%, rgba(235,157,19,.26), transparent 24%),
+      radial-gradient(circle at 78% 70%, rgba(22,85,216,.6), transparent 44%),
+      linear-gradient(225deg, #071d3f 0%, #0e2d5e 50%, #1655d8 100%); }
+  .field { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .75; transform: scaleX(-1); }
+  .glow { position: absolute; right: 150px; top: 170px; width: 520px; height: 520px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(64,124,255,.55) 0%, rgba(22,85,216,.22) 45%, transparent 70%); }
+  .aira { position: absolute; right: 228px; top: 205px; width: 384px; height: 456px; }
+  .shadow { position: absolute; right: 310px; top: 672px; width: 220px; filter: brightness(0) invert(1); opacity: .18; }
+  .path { position: absolute; left: 150px; top: 170px; width: 700px; height: 560px; }
+  .step { position: absolute; display: flex; align-items: center; gap: 22px; background: #fff; border: 4px solid #0e2d5e;
+    border-radius: 28px; padding: 18px 26px 18px 18px; box-shadow: 0 12px 0 rgba(4,16,40,.45); }
+  .step img { width: 96px; height: 96px; }
+  .lines { display: grid; gap: 12px; }
+  .lines i { display: block; height: 14px; border-radius: 7px; background: #d7e1ef; }
+  .lines i:first-child { background: #0e2d5e; height: 16px; }
+  .route { position: absolute; inset: 0; }
+</style></head><body>
+<div class="frame">
+  <img class="field" src="/assets/generated/backgrounds/modules-orbit-field.svg" alt="">
+  <div class="glow"></div>
+  <div class="path">
+    <svg class="route" viewBox="0 0 700 560" fill="none" aria-hidden="true">
+      <path d="M120 90 C 330 90, 330 205, 470 215 S 640 330, 470 360 S 160 420, 230 500" stroke="#eb9d13" stroke-width="7" stroke-dasharray="2 18" stroke-linecap="round"/>
+    </svg>
+    <div class="step" style="left:0;top:20px"><img src="/mascot/skill-signals/listening-success.png" alt=""><div class="lines"><i style="width:150px"></i><i style="width:200px"></i></div></div>
+    <div class="step" style="left:330px;top:150px"><img src="/mascot/skill-signals/reading-success.png" alt=""><div class="lines"><i style="width:130px"></i><i style="width:180px"></i></div></div>
+    <div class="step" style="left:40px;top:290px"><img src="/mascot/skill-signals/writing-success.png" alt=""><div class="lines"><i style="width:160px"></i><i style="width:210px"></i></div></div>
+    <div class="step" style="left:300px;top:420px"><img src="/mascot/skill-signals/speaking-active.png" alt=""><div class="lines"><i style="width:140px"></i><i style="width:190px"></i></div></div>
+  </div>
+  <img class="shadow" src="/assets/generated/mascots/aira-ground-shadow.svg" alt="">
+  <img class="aira" src="/mascot/canonical/aira-feedback.png" alt="">
+</div>
+</body></html>

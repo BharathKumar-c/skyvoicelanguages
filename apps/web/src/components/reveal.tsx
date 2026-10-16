@@ -26,6 +26,7 @@ export function Reveal({
     <motion.div
       aria-label={ariaLabel}
       className={className}
+      data-reveal=""
       initial={{ opacity: 0, y: 24 }}
       role={role}
       tabIndex={tabIndex}

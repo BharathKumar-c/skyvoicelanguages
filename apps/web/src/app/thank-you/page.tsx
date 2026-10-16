@@ -29,6 +29,7 @@ export default function ThankYouPage() {
           <div className="aira-figure">
             <AiraContext
               context="thank-you"
+              eager
               size="xl"
               aria-label="Aira celebrates your assessment booking!"
             />

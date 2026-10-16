@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Nunito_Sans } from "next/font/google";
+import { Nunito, Nunito_Sans } from "next/font/google";
 
 import { siteConfig } from "@/config/site";
 
@@ -9,6 +9,14 @@ const nunito = Nunito_Sans({
   display: "swap",
   subsets: ["latin"],
   variable: "--font-nunito",
+});
+
+// Rounded display face for H1/H2 only (design-system amendment, 15 Oct 2026).
+const nunitoDisplay = Nunito({
+  display: "swap",
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -43,7 +51,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html className={nunito.variable} lang="en" suppressHydrationWarning>
+    <html className={`${nunito.variable} ${nunitoDisplay.variable}`} lang="en" suppressHydrationWarning>
       <body suppressHydrationWarning>
         <a className="skip-link" href="#main-content">
           Skip to main content

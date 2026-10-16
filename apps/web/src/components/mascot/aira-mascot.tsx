@@ -124,6 +124,7 @@ export function AiraMascot({
   className,
   "aria-label": ariaLabel,
   decorative = false,
+  eager = false,
   onAnimationStateChange,
   onPoseTransitionEnd,
 }: AiraMascotProps) {
@@ -200,6 +201,7 @@ export function AiraMascot({
         >
           {isCanonical ? (
             <AiraSprite
+              eager={eager}
               pose={pose}
               size={size}
             />

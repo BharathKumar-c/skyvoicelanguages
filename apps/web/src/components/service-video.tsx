@@ -22,6 +22,13 @@ type ServiceVideoProps = {
   video?: VideoConfig;
   /** "feature" for the full-width section, "compact" for the hero preview. */
   variant?: "feature" | "compact";
+  /**
+   * Without a source: "overview" opens the written assessment overview (landing
+   * page); "notice" shows a static, non-interactive "coming soon" preview.
+   */
+  whenUnavailable?: "overview" | "notice";
+  /** Extra class name for the video frame. */
+  className?: string;
 };
 
 /**
@@ -32,7 +39,12 @@ type ServiceVideoProps = {
  * started) after that click. Without a configured source the same control opens
  * the written assessment overview instead of pretending a video exists.
  */
-export function ServiceVideo({ video = serviceVideo, variant = "feature" }: ServiceVideoProps) {
+export function ServiceVideo({
+  video = serviceVideo,
+  variant = "feature",
+  whenUnavailable = "overview",
+  className,
+}: ServiceVideoProps) {
   const prefersReducedMotion = useReducedMotion();
   const titleId = useId();
   const videoRef = useRef<HTMLVideoElement | null>(null);
@@ -105,11 +117,48 @@ export function ServiceVideo({ video = serviceVideo, variant = "feature" }: Serv
   }, [overviewOpen]);
 
   const fade = prefersReducedMotion ? 0 : 0.55;
+  const interactive = hasVideo || whenUnavailable === "overview";
+  const previewContent = (
+    <>
+      <motion.span
+        className="service-video-poster"
+        exit={{ filter: "blur(0px)", scale: 1 }}
+        initial={false}
+        transition={{ duration: fade, ease: EASE }}
+      >
+        <Image
+          alt=""
+          fill
+          sizes={
+            variant === "compact"
+              ? "(max-width: 920px) 100vw, 440px"
+              : "(max-width: 980px) 100vw, 960px"
+          }
+          src={video.poster}
+        />
+      </motion.span>
+      <span aria-hidden="true" className="service-video-scrim" />
+
+      <span aria-hidden="true" className="service-video-play">
+        <span className="service-video-play-ring" />
+        <Play fill="currentColor" />
+      </span>
+
+      <span aria-hidden="true" className="service-video-meta">
+        <span className="service-video-kicker">
+          {hasVideo ? <Play fill="currentColor" /> : <Clock3 />}
+          {video.label}
+          {hasVideo ? null : " · coming soon"}
+        </span>
+        <strong>{video.title}</strong>
+      </span>
+    </>
+  );
 
   return (
     <>
       <div
-        className={`service-video service-video-${variant}`}
+        className={`service-video service-video-${variant} ${className ?? ""}`}
         data-state={started ? "playing" : "preview"}
       >
         {started && video.src ? (
@@ -142,8 +191,15 @@ export function ServiceVideo({ video = serviceVideo, variant = "feature" }: Serv
           </button>
         ) : null}
 
+        {!started && !interactive ? (
+          <div className="service-video-preview is-unavailable">
+            {previewContent}
+            <span className="sr-only">{`${video.title}: video coming soon.`}</span>
+          </div>
+        ) : null}
+
         <AnimatePresence>
-          {!started ? (
+          {!started && interactive ? (
             <motion.button
               aria-label={
                 hasVideo
@@ -158,45 +214,7 @@ export function ServiceVideo({ video = serviceVideo, variant = "feature" }: Serv
               transition={{ duration: fade, delay: prefersReducedMotion ? 0 : 0.15, ease: EASE }}
               type="button"
             >
-              <motion.span
-                className="service-video-poster"
-                exit={{ filter: "blur(0px)", scale: 1 }}
-                initial={false}
-                transition={{ duration: fade, ease: EASE }}
-              >
-                <Image
-                  alt=""
-                  fill
-                  priority={false}
-                  sizes={
-                    variant === "compact"
-                      ? "(max-width: 920px) 100vw, 440px"
-                      : "(max-width: 980px) 100vw, 960px"
-                  }
-                  src={video.poster}
-                />
-              </motion.span>
-              <span aria-hidden="true" className="service-video-scrim" />
-
-              <span aria-hidden="true" className="service-video-play">
-                <span className="service-video-play-ring" />
-                <Play fill="currentColor" />
-              </span>
-
-              <span aria-hidden="true" className="service-video-meta">
-                <span className="service-video-kicker">
-                  {hasVideo ? (
-                    <>
-                      <Play fill="currentColor" /> Watch the introduction
-                    </>
-                  ) : (
-                    <>
-                      <Clock3 /> Video coming soon
-                    </>
-                  )}
-                </span>
-                <strong>{video.title}</strong>
-              </span>
+              {previewContent}
             </motion.button>
           ) : null}
         </AnimatePresence>
