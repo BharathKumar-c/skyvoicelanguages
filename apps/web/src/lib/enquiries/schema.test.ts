@@ -45,9 +45,8 @@ describe("contactEnquirySchema", () => {
     );
   });
 
-  it("rejects a populated honeypot", () => {
-    expect(contactEnquirySchema.safeParse({ ...validEnquiry, website: "spam.example" }).success).toBe(
-      false,
-    );
+  it("passes a populated honeypot through for the route to drop silently", () => {
+    const parsed = contactEnquirySchema.safeParse({ ...validEnquiry, website: "spam.example" });
+    expect(parsed.success && parsed.data.website).toBe("spam.example");
   });
 });

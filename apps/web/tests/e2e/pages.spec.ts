@@ -1,6 +1,13 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+// The form endpoints rate-limit per client IP; give every test its own so
+// repeated runs against one dev server do not hit the limit.
+test.beforeEach(async ({ page }) => {
+  const octet = () => Math.floor(Math.random() * 255);
+  await page.setExtraHTTPHeaders({ "x-forwarded-for": `10.${octet()}.${octet()}.${octet()}` });
+});
+
 test("about page renders its sections and marks the current page", async ({ page }) => {
   await page.goto("/about");
 
@@ -11,7 +18,7 @@ test("about page renders its sections and marks the current page", async ({ page
   await expect(page.getByRole("heading", { name: /people who read every essay/ })).toBeVisible();
   const nav = page.getByRole("navigation", { name: "Primary navigation" });
   if (await nav.isVisible()) {
-    await expect(nav.getByRole("link", { name: "About" })).toHaveAttribute("aria-current", "page");
+    await expect(nav.getByRole("link", { name: "About Us" })).toHaveAttribute("aria-current", "page");
   }
 });
 
@@ -36,9 +43,9 @@ test("contact form validates and submits an enquiry in preview mode", async ({ p
 test("header links connect the campaign, about, and contact pages", async ({ page, isMobile }) => {
   test.skip(isMobile, "Desktop navigation only");
   await page.goto("/free-ielts-assessment");
-  await page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "About" }).click();
+  await page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "About Us" }).click();
   await expect(page).toHaveURL(/\/about$/);
-  await page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "Contact" }).click();
+  await page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "Contact Us" }).click();
   await expect(page).toHaveURL(/\/contact$/);
   await page.getByRole("navigation", { name: "Primary navigation" }).getByRole("link", { name: "Fees" }).click();
   await expect(page).toHaveURL(/\/free-ielts-assessment#fees$/);

@@ -9,16 +9,17 @@ export const siteConfig = {
 
 /**
  * Primary navigation, in page order. Section links are absolute so they work
- * from every page; on the campaign page they scroll in place. "Portal" stays in
- * the footer; "Results" returns once verified student results are published.
+ * from every page; on the campaign page they scroll in place. "Home" is the
+ * campaign page itself ("/" redirects there). The Method and Modules sections
+ * stay on the page but are no longer menu items; "Portal" stays in the footer;
+ * "Results" returns once verified student results are published.
  */
 export const navigation = [
-  { label: "Method", href: `${siteConfig.campaignPath}#method` },
-  { label: "Modules", href: `${siteConfig.campaignPath}#modules` },
+  { label: "Home", href: siteConfig.campaignPath },
   { label: "Fees", href: `${siteConfig.campaignPath}#fees` },
   { label: "FAQ", href: `${siteConfig.campaignPath}#faq` },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact Us", href: "/contact" },
 ] as const;
 
 export const assessmentHref = `${siteConfig.campaignPath}#assessment-form`;

@@ -8,40 +8,62 @@ import { Reveal } from "@/components/reveal";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { TrainerDirectory } from "@/components/trainer-directory";
-import { assessmentHref, siteConfig } from "@/config/site";
+import { assessmentHref } from "@/config/site";
 import {
   aboutIntro,
-  achievements,
   differentiators,
   learningEnvironment,
   philosophy,
-  purpose,
-  successStories,
-  trainers,
+  type Trainer,
 } from "@/content/about";
 import { methodSteps } from "@/content/landing";
+import { siteUrl } from "@/lib/settings/format";
+import type { SiteSettings } from "@/lib/settings/schema";
+import { getSettings } from "@/lib/settings/store";
 
-export const metadata: Metadata = {
-  title: "About Sky Voice Languages",
-  description:
-    "Who we are and how we coach: diagnosis-first online IELTS preparation for Academic and General Training, in 1-on-1 sessions or groups of 3–5.",
-  alternates: { canonical: `${siteConfig.url}/about` },
-  openGraph: {
-    title: "About Sky Voice Languages",
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const name = settings.company.name;
+  return {
+    title: `About ${name}`,
     description:
-      "Diagnosis-first online IELTS coaching: our approach, mission, method, and trainers.",
-    url: `${siteConfig.url}/about`,
-  },
-};
+      "Who we are and how we coach: diagnosis-first online IELTS preparation for Academic and General Training, in 1-on-1 sessions or groups of 3–5.",
+    alternates: { canonical: siteUrl(settings, "/about") },
+    openGraph: {
+      title: `About ${name}`,
+      description:
+        "Diagnosis-first online IELTS coaching: our approach, mission, method, and trainers.",
+      url: siteUrl(settings, "/about"),
+    },
+  };
+}
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "AboutPage",
-  "@id": `${siteConfig.url}/about#page`,
-  name: "About Sky Voice Languages",
-  url: `${siteConfig.url}/about`,
-  about: { "@id": `${siteConfig.url}/#organization` },
-};
+/** Published trainers only, shaped for the directory component. */
+function publishedTrainers(settings: SiteSettings): Trainer[] {
+  return settings.team.trainers
+    .filter((trainer) => trainer.published)
+    .map((trainer) => ({
+      achievements: trainer.achievements,
+      bio: trainer.bio,
+      designation: trainer.designation,
+      experienceYears: trainer.experienceYears ? Number(trainer.experienceYears) : null,
+      expertise: trainer.expertise,
+      id: trainer.id,
+      name: trainer.name,
+      photo: trainer.photoUrl ? { alt: `Portrait of ${trainer.name}`, src: trainer.photoUrl } : null,
+      qualifications: trainer.qualifications,
+      video: trainer.videoUrl
+        ? {
+            captions: null,
+            label: "Introduction",
+            poster: "/assets/generated/images/service-video-poster-feature.webp",
+            src: trainer.videoUrl,
+            title: `Meet ${trainer.name}`,
+            type: trainer.videoUrl.endsWith(".webm") ? "video/webm" : "video/mp4",
+          }
+        : null,
+    }));
+}
 
 function ArtStage({ context, shadow }: { context: "about-hero" | "about-environment"; shadow: number }) {
   return (
@@ -63,7 +85,27 @@ function ArtStage({ context, shadow }: { context: "about-hero" | "about-environm
   );
 }
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const settings = await getSettings();
+  const { about } = settings.content;
+  const trainers = publishedTrainers(settings);
+  // Public only once verified / consented in Website Settings.
+  const achievements = settings.results.stats.filter((stat) => stat.verified);
+  const successStories = settings.results.testimonials.filter((story) => story.published && story.consent);
+  const purpose = [
+    { label: "Mission", statement: about.mission },
+    { label: "Vision", statement: about.vision },
+    { label: "Goals", statement: about.goals },
+  ];
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": siteUrl(settings, "/about#page"),
+    name: `About ${settings.company.name}`,
+    url: siteUrl(settings, "/about"),
+    about: { "@id": siteUrl(settings, "/#organization") },
+  };
+
   return (
     <>
       <script
@@ -81,8 +123,8 @@ export default function AboutPage() {
           <div className="site-shell page-hero-grid">
             <div className="page-hero-copy hero-enter">
               <span className="eyebrow">{aboutIntro.eyebrow}</span>
-              <h1 id="about-title">{aboutIntro.title}</h1>
-              <p className="page-hero-lede">{aboutIntro.lede}</p>
+              <h1 id="about-title">{about.title}</h1>
+              <p className="page-hero-lede">{about.lede}</p>
               <div className="hero-actions">
                 <Link className="button button-accent button-large" href={assessmentHref}>
                   Book my free assessment
@@ -216,12 +258,20 @@ export default function AboutPage() {
             {successStories.length ? (
               <ul className="story-grid">
                 {successStories.map((story) => (
-                  <li className="story-card" key={story.name}>
+                  <li className="story-card" key={`${story.name}-${story.quote.slice(0, 20)}`}>
                     <Quote aria-hidden="true" />
                     <p>{story.quote}</p>
-                    <span className="story-score">
-                      {story.from} → {story.to} · {story.module}
-                    </span>
+                    {story.from || story.to || story.module ? (
+                      <span className="story-score">
+                        {[story.from && story.to ? `${story.from} → ${story.to}` : story.to || story.from, story.module]
+                          .filter(Boolean)
+                          .join(" · ")}
+                      </span>
+                    ) : null}
+                    {story.photoUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element -- admin-supplied path or URL
+                      <img alt="" className="story-photo" height={48} src={story.photoUrl} width={48} />
+                    ) : null}
                     <strong>{story.name}</strong>
                   </li>
                 ))}

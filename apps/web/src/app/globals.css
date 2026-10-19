@@ -4345,8 +4345,10 @@ p {
     visibility 0s linear 0s;
 }
 
-html:not([data-hero="passed"]) .header-cta,
-html:not([data-hero="passed"]) .mobile-cta-bar {
+/* Only pages with a hero (#top) hide the CTA; elsewhere it shows from first
+   paint instead of fading in after hydration. */
+html:not([data-hero="passed"]):has(#top) .header-cta,
+html:not([data-hero="passed"]):has(#top) .mobile-cta-bar {
   opacity: 0;
   pointer-events: none;
   transition:
@@ -4356,11 +4358,11 @@ html:not([data-hero="passed"]) .mobile-cta-bar {
   visibility: hidden;
 }
 
-html:not([data-hero="passed"]) .header-cta {
+html:not([data-hero="passed"]):has(#top) .header-cta {
   transform: translateY(-4px);
 }
 
-html:not([data-hero="passed"]) .mobile-cta-bar {
+html:not([data-hero="passed"]):has(#top) .mobile-cta-bar {
   transform: translateY(100%);
 }
 
@@ -5594,4 +5596,61 @@ ul.audience-grid {
   .branch-actions .button {
     flex: 1 1 100%;
   }
+}
+
+/* ------ Website Settings: footer contact + social (shown once configured) ------ */
+.footer-contact,
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+}
+
+.footer-contact a,
+.footer-social a {
+  align-items: center;
+  color: #aec3df;
+  display: inline-flex;
+  font-size: 0.88rem;
+  gap: 8px;
+  min-height: 44px;
+  overflow-wrap: anywhere;
+}
+
+.footer-contact a:hover,
+.footer-social a:hover {
+  color: #ffd582;
+}
+
+.footer-contact svg,
+.footer-social svg {
+  flex: none;
+  height: 18px;
+  width: 18px;
+}
+
+.footer-social {
+  gap: 4px;
+}
+
+.footer-social a {
+  justify-content: center;
+  min-width: 44px;
+}
+
+/* Testimonial photo and fee extras */
+.story-card .story-photo {
+  border-radius: 50%;
+  height: 48px;
+  object-fit: cover;
+  width: 48px;
+}
+
+.price-installment {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin: 8px 0 0;
 }

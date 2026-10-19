@@ -1,8 +1,10 @@
 import type { MetadataRoute } from "next";
 
 import { siteConfig } from "@/config/site";
+import { getSettings } from "@/lib/settings/store";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const base = (await getSettings()).company.domain;
   const lastModified = new Date("2026-10-13T00:00:00+05:30");
 
   return [
@@ -10,31 +12,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       lastModified,
       priority: 1,
-      url: `${siteConfig.url}${siteConfig.campaignPath}`,
+      url: `${base}${siteConfig.campaignPath}`,
     },
     {
       changeFrequency: "monthly",
       lastModified: new Date("2026-10-16T00:00:00+05:30"),
       priority: 0.6,
-      url: `${siteConfig.url}/about`,
+      url: `${base}/about`,
     },
     {
       changeFrequency: "monthly",
       lastModified: new Date("2026-10-16T00:00:00+05:30"),
       priority: 0.6,
-      url: `${siteConfig.url}/contact`,
+      url: `${base}/contact`,
     },
     {
       changeFrequency: "yearly",
       lastModified,
       priority: 0.2,
-      url: `${siteConfig.url}/privacy`,
+      url: `${base}/privacy`,
     },
     {
       changeFrequency: "yearly",
       lastModified,
       priority: 0.2,
-      url: `${siteConfig.url}/terms`,
+      url: `${base}/terms`,
     },
   ];
 }

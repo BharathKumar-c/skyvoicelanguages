@@ -149,7 +149,7 @@ export function ServiceVideo({
           {hasVideo ? <Play fill="currentColor" /> : <Clock3 />}
           {video.label}
           {hasVideo ? null : " · coming soon"}
-        </span>
+        </span>{" "}
         <strong>{video.title}</strong>
       </span>
     </>
@@ -201,10 +201,12 @@ export function ServiceVideo({
         <AnimatePresence>
           {!started && interactive ? (
             <motion.button
+              // The name repeats the visible kicker and title (WCAG 2.5.3) so
+              // voice-control users can say what they see.
               aria-label={
                 hasVideo
-                  ? `Play video: ${video.title}`
-                  : "Video coming soon. See what the free assessment covers"
+                  ? `Play video: ${video.label}, ${video.title}`
+                  : `${video.label} · coming soon: ${video.title}. See what the free assessment covers`
               }
               className="service-video-preview"
               exit={{ opacity: 0 }}

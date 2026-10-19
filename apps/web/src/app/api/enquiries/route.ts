@@ -1,15 +1,19 @@
 import { NextResponse } from "next/server";
 
+import { enquiryTypes } from "@/content/contact";
+import { deliverSubmission } from "@/lib/delivery/deliver";
 import { contactEnquirySchema } from "@/lib/enquiries/schema";
 import { clientKey, createRateLimiter } from "@/lib/rate-limit";
+import { getSettings } from "@/lib/settings/store";
 
 const isRateLimited = createRateLimiter({ limit: 5, windowMs: 10 * 60 * 1000 });
 
 /**
- * Contact-page enquiries. Delivered to CONTACT_ENQUIRY_WEBHOOK_URL, or to the
- * assessment lead webhook when no dedicated one is configured, tagged with
- * `type: "contact-enquiry"`. Mirrors /api/leads: validation, honeypot, rate
- * limit, development preview mode, and no silent success in production.
+ * Contact-page enquiries. Emailed when SMTP is configured, and/or posted to
+ * CONTACT_ENQUIRY_WEBHOOK_URL (falling back to the assessment lead webhook)
+ * tagged with `type: "contact-enquiry"`. Mirrors /api/leads: validation,
+ * honeypot, rate limit, development preview mode, and no silent success in
+ * production.
  */
 export async function POST(request: Request) {
   if (isRateLimited(clientKey(request))) {
@@ -39,16 +43,37 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Enquiry received.", mode: "live" });
   }
 
-  const webhookUrl =
-    process.env.CONTACT_ENQUIRY_WEBHOOK_URL || process.env.ASSESSMENT_LEAD_WEBHOOK_URL;
-  const webhookToken =
-    process.env.CONTACT_ENQUIRY_WEBHOOK_TOKEN || process.env.ASSESSMENT_LEAD_WEBHOOK_TOKEN;
+  const submittedAt = new Date().toISOString();
+  const topic =
+    enquiryTypes.find((type) => type.value === enquiry.enquiryType)?.label ?? enquiry.enquiryType;
+  const settings = await getSettings();
+  const result = await deliverSubmission({
+    notifyTo: settings.integrations.email.notifyTo,
+    kind: "Website enquiry",
+    subjectDetail: `${topic} from ${enquiry.name}`,
+    fields: [
+      ["Name", enquiry.name],
+      ["Email", enquiry.email],
+      ["Mobile", enquiry.phone],
+      ["Enquiry about", topic],
+      ["Preferred branch", enquiry.branch],
+      ["Message", enquiry.message],
+      ["Submitted", submittedAt],
+    ],
+    replyTo: enquiry.email,
+    webhook: {
+      payload: { type: "contact-enquiry", ...enquiry, submittedAt },
+      token:
+        process.env.CONTACT_ENQUIRY_WEBHOOK_TOKEN || process.env.ASSESSMENT_LEAD_WEBHOOK_TOKEN,
+      url: process.env.CONTACT_ENQUIRY_WEBHOOK_URL || process.env.ASSESSMENT_LEAD_WEBHOOK_URL,
+    },
+  });
 
-  if (!webhookUrl) {
+  if (result === "unconfigured") {
     if (process.env.NODE_ENV === "development") {
       return NextResponse.json({
         message:
-          "Preview validated successfully. Connect the enquiry webhook before production launch.",
+          "Preview validated successfully. Connect enquiry delivery (email or webhook) before production launch.",
         mode: "preview",
       });
     }
@@ -59,33 +84,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8000);
-
-  try {
-    const response = await fetch(webhookUrl, {
-      body: JSON.stringify({
-        type: "contact-enquiry",
-        ...enquiry,
-        submittedAt: new Date().toISOString(),
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        ...(webhookToken ? { Authorization: `Bearer ${webhookToken}` } : {}),
-      },
-      method: "POST",
-      signal: controller.signal,
-    });
-
-    if (!response.ok) throw new Error("Enquiry provider rejected the request.");
-
-    return NextResponse.json({ message: "Enquiry received.", mode: "live" });
-  } catch {
+  if (result === "failed") {
     return NextResponse.json(
       { message: "We could not send your enquiry. Please try again shortly." },
       { status: 502 },
     );
-  } finally {
-    clearTimeout(timeout);
   }
+
+  return NextResponse.json({ message: "Enquiry received.", mode: "live" });
 }

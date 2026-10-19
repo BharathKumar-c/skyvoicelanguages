@@ -1,12 +1,12 @@
 import Link from "next/link";
 
-import { BrandLogo } from "@/components/brand-logo";
+import { SiteLogo } from "@/components/site-logo";
 
 export default function NotFound() {
   return (
     <main className="utility-page" id="main-content">
       <div className="utility-shell">
-        <BrandLogo />
+        <SiteLogo />
         {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG illustration */}
         <img
           alt=""

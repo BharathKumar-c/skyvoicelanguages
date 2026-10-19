@@ -1,3 +1,5 @@
+import type { SiteSettings } from "@/lib/settings/schema";
+
 /**
  * Landing-page videos.
  *
@@ -39,3 +41,15 @@ export const heroVideo: VideoConfig = {
   title: "How the free assessment works",
   label: "Quick look",
 };
+
+/** Videos with the sources set in Website Settings (falling back to the env vars above). */
+export function landingVideos(settings: SiteSettings) {
+  const typeFor = (src: string, fallback: string) => (src.endsWith(".webm") ? "video/webm" : fallback);
+  const { heroVideoUrl, serviceVideoUrl } = settings.content;
+  return {
+    hero: heroVideoUrl ? { ...heroVideo, src: heroVideoUrl, type: typeFor(heroVideoUrl, heroVideo.type) } : heroVideo,
+    service: serviceVideoUrl
+      ? { ...serviceVideo, src: serviceVideoUrl, type: typeFor(serviceVideoUrl, serviceVideo.type) }
+      : serviceVideo,
+  };
+}

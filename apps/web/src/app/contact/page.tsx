@@ -21,48 +21,24 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SocialIcon, socialLabels } from "@/components/social-icon";
 import { assessmentHref, siteConfig } from "@/config/site";
-import { branches, contactDetails, contactFaqs, socialLinks } from "@/content/contact";
+import { siteUrl, telDigits as digits, whatsappHref as whatsappLink } from "@/lib/settings/format";
+import { getSettings } from "@/lib/settings/store";
 
-export const metadata: Metadata = {
-  title: "Contact Sky Voice Languages",
-  description:
-    "Ask Sky Voice about IELTS coaching, fees, class timings, or the free assessment. Send an enquiry and the team will reply.",
-  alternates: { canonical: `${siteConfig.url}/contact` },
-  openGraph: {
-    title: "Contact Sky Voice Languages",
-    description: "Questions about IELTS coaching, fees, or the free assessment? Send an enquiry.",
-    url: `${siteConfig.url}/contact`,
-  },
-};
-
-const digits = (value: string) => value.replace(/[^\d+]/g, "");
-const phone = contactDetails.phones[0] ?? null;
-const whatsappHref = contactDetails.whatsapp
-  ? `https://wa.me/${digits(contactDetails.whatsapp).replace("+", "")}`
-  : null;
-
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "ContactPage",
-  "@id": `${siteConfig.url}/contact#page`,
-  name: "Contact Sky Voice Languages",
-  url: `${siteConfig.url}/contact`,
-  about: { "@id": `${siteConfig.url}/#organization` },
-  ...(phone || contactDetails.email
-    ? {
-        mainEntity: {
-          "@type": "Organization",
-          "@id": `${siteConfig.url}/#organization`,
-          contactPoint: {
-            "@type": "ContactPoint",
-            contactType: "customer service",
-            ...(phone ? { telephone: digits(phone) } : {}),
-            ...(contactDetails.email ? { email: contactDetails.email } : {}),
-          },
-        },
-      }
-    : {}),
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const name = settings.company.name;
+  return {
+    title: `Contact ${name}`,
+    description:
+      "Ask Sky Voice about IELTS coaching, fees, class timings, or the free assessment. Send an enquiry and the team will reply.",
+    alternates: { canonical: siteUrl(settings, "/contact") },
+    openGraph: {
+      title: `Contact ${name}`,
+      description: "Questions about IELTS coaching, fees, or the free assessment? Send an enquiry.",
+      url: siteUrl(settings, "/contact"),
+    },
+  };
+}
 
 function DetailRow({
   icon: Icon,
@@ -84,14 +60,45 @@ function DetailRow({
   );
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const settings = await getSettings();
+  const { contact, company } = settings;
+  const contactDetails = { ...contact, centreName: company.name };
+  const { branches } = contact;
+  const socialLinks = company.socialLinks;
+  const contactFaqs = settings.content.contactFaqs;
+  const phone = contact.phones[0] ?? null;
+  const whatsappHref = whatsappLink(settings);
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "@id": siteUrl(settings, "/contact#page"),
+    name: `Contact ${company.name}`,
+    url: siteUrl(settings, "/contact"),
+    about: { "@id": siteUrl(settings, "/#organization") },
+    ...(phone || contact.email
+      ? {
+          mainEntity: {
+            "@type": "Organization",
+            "@id": siteUrl(settings, "/#organization"),
+            contactPoint: {
+              "@type": "ContactPoint",
+              contactType: "customer service",
+              ...(phone ? { telephone: digits(phone) } : {}),
+              ...(contact.email ? { email: contact.email } : {}),
+            },
+          },
+        }
+      : {}),
+  };
+
   const hasDirectContact = Boolean(phone || whatsappHref || contactDetails.email);
   const missingDetails =
-    !contactDetails.address ||
+    !contactDetails.address.length ||
     !phone ||
     !contactDetails.whatsapp ||
     !contactDetails.email ||
-    !contactDetails.hours;
+    !contactDetails.hours.length;
 
   return (
     <>
@@ -110,11 +117,8 @@ export default function ContactPage() {
           <div className="site-shell page-hero-grid">
             <div className="page-hero-copy hero-enter">
               <span className="eyebrow">Contact Sky Voice</span>
-              <h1 id="contact-title">Talk to the Sky Voice team.</h1>
-              <p className="page-hero-lede">
-                Questions about courses, fees, class timings, or the free assessment?
-                Send an enquiry below, or book the free assessment directly.
-              </p>
+              <h1 id="contact-title">{contact.pageTitle}</h1>
+              <p className="page-hero-lede">{contact.pageIntro}</p>
               <div className="hero-actions">
                 {hasDirectContact ? (
                   <>
@@ -183,7 +187,7 @@ export default function ContactPage() {
               <span className="eyebrow">Contact information</span>
               <h2 id="details-title">{contactDetails.centreName}</h2>
               <dl className="contact-list">
-                {contactDetails.address ? (
+                {contactDetails.address.length ? (
                   <DetailRow icon={MapPin} label="Office address">
                     <address>
                       {contactDetails.address.map((line) => (
@@ -218,7 +222,7 @@ export default function ContactPage() {
                     </a>
                   </DetailRow>
                 ) : null}
-                {contactDetails.hours ? (
+                {contactDetails.hours.length ? (
                   <DetailRow icon={Clock3} label="Business hours">
                     {contactDetails.hours.map((line) => (
                       <span className="branch-address-line" key={line}>
@@ -270,7 +274,7 @@ export default function ContactPage() {
               </div>
             </Reveal>
             <Reveal className="contact-form-wrap" delay={0.06}>
-              <ContactForm />
+              <ContactForm branches={branches} />
             </Reveal>
           </div>
         </section>

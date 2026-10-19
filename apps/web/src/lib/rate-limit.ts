@@ -7,6 +7,13 @@ export function createRateLimiter({ limit, windowMs }: { limit: number; windowMs
 
   return function isRateLimited(key: string) {
     const now = Date.now();
+    // Drop expired windows once the map grows, so unique visitors do not
+    // accumulate for the lifetime of the server process.
+    if (requests.size > 1000) {
+      for (const [entryKey, entry] of requests) {
+        if (entry.resetAt < now) requests.delete(entryKey);
+      }
+    }
     const current = requests.get(key);
 
     if (!current || current.resetAt < now) {

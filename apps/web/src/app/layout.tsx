@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Nunito, Nunito_Sans } from "next/font/google";
 
-import { siteConfig } from "@/config/site";
+import { Analytics } from "@/components/analytics";
+import { getSettings } from "@/lib/settings/store";
 
 import "./globals.css";
 
@@ -19,29 +20,28 @@ const nunitoDisplay = Nunito({
   weight: ["800", "900"],
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
-  title: {
-    default: "Sky Voice Languages | Personalised IELTS Coaching",
-    template: "%s | Sky Voice Languages",
-  },
-  description: siteConfig.description,
-  applicationName: siteConfig.name,
-  alternates: { canonical: "/" },
-  openGraph: {
-    description: siteConfig.description,
-    locale: "en_IN",
-    siteName: siteConfig.name,
-    title: "Sky Voice Languages | Personalised IELTS Coaching",
-    type: "website",
-    url: siteConfig.url,
-  },
-  twitter: {
-    card: "summary_large_image",
-    description: siteConfig.description,
-    title: "Sky Voice Languages | Personalised IELTS Coaching",
-  },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { company } = await getSettings();
+  const title = `${company.name} | Personalised IELTS Coaching`;
+  return {
+    metadataBase: new URL(company.domain),
+    title: { default: title, template: `%s | ${company.name}` },
+    description: company.description,
+    applicationName: company.name,
+    alternates: { canonical: "/" },
+    // Without a configured favicon, Next serves app/icon.svg automatically.
+    ...(company.faviconUrl ? { icons: { icon: company.faviconUrl } } : {}),
+    openGraph: {
+      description: company.description,
+      locale: "en_IN",
+      siteName: company.name,
+      title,
+      type: "website",
+      url: company.domain,
+    },
+    twitter: { card: "summary_large_image", description: company.description, title },
+  };
+}
 
 export const viewport: Viewport = {
   colorScheme: "light",
@@ -51,12 +51,18 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html className={`${nunito.variable} ${nunitoDisplay.variable}`} lang="en" suppressHydrationWarning>
+    <html
+      className={`${nunito.variable} ${nunitoDisplay.variable}`}
+      data-scroll-behavior="smooth"
+      lang="en"
+      suppressHydrationWarning
+    >
       <body suppressHydrationWarning>
         <a className="skip-link" href="#main-content">
           Skip to main content
         </a>
         {children}
+        <Analytics />
       </body>
     </html>
   );

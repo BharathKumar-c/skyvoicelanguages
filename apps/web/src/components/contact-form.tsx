@@ -6,8 +6,9 @@ import Link from "next/link";
 import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
-import { branches, enquiryTypes } from "@/content/contact";
+import { enquiryTypes, type Branch } from "@/content/contact";
 import { contactEnquirySchema, type ContactEnquiry } from "@/lib/enquiries/schema";
+import { postForm } from "@/lib/forms/post-form";
 
 type FormState =
   | { type: "idle" }
@@ -16,7 +17,7 @@ type FormState =
 
 const MESSAGE_MAX = 1000;
 
-export function ContactForm() {
+export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id" | "name">[] }) {
   const [formState, setFormState] = useState<FormState>({ type: "idle" });
   const {
     control,
@@ -34,16 +35,11 @@ export function ContactForm() {
     setFormState({ type: "idle" });
 
     try {
-      const response = await fetch("/api/enquiries", {
-        body: JSON.stringify(values),
-        headers: { "Content-Type": "application/json" },
-        method: "POST",
-      });
-      const result = (await response.json()) as { message?: string; mode?: "live" | "preview" };
-
-      if (!response.ok) {
-        throw new Error(result.message ?? "We could not send your enquiry. Please try again.");
-      }
+      const result = await postForm(
+        "/api/enquiries",
+        values,
+        "We could not send your enquiry. Please try again.",
+      );
 
       // Clearing the form after a confirmed send prevents accidental repeats.
       reset();
@@ -178,7 +174,7 @@ export function ContactForm() {
 
       <div aria-hidden="true" className="honeypot">
         <label htmlFor="enquiry-website">Website</label>
-        <input id="enquiry-website" tabIndex={-1} {...register("website")} />
+        <input autoComplete="off" id="enquiry-website" tabIndex={-1} {...register("website")} />
       </div>
 
       {formState.type !== "idle" ? (

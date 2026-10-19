@@ -1,6 +1,8 @@
 type BrandLogoProps = {
   variant?: "default" | "white";
   className?: string;
+  /** Logo configured in Website Settings; falls back to the built-in lockup. */
+  src?: string;
 };
 
 /**
@@ -11,11 +13,13 @@ type BrandLogoProps = {
 export function BrandLogo({
   variant = "default",
   className = "",
+  src,
 }: BrandLogoProps) {
   const source =
-    variant === "white"
+    src ||
+    (variant === "white"
       ? "/assets/generated/brand/skyvoice-horizontal-white-transparent.svg"
-      : "/assets/generated/brand/skyvoice-horizontal-cropped.svg";
+      : "/assets/generated/brand/skyvoice-horizontal-cropped.svg");
 
   return (
     // eslint-disable-next-line @next/next/no-img-element -- SVG logo; next/image adds nothing here

@@ -1,5 +1,10 @@
 /**
- * Contact page content.
+ * Contact page types and fixed lists.
+ *
+ * NOTE: contact details, branches, social links, and Contact-page FAQs are now
+ * edited in Website Settings (/admin/settings) and read from
+ * src/lib/settings; the values below are kept only as type references and are
+ * not rendered. `enquiryTypes` is still used by the enquiry form and its API.
  *
  * Sky Voice has not yet supplied approved contact details, branches, or social
  * profiles (see WEBSITE_DEVELOPMENT_REQUIREMENTS.md, "Content that must be

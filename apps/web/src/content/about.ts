@@ -113,12 +113,17 @@ export type Trainer = {
   qualifications: string[];
   expertise: string[];
   experienceYears: number | null;
+  achievements?: string[];
   bio: string;
   /** Introduction video; leave null until the file exists. */
   video: VideoConfig | null;
 };
 
 /**
+ * Trainers, achievements, and success stories are now managed in Website
+ * Settings (/admin/settings → Trainers, Results & reviews). These empty lists
+ * remain only as type references for tests.
+ *
  * Add one entry per trainer once Sky Voice supplies approved details.
  *
  * {

@@ -118,6 +118,18 @@ function TrainerProfile({ trainer, onClose }: { trainer: Trainer; onClose: () =>
               </ul>
             </div>
           ) : null}
+          {trainer.achievements?.length ? (
+            <div>
+              <h3>Achievements</h3>
+              <ul className="trainer-list">
+                {trainer.achievements.map((item) => (
+                  <li key={item}>
+                    <Award aria-hidden="true" /> {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
           {trainer.expertise.length ? (
             <div>
               <h3>Skills and expertise</h3>

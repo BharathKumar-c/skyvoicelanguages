@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { BrandLogo } from "@/components/brand-logo";
+import { SiteLogo } from "@/components/site-logo";
 
 export const metadata: Metadata = {
   title: "Website terms",
@@ -13,7 +13,7 @@ export default function TermsPage() {
     <main className="utility-page legal-page" id="main-content">
       <article className="utility-shell legal-shell">
         <Link aria-label="Sky Voice Languages home" href="/">
-          <BrandLogo />
+          <SiteLogo />
         </Link>
         <span className="eyebrow">Terms</span>
         <h1>Website terms</h1>

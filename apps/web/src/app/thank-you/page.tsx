@@ -4,7 +4,7 @@ import Link from "next/link";
 
 import { AnimatedArt } from "@/components/animated-art";
 import { AiraContext, AiraGroundShadow } from "@/components/mascot";
-import { BrandLogo } from "@/components/brand-logo";
+import { SiteLogo } from "@/components/site-logo";
 
 export const metadata: Metadata = {
   title: "Assessment request received",
@@ -16,7 +16,7 @@ export default function ThankYouPage() {
     <main className="utility-page" id="main-content">
       <div className="utility-shell success-shell">
         <Link aria-label="Sky Voice Languages home" href="/">
-          <BrandLogo />
+          <SiteLogo />
         </Link>
         <div className="thank-you-mascot">
           <AnimatedArt

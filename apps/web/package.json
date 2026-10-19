@@ -10,13 +10,15 @@
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "admin:hash-password": "node scripts/hash-admin-password.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "latest",
     "lucide-react": "latest",
     "motion": "latest",
     "next": "latest",
+    "nodemailer": "^10.1.2",
     "react": "latest",
     "react-dom": "latest",
     "react-hook-form": "latest",
@@ -29,6 +31,7 @@
     "@testing-library/jest-dom": "latest",
     "@testing-library/react": "latest",
     "@types/node": "latest",
+    "@types/nodemailer": "^8.0.2",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "@vitejs/plugin-react": "latest",

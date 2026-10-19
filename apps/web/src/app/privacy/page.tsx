@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { BrandLogo } from "@/components/brand-logo";
+import { SiteLogo } from "@/components/site-logo";
 
 export const metadata: Metadata = {
   title: "Privacy notice",
-  description: "How Sky Voice Languages handles IELTS assessment enquiry details.",
+  description: "How Sky Voice Languages handles IELTS assessment and contact enquiry details.",
 };
 
 export default function PrivacyPage() {
@@ -13,7 +13,7 @@ export default function PrivacyPage() {
     <main className="utility-page legal-page" id="main-content">
       <article className="utility-shell legal-shell">
         <Link aria-label="Sky Voice Languages home" href="/">
-          <BrandLogo />
+          <SiteLogo />
         </Link>
         <span className="eyebrow">Privacy</span>
         <h1>Privacy notice</h1>
@@ -28,6 +28,10 @@ export default function PrivacyPage() {
           The assessment form asks for your name, WhatsApp number, city, IELTS type,
           and target band. Campaign attribution data may also be attached to understand
           which page or advertisement led to the enquiry.
+        </p>
+        <p>
+          The contact form asks for your name, email address, mobile number, the topic
+          of your enquiry, an optional preferred branch, and your message.
         </p>
         <h2>Why it is used</h2>
         <p>

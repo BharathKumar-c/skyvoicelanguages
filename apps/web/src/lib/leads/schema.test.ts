@@ -22,9 +22,8 @@ describe("assessmentLeadSchema", () => {
     ).toBe(false);
   });
 
-  it("rejects a populated honeypot", () => {
-    expect(
-      assessmentLeadSchema.safeParse({ ...validLead, website: "spam.example" }).success,
-    ).toBe(false);
+  it("passes a populated honeypot through for the route to drop silently", () => {
+    const parsed = assessmentLeadSchema.safeParse({ ...validLead, website: "spam.example" });
+    expect(parsed.success && parsed.data.website).toBe("spam.example");
   });
 });

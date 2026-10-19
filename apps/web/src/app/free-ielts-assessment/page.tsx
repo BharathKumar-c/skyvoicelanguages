@@ -12,6 +12,7 @@ import {
   Headphones,
   Laptop2,
   MessageCircleMore,
+  MessagesSquare,
   MousePointerClick,
   Plane,
   Route,
@@ -22,6 +23,7 @@ import {
   Target,
   TimerReset,
   TrendingUp,
+  Users,
   Video,
   WandSparkles,
 } from "lucide-react";
@@ -39,50 +41,51 @@ import { Reveal } from "@/components/reveal";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ServiceVideo } from "@/components/service-video";
-import { heroVideo } from "@/config/media";
+import { landingVideos } from "@/config/media";
 import { siteConfig } from "@/config/site";
-import {
-  audiences,
-  faqs,
-  methodSteps,
-  modules,
-  pricing,
-  scoreGaps,
-  trustPoints,
-} from "@/content/landing";
+import { audiences, methodSteps, modules, scoreGaps, trustPoints } from "@/content/landing";
+import { brandLogos, formatFee, siteUrl } from "@/lib/settings/format";
+import type { SiteSettings } from "@/lib/settings/schema";
+import { getSettings } from "@/lib/settings/store";
 
-export const metadata: Metadata = {
-  title: "Online IELTS Coaching & Free Assessment",
-  description:
-    "Find the exact IELTS skills holding back your score. Book a free online assessment for a personalised Academic or General Training roadmap.",
-  alternates: {
-    canonical: `${siteConfig.url}${siteConfig.campaignPath}`,
-  },
-  openGraph: {
-    title: "Know what is holding back your IELTS score",
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const url = siteUrl(settings, siteConfig.campaignPath);
+  return {
+    title: "Online IELTS Coaching & Free Assessment",
     description:
-      "Free IELTS assessment, a clear preparation roadmap, and personalised online coaching for Academic and General Training.",
-    url: `${siteConfig.url}${siteConfig.campaignPath}`,
-  },
-};
+      "Find the exact IELTS skills holding back your score. Book a free online assessment for a personalised Academic or General Training roadmap.",
+    alternates: { canonical: url },
+    openGraph: {
+      title: "Know what is holding back your IELTS score",
+      description:
+        "Free IELTS assessment, a clear preparation roadmap, and personalised online coaching for Academic and General Training.",
+      url,
+    },
+  };
+}
 
-const structuredData = {
+const structuredDataFor = (settings: SiteSettings) => ({
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "EducationalOrganization",
-      "@id": `${siteConfig.url}/#organization`,
-      name: siteConfig.name,
-      url: siteConfig.url,
-      logo: `${siteConfig.url}/brand/skyvoice-icon.svg`,
+      "@id": siteUrl(settings, "/#organization"),
+      name: settings.company.name,
+      url: settings.company.domain,
+      logo: siteUrl(settings, "/brand/skyvoice-icon.svg"),
+      description: settings.company.description,
+      ...(settings.company.socialLinks.length
+        ? { sameAs: settings.company.socialLinks.map((link) => link.url) }
+        : {}),
     },
     {
       "@type": "Service",
-      "@id": `${siteConfig.url}${siteConfig.campaignPath}#service`,
+      "@id": siteUrl(settings, `${siteConfig.campaignPath}#service`),
       name: "Online IELTS Coaching and Assessment",
-      provider: { "@id": `${siteConfig.url}/#organization` },
+      provider: { "@id": siteUrl(settings, "/#organization") },
       serviceType: "IELTS coaching",
-      areaServed: "Online",
+      areaServed: settings.company.serviceArea || "Online",
       description:
         "Personalised online IELTS coaching for Academic and General Training, beginning with a free diagnostic assessment.",
       offers: {
@@ -94,21 +97,30 @@ const structuredData = {
     },
     {
       "@type": "FAQPage",
-      mainEntity: faqs.map((faq) => ({
+      mainEntity: settings.content.faqs.map((faq) => ({
         "@type": "Question",
         name: faq.question,
         acceptedAnswer: { "@type": "Answer", text: faq.answer },
       })),
     },
   ],
-};
+});
 
-export default function FreeIeltsAssessmentPage() {
+export default async function FreeIeltsAssessmentPage() {
+  const settings = await getSettings();
+  const { courses, content } = settings;
+  const { hero } = content;
+  const videos = landingVideos(settings);
+  // Underline the configured words only when they end the second line.
+  const underline =
+    hero.titleUnderline && hero.titleLine2.endsWith(hero.titleUnderline) ? hero.titleUnderline : "";
+  const line2Lead = underline ? hero.titleLine2.slice(0, -underline.length) : hero.titleLine2;
+
   return (
     <>
       <script
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          __html: JSON.stringify(structuredDataFor(settings)).replace(/</g, "\\u003c"),
         }}
         type="application/ld+json"
       />
@@ -127,34 +139,36 @@ export default function FreeIeltsAssessmentPage() {
                   <div className="hero-eyebrow-row">
                     <span className="eyebrow">
                       <Sparkles aria-hidden="true" />
-                      Online IELTS coaching
+                      {hero.eyebrow}
                     </span>
                     <span className="availability-dot">Academic + General</span>
                   </div>
                   <h1>
-                    Stuck at Band 5 or 6?
-                    <span>
-                      {" "}
-                      Find the <span className="hero-underline">exact gap.</span>
-                    </span>
+                    {hero.titleLine1}
+                    {hero.titleLine2 ? (
+                      <span>
+                        {" "}
+                        {line2Lead}
+                        {underline ? <span className="hero-underline">{underline}</span> : null}
+                      </span>
+                    ) : null}
                   </h1>
-                  <p className="hero-lede">
-                    Stop preparing blindly. Start with a free assessment that maps your
-                    current level, weak modules, target band, and clearest route forward.
-                  </p>
+                  <p className="hero-lede">{hero.lede}</p>
                   <div className="hero-actions">
                     <Link className="button button-accent button-large" href="#assessment-form">
-                      Book my free assessment
+                      {hero.primaryCtaLabel}
                       <ArrowRight aria-hidden="true" />
                     </Link>
-                    <Link className="button button-secondary button-large" href="#method">
-                      See how it works
+                    <Link className="button button-secondary button-large" href={hero.secondaryCtaHref}>
+                      {hero.secondaryCtaLabel}
                     </Link>
                   </div>
-                  <p className="hero-reassurance">
-                    <ShieldCheck aria-hidden="true" />
-                    Free whether you join or not. No payment details.
-                  </p>
+                  {hero.reassurance ? (
+                    <p className="hero-reassurance">
+                      <ShieldCheck aria-hidden="true" />
+                      {hero.reassurance}
+                    </p>
+                  ) : null}
                 </div>
               </div>
 
@@ -182,14 +196,14 @@ export default function FreeIeltsAssessmentPage() {
 
             <div className="hero-right">
               <div className="hero-video hero-enter hero-enter-2">
-                <ServiceVideo variant="compact" video={heroVideo} />
+                <ServiceVideo variant="compact" video={videos.hero} />
               </div>
               <div className="hero-form-wrap hero-enter hero-enter-3">
                 <div className="hero-form-accent" aria-hidden="true">
                   <span>Start here</span>
                   <ArrowRight />
                 </div>
-                <LeadForm idPrefix="assessment" />
+                <LeadForm assessmentDuration={courses.assessmentDuration} idPrefix="assessment" />
               </div>
             </div>
           </div>
@@ -221,7 +235,7 @@ export default function FreeIeltsAssessmentPage() {
               </p>
             </Reveal>
             <Reveal className="video-stage" delay={0.06}>
-              <ServiceVideo />
+              <ServiceVideo video={videos.service} />
             </Reveal>
             <div className="video-points">
               <span>
@@ -474,10 +488,12 @@ export default function FreeIeltsAssessmentPage() {
                 an exam-like computer-delivered environment.
               </p>
               <div className="portal-features">
-                <div>
-                  <strong>80</strong>
-                  <span>practice sets</span>
-                </div>
+                {courses.portalPracticeSets ? (
+                  <div>
+                    <strong>{courses.portalPracticeSets}</strong>
+                    <span>practice sets</span>
+                  </div>
+                ) : null}
                 <div>
                   <strong>4</strong>
                   <span>IELTS modules</span>
@@ -489,7 +505,9 @@ export default function FreeIeltsAssessmentPage() {
               </div>
               <p className="inline-note">
                 <Clock3 aria-hidden="true" />
-                Access duration will be displayed after final client confirmation.
+                {courses.portalAccessDuration
+                  ? `Portal access: ${courses.portalAccessDuration}.`
+                  : "Access duration will be displayed after final client confirmation."}
               </p>
             </Reveal>
 
@@ -509,7 +527,7 @@ export default function FreeIeltsAssessmentPage() {
                 </div>
                 <div className="portal-body">
                   <aside>
-                    <BrandLogo />
+                    <BrandLogo src={brandLogos(settings).default} />
                     <nav aria-label="Concept portal navigation">
                       <span className="active">
                         <Headphones aria-hidden="true" /> Practice
@@ -607,10 +625,10 @@ export default function FreeIeltsAssessmentPage() {
             <Reveal className="section-heading centered-heading">
               <span className="eyebrow">Clear formats · transparent fees</span>
               <h2>Two ways to train. One personalised method.</h2>
-              <p>Both include the assessment, roadmap, portal, and tutor support.</p>
+              {courses.feeNote ? <p>{courses.feeNote}</p> : null}
             </Reveal>
             <div className="pricing-grid">
-              {pricing.map((plan) => (
+              {courses.plans.map((plan) => (
                 <div
                   className={`pricing-card ${plan.featured ? "is-featured" : ""}`}
                   key={plan.name}
@@ -618,7 +636,7 @@ export default function FreeIeltsAssessmentPage() {
                   {plan.featured ? <span className="popular-badge">Most focused</span> : null}
                   <div className="pricing-title">
                     <span>
-                      <plan.icon aria-hidden="true" />
+                      {plan.featured ? <MessagesSquare aria-hidden="true" /> : <Users aria-hidden="true" />}
                     </span>
                     <div>
                       <h3>{plan.name}</h3>
@@ -628,20 +646,29 @@ export default function FreeIeltsAssessmentPage() {
                   <dl className="price-list">
                     <div>
                       <dt>IELTS Academic</dt>
-                      <dd>{plan.academic}</dd>
+                      <dd>{formatFee(plan.academicFee) ?? "Fee on request"}</dd>
                     </div>
                     <div>
                       <dt>IELTS General Training</dt>
-                      <dd>{plan.general}</dd>
+                      <dd>{formatFee(plan.generalFee) ?? "Fee on request"}</dd>
                     </div>
                   </dl>
                   <ul className="plan-features">
-                    <li>
-                      <Check aria-hidden="true" /> {plan.bestFor}
-                    </li>
-                    <li>
-                      <Check aria-hidden="true" /> {plan.schedule}
-                    </li>
+                    {plan.description ? (
+                      <li>
+                        <Check aria-hidden="true" /> {plan.description}
+                      </li>
+                    ) : null}
+                    {plan.schedule ? (
+                      <li>
+                        <Check aria-hidden="true" /> {plan.schedule}
+                      </li>
+                    ) : null}
+                    {plan.duration ? (
+                      <li>
+                        <Check aria-hidden="true" /> {plan.duration}
+                      </li>
+                    ) : null}
                     <li>
                       <Check aria-hidden="true" /> Writing and Speaking feedback
                     </li>
@@ -661,6 +688,9 @@ export default function FreeIeltsAssessmentPage() {
               <div>
                 <strong>Not sure which format fits?</strong>
                 <p>Your free assessment ends with a format recommendation—before you pay.</p>
+                {courses.installmentInfo ? (
+                  <p className="price-installment">{courses.installmentInfo}</p>
+                ) : null}
               </div>
             </div>
           </div>
@@ -753,7 +783,7 @@ export default function FreeIeltsAssessmentPage() {
               </Link>
             </Reveal>
             <Reveal delay={0.08}>
-              <FaqList />
+              <FaqList items={content.faqs} />
             </Reveal>
           </div>
         </section>
@@ -795,7 +825,7 @@ export default function FreeIeltsAssessmentPage() {
               </ol>
             </Reveal>
             <Reveal className="final-form-card" delay={0.08}>
-              <LeadForm compact idPrefix="final-assessment" />
+              <LeadForm assessmentDuration={courses.assessmentDuration} compact idPrefix="final-assessment" />
             </Reveal>
           </div>
         </section>

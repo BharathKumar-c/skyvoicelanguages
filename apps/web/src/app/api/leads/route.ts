@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
 
+import { deliverSubmission } from "@/lib/delivery/deliver";
 import { assessmentLeadSchema } from "@/lib/leads/schema";
 import { clientKey, createRateLimiter } from "@/lib/rate-limit";
+import { getSettings } from "@/lib/settings/store";
 
 const isRateLimited = createRateLimiter({ limit: 5, windowMs: 10 * 60 * 1000 });
+
+const ieltsTypeLabels = {
+  academic: "Academic",
+  general: "General Training",
+  "not-sure": "Not sure yet",
+} as const;
 
 export async function POST(request: Request) {
   if (isRateLimited(clientKey(request))) {
@@ -33,14 +41,36 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Request accepted.", mode: "live" });
   }
 
-  const webhookUrl = process.env.ASSESSMENT_LEAD_WEBHOOK_URL;
-  const webhookToken = process.env.ASSESSMENT_LEAD_WEBHOOK_TOKEN;
+  const submittedAt = new Date().toISOString();
+  const settings = await getSettings();
+  const result = await deliverSubmission({
+    notifyTo: settings.integrations.email.notifyTo,
+    kind: "Free assessment request",
+    subjectDetail: `${lead.name} (${lead.city})`,
+    fields: [
+      ["Name", lead.name],
+      ["WhatsApp", lead.phone],
+      ["City", lead.city],
+      ["IELTS type", ieltsTypeLabels[lead.ieltsType]],
+      ["Target band", lead.targetBand],
+      ["Page", lead.sourcePage],
+      ["UTM source", lead.utmSource],
+      ["UTM medium", lead.utmMedium],
+      ["UTM campaign", lead.utmCampaign],
+      ["Submitted", submittedAt],
+    ],
+    webhook: {
+      payload: { ...lead, submittedAt },
+      token: process.env.ASSESSMENT_LEAD_WEBHOOK_TOKEN,
+      url: process.env.ASSESSMENT_LEAD_WEBHOOK_URL,
+    },
+  });
 
-  if (!webhookUrl) {
+  if (result === "unconfigured") {
     if (process.env.NODE_ENV === "development") {
       return NextResponse.json({
         message:
-          "Preview validated successfully. Connect the secure lead webhook before production launch.",
+          "Preview validated successfully. Connect lead delivery (email or webhook) before production launch.",
         mode: "preview",
       });
     }
@@ -54,34 +84,12 @@ export async function POST(request: Request) {
     );
   }
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 8000);
-
-  try {
-    const response = await fetch(webhookUrl, {
-      body: JSON.stringify({
-        ...lead,
-        submittedAt: new Date().toISOString(),
-      }),
-      headers: {
-        "Content-Type": "application/json",
-        ...(webhookToken ? { Authorization: `Bearer ${webhookToken}` } : {}),
-      },
-      method: "POST",
-      signal: controller.signal,
-    });
-
-    if (!response.ok) {
-      throw new Error("Lead provider rejected the request.");
-    }
-
-    return NextResponse.json({ message: "Assessment request received.", mode: "live" });
-  } catch {
+  if (result === "failed") {
     return NextResponse.json(
       { message: "We could not send your request. Please try again shortly." },
       { status: 502 },
     );
-  } finally {
-    clearTimeout(timeout);
   }
+
+  return NextResponse.json({ message: "Assessment request received.", mode: "live" });
 }

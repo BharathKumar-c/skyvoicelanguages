@@ -1,6 +1,13 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+// The form endpoints rate-limit per client IP; give every test its own so
+// repeated runs against one dev server do not hit the limit.
+test.beforeEach(async ({ page }) => {
+  const octet = () => Math.floor(Math.random() * 255);
+  await page.setExtraHTTPHeaders({ "x-forwarded-for": `10.${octet()}.${octet()}.${octet()}` });
+});
+
 test("renders the campaign promise and primary journey", async ({ page }) => {
   await page.goto("/free-ielts-assessment");
 

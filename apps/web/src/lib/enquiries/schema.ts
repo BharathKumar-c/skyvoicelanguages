@@ -27,7 +27,9 @@ export const contactEnquirySchema = z.object({
     .trim()
     .min(10, "Add a little more detail (at least 10 characters).")
     .max(1000, "Keep your message under 1,000 characters."),
-  website: z.string().max(0).optional(),
+  // Honeypot. Accepted here so a filled value reaches the API route, which
+  // drops it silently; rejecting it would block the form with no visible error.
+  website: z.string().max(200).optional(),
 });
 
 export type ContactEnquiry = z.infer<typeof contactEnquirySchema>;

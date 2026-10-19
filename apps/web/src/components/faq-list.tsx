@@ -3,16 +3,14 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
-import { faqs } from "@/content/landing";
-
 type FaqItem = { question: string; answer: string };
 
-/** Accessible accordion. Defaults to the campaign FAQs; pass items to reuse it. */
+/** Accessible accordion; items come from Website Settings. */
 export function FaqList({
-  items = faqs,
+  items,
   idPrefix = "faq",
 }: {
-  items?: readonly FaqItem[];
+  items: readonly FaqItem[];
   idPrefix?: string;
 }) {
   const [active, setActive] = useState<number | null>(0);
