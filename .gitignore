@@ -30,3 +30,6 @@ __pycache__/
 
 # Website Settings data (server-side store; back up separately)
 apps/web/data/
+
+# Production env files with real secrets (copied to the server by hand)
+deploy/*.env
