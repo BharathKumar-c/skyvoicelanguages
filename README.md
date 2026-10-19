@@ -30,12 +30,16 @@ Open `http://localhost:3000`; the root route redirects to `/free-ielts-assessmen
 
 ## Environment variables
 
-Copy `.env.example` to `.env.local` at the repository root or `apps/web/.env.local`, depending on the deployment provider.
+Copy `apps/web/.env.example` to **`apps/web/.env.local`**. Next.js reads env files only from `apps/web`, so a `.env.local` at the repository root is ignored. Every variable is documented in `.env.example`. The main groups are:
 
-- `ASSESSMENT_LEAD_WEBHOOK_URL`: server-only webhook that accepts validated assessment leads.
-- `ASSESSMENT_LEAD_WEBHOOK_TOKEN`: optional bearer token sent to that webhook.
+- **Admin (`/admin`):** `ADMIN_PASSWORD_HASH` and `ADMIN_SESSION_SECRET`, both generated with `pnpm --filter @skyvoice/web admin:hash-password`.
+- **Website Settings storage:** `SETTINGS_FILE`.
+- **Form email:** `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `NOTIFY_EMAIL_TO`.
+- **Optional webhooks:** `ASSESSMENT_LEAD_WEBHOOK_URL` and `CONTACT_ENQUIRY_WEBHOOK_URL`.
 
-When no webhook is configured, development mode validates the form and returns an explicit preview result. A production build returns a service-unavailable response so a lead can never appear to be captured when it was not delivered.
+When no delivery method is configured, development mode validates the forms and shows an explicit preview result. A production build returns a service-unavailable response instead, so a lead can never look captured when it wasn't delivered.
+
+Deployment on Windows Server and IIS: see `document/WINDOWS_SERVER_DEPLOYMENT_GUIDE.md`.
 
 ## Verification
 
@@ -49,14 +53,16 @@ pnpm test:e2e
 
 ## Where to add real content
 
-The About and Contact pages are fully built and show an honest "being finalised"
-note wherever approved content is missing. Fill these typed files and the pages
-update automatically:
+Business details and site copy are managed in **Website Settings** at `/admin/settings`, with no code changes needed. That includes:
 
-- `apps/web/src/content/about.ts`: `trainers` (name, designation, photo, qualifications, expertise, years, bio, video), `achievements`, `successStories`, and approval of the drafted mission/vision wording.
-- `apps/web/src/content/contact.ts`: `contactDetails` (address, phones, WhatsApp, email, hours, weekly holiday), `branches` (each with a `mapQuery` for the embedded Google map and directions), and `socialLinks`.
-- Trainer photos go in `apps/web/public/trainers/`; videos in `apps/web/public/video/` (or a hosted URL).
-- Contact enquiries post to `/api/enquiries`. Set `CONTACT_ENQUIRY_WEBHOOK_URL` (optional; falls back to the assessment lead webhook).
+- company and contact details, branches and social links;
+- courses and fees;
+- trainers;
+- verified results and testimonials;
+- hero text, FAQs and footer;
+- videos and integrations.
+
+Empty items stay hidden, or show an honest "being confirmed" note. See `document/WEBSITE_SETTINGS_REPORT.md`.
 
 ## Content that must be supplied before launch
 
