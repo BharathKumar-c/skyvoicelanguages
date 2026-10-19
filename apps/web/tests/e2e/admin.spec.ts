@@ -1,4 +1,4 @@
-import { copyFile, readFile, rm } from "node:fs/promises";
+import { readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 import { expect, test, type Page } from "@playwright/test";
@@ -26,31 +26,31 @@ function readEnvLocal() {
     .catch(() => ({}) as Record<string, string>);
 }
 
-const settingsFile = path.join(process.cwd(), "data", "site-settings.json");
-const backupFile = `${settingsFile}.e2e-backup`;
-let hadFile = false;
+// Must match the server: SETTINGS_FILE (env, then .env.local), else the app's default.
+let settingsFile = path.join(process.cwd(), "data", "site-settings.json");
+let saved: { file: string | null; bak: string | null } = { bak: null, file: null };
 let credentials = { password: "", username: "admin" };
+
+const readIfExists = (file: string) => readFile(file, "utf8").catch(() => null);
+const restore = async (file: string, content: string | null) =>
+  content === null ? rm(file, { force: true }) : writeFile(file, content, "utf8");
 
 test.describe.configure({ mode: "serial" });
 
 test.beforeAll(async () => {
   const env = await readEnvLocal();
   credentials = { password: env.ADMIN_PASSWORD ?? "", username: env.ADMIN_USERNAME || "admin" };
-  hadFile = await copyFile(settingsFile, backupFile).then(
-    () => true,
-    () => false,
-  );
+  // Same precedence as Next.js: a real environment variable beats .env.local.
+  const configured = (process.env.SETTINGS_FILE || env.SETTINGS_FILE || "").trim();
+  if (configured) settingsFile = configured;
+  // Keep the real settings (and their .bak) in memory; the suite starts from defaults.
+  saved = { bak: await readIfExists(`${settingsFile}.bak`), file: await readIfExists(settingsFile) };
   await rm(settingsFile, { force: true });
 });
 
 test.afterAll(async () => {
-  if (hadFile) {
-    await copyFile(backupFile, settingsFile);
-    await rm(backupFile, { force: true });
-  } else {
-    await rm(settingsFile, { force: true });
-    await rm(`${settingsFile}.bak`, { force: true });
-  }
+  await restore(settingsFile, saved.file);
+  await restore(`${settingsFile}.bak`, saved.bak);
 });
 
 test.beforeEach(async ({ page }) => {

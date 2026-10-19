@@ -1,7 +1,7 @@
 "use client";
 
 import { Check, Clock3, Expand, Play, X } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import Image from "next/image";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
@@ -45,7 +45,6 @@ export function ServiceVideo({
   whenUnavailable = "overview",
   className,
 }: ServiceVideoProps) {
-  const prefersReducedMotion = useReducedMotion();
   const titleId = useId();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [started, setStarted] = useState(false);
@@ -116,7 +115,8 @@ export function ServiceVideo({
     };
   }, [overviewOpen]);
 
-  const fade = prefersReducedMotion ? 0 : 0.55;
+  // Crossfades are opacity-only, so they keep their timing with reduced motion.
+  const fade = 0.55;
   const interactive = hasVideo || whenUnavailable === "overview";
   const previewContent = (
     <>
@@ -213,7 +213,7 @@ export function ServiceVideo({
               key="preview"
               onClick={start}
               ref={triggerRef}
-              transition={{ duration: fade, delay: prefersReducedMotion ? 0 : 0.15, ease: EASE }}
+              transition={{ duration: fade, delay: 0.15, ease: EASE }}
               type="button"
             >
               {previewContent}

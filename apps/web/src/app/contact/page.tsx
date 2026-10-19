@@ -50,12 +50,13 @@ function DetailRow({
   children: React.ReactNode;
 }) {
   return (
+    // A <dl> group may contain only <dt>/<dd>, so the icon lives inside the <dt>.
     <div className="contact-row">
-      <Icon aria-hidden="true" />
-      <div>
-        <dt>{label}</dt>
-        <dd>{children}</dd>
-      </div>
+      <dt>
+        <Icon aria-hidden="true" />
+        {label}
+      </dt>
+      <dd>{children}</dd>
     </div>
   );
 }

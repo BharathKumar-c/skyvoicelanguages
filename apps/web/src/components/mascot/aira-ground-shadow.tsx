@@ -7,7 +7,9 @@
  * (2.6 s): it narrows and fades while Aira rises. Purely decorative.
  */
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
+
+import { usePrefersReducedMotion } from "@/lib/motion";
 
 interface AiraGroundShadowProps {
   /** Rendered width in px. The asset is 240×48. */
@@ -22,7 +24,8 @@ export function AiraGroundShadow({
   tone = "dark",
   className,
 }: AiraGroundShadowProps) {
-  const prefersReducedMotion = useReducedMotion();
+  // The shadow breathes with the idle float, which stays still with reduced motion.
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   return (
     <motion.img

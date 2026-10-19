@@ -1,7 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import type { ReactNode } from "react";
+
+import { fadeFirstTransition, usePrefersReducedMotion } from "@/lib/motion";
 
 type RevealProps = {
   ariaLabel?: string;
@@ -12,6 +14,10 @@ type RevealProps = {
   tabIndex?: number;
 };
 
+/**
+ * Scroll-in entrance: fade up 24px. With reduced motion it is the same fade
+ * (same duration, delay and easing) without the upward travel.
+ */
 export function Reveal({
   ariaLabel,
   children,
@@ -20,7 +26,7 @@ export function Reveal({
   role,
   tabIndex,
 }: RevealProps) {
-  const prefersReducedMotion = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   return (
     <motion.div
@@ -30,11 +36,7 @@ export function Reveal({
       initial={{ opacity: 0, y: 24 }}
       role={role}
       tabIndex={tabIndex}
-      transition={{
-        duration: prefersReducedMotion ? 0 : 0.48,
-        delay: prefersReducedMotion ? 0 : delay,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+      transition={fadeFirstTransition(reduce, { delay, duration: 0.48 }, ["y"])}
       viewport={{ once: true, amount: 0.16 }}
       whileInView={{ opacity: 1, y: 0 }}
     >

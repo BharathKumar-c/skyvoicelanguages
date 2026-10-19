@@ -2923,20 +2923,7 @@ p {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+/* Reduced-motion rules for this area: see "Reduced motion" at the end of this file. */
 
 /* ================================================================== */
 /*  Aira Mascot — Global animation utilities                          */
@@ -4313,11 +4300,7 @@ p {
   animation-delay: 0.16s;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .hero-enter {
-    animation: none;
-  }
-}
+/* Reduced-motion rules for this area: see "Reduced motion" at the end of this file. */
 
 /* ------ R3: readable paragraphs, two-line section headings ------ */
 p {
@@ -5339,14 +5322,19 @@ ul.audience-grid {
   margin: 0;
 }
 
+/* Icon (46px) sits left of the label and value with a 14px gap. It is placed
+   absolutely because it lives inside the <dt> for valid <dl> markup. */
 .contact-row {
-  align-items: flex-start;
-  display: flex;
-  gap: 14px;
+  min-height: 46px;
+  padding-left: 60px;
+  position: relative;
 }
 
-.contact-row > svg {
+.contact-row dt > svg {
   background: var(--brand-blue-light);
+  left: 0;
+  position: absolute;
+  top: 0;
   border-radius: 14px;
   color: var(--brand-blue);
   flex: 0 0 auto;
@@ -5653,4 +5641,79 @@ ul.audience-grid {
   color: var(--text-muted);
   font-size: 0.92rem;
   margin: 8px 0 0;
+}
+
+/* ================================================================== */
+/*  Reduced motion                                                     */
+/*  Visitors who ask for less motion (Windows "Show animations" off,   */
+/*  macOS/iOS "Reduce motion", Android "Remove animations") keep every */
+/*  fade, colour, shadow and small hover/press transition at its       */
+/*  normal timing. Only travel, zoom and looping movement change:      */
+/*  each becomes an opacity-only version, or stays still if purely     */
+/*  ambient. Same policy as src/lib/motion.ts for Motion components.   */
+/* ================================================================== */
+
+@keyframes hero-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes reduced-glow-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+}
+
+@keyframes service-video-pulse-fade {
+  0% {
+    opacity: 0.75;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Jumping to an anchor is instant rather than a long smooth scroll. */
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Hero entrance: same fade and stagger, without the 18px rise. */
+  .hero-enter {
+    animation-name: hero-fade-in;
+  }
+
+  /* Play button ring: keeps pulsing, as a fade instead of an expanding ring. */
+  .service-video-play-ring {
+    animation-name: service-video-pulse-fade;
+    transform: scale(1.15);
+  }
+
+  /* Portal "listening" bars: opacity pulse instead of stretching. */
+  .audio-wave span {
+    animation-name: reduced-glow-pulse;
+  }
+
+  /* Floating proof badges: ambient bobbing only, so they stay still. */
+  .proof-float {
+    animation: none;
+  }
+
+  /* The mobile assessment bar fades in instead of sliding up from the edge. */
+  html:not([data-hero="passed"]):has(#top) .header-cta,
+  html:not([data-hero="passed"]):has(#top) .mobile-cta-bar {
+    transform: none;
+  }
 }

@@ -15,7 +15,9 @@
  */
 
 import { useCallback, useEffect, useMemo, useRef } from "react";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
+
+import { EASE_OUT, usePrefersReducedMotion } from "@/lib/motion";
 
 import { AiraSprite } from "./aira-sprite";
 import type {
@@ -42,7 +44,14 @@ function isCanonicalPose(pose: AiraPose): pose is CanonicalPose {
 
 /** Map a transition name to Motion spring/tween config. */
 function transitionConfig(effect: TransitionEffect, reduceMotion = false) {
-  if (reduceMotion) return { duration: 0 };
+  // Reduced motion: pose changes become a plain crossfade; scale/y snap while transparent.
+  if (reduceMotion && effect !== "none") {
+    return {
+      opacity: { duration: 0.3, ease: EASE_OUT },
+      scale: { duration: 0 },
+      y: { duration: 0 },
+    };
+  }
   switch (effect) {
     case "spring":
       return { type: "spring" as const, stiffness: 200, damping: 22, mass: 1 };
@@ -92,6 +101,13 @@ const SPARK_PULSE = {
   },
 };
 
+/** Reduced-motion spark: the same glow pulse, opacity only (no scaling). */
+const SPARK_GLOW = {
+  opacity: [0.85, 0.45, 0.85],
+  scale: 1,
+  transition: SPARK_PULSE.transition,
+};
+
 /* ------------------------------------------------------------------ */
 /*  Default accessible label                                          */
 /* ------------------------------------------------------------------ */
@@ -128,10 +144,11 @@ export function AiraMascot({
   onAnimationStateChange,
   onPoseTransitionEnd,
 }: AiraMascotProps) {
-  const prefersReducedMotion = useReducedMotion();
+  const prefersReducedMotion = usePrefersReducedMotion();
   const prevPoseRef = useRef<AiraPose>(pose);
 
-  // Resolve effective animation settings
+  // Resolve effective animation settings. The idle float/breathe is a looping
+  // movement, so it stays still with reduced motion.
   const effectiveIdle: IdleAnimation = prefersReducedMotion ? "none" : idle;
   const effectiveTransition: TransitionEffect = transition;
 
@@ -157,8 +174,10 @@ export function AiraMascot({
   const idleAnimateProps = useMemo(() => {
     if (effectiveIdle === "float") return FLOAT_KEYFRAMES;
     if (effectiveIdle === "breathe") return BREATHE_KEYFRAMES;
+    // Reduced motion switched on mid-bob: settle at rest instead of freezing off-centre.
+    if (prefersReducedMotion) return { y: 0, scale: 1, transition: { duration: 0.3 } };
     return {};
-  }, [effectiveIdle]);
+  }, [effectiveIdle, prefersReducedMotion]);
 
   // Accessible label
   const label = ariaLabel ?? POSE_LABELS[pose] ?? `Aira in ${pose} pose`;
@@ -189,9 +208,11 @@ export function AiraMascot({
           }
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={
-            effectiveTransition !== "none"
-              ? { opacity: 0, scale: 0.95, y: -4 }
-              : undefined
+            effectiveTransition === "none"
+              ? undefined
+              : prefersReducedMotion
+                ? { opacity: 0 }
+                : { opacity: 0, scale: 0.95, y: -4 }
           }
           transition={transitionConfig(effectiveTransition, Boolean(prefersReducedMotion))}
           onAnimationComplete={() => {
@@ -236,7 +257,7 @@ export function AiraMascot({
             top: `${SPARK_ANCHORS[pose].yPct}%`,
             width: `${SPARK_ANCHORS[pose].sizePct * SPARK_GLOW_SCALE}%`,
           }}
-          animate={prefersReducedMotion ? { opacity: 0.85 } : SPARK_PULSE}
+          animate={prefersReducedMotion ? SPARK_GLOW : SPARK_PULSE}
         />
       )}
     </motion.div>
