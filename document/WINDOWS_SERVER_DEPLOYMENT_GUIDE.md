@@ -66,7 +66,7 @@ If you must use IIS, see [Appendix B](#appendix-b--using-iis-instead-of-caddy).
 - [ ] Inbound **TCP 80 and 443** allowed at every layer: Windows Firewall, plus any cloud or datacenter firewall or router NAT.
 - [ ] Outbound **TCP 465** (SMTP over SSL) allowed, for form emails.
 - [ ] Access to the Hostinger account that holds `skyvoicelanguages.com`.
-- [ ] Read access to the GitHub repository `BharathKumar-c/skyvoicelanguages` (it is private, so you need a deploy key or a token; see step 4).
+- [ ] Access to the GitHub repository `BharathKumar-c/skyvoicelanguages`. It is currently **public**, so a plain `git clone` works; see step 4 if you make it private.
 - [ ] A mailbox to send from: a Gmail account with 2-Step Verification, or a Hostinger Email mailbox.
 
 ---
@@ -149,7 +149,9 @@ Run everything in **PowerShell as Administrator**.
 
 ## 4. Get the code onto the server
 
-The repository is private. Use **one** of these:
+The repository is currently **public**, so the commands below work without credentials. Everything in it is visible to anyone, which is one more reason secrets live only in the server's `.env.local`.
+
+If you make the repository **private**, give the server read access with **one** of these:
 
 - **Fine-grained personal access token (simplest).** GitHub → Settings → Developer settings → Fine-grained tokens → limit it to this repository with **Contents: Read-only**. Git will ask for it on the first clone; Git Credential Manager stores it.
 - **Deploy key.** Generate an SSH key on the server (`ssh-keygen -t ed25519`) and add the public key under the repository's **Settings → Deploy keys**, read-only. Then clone the `git@github.com:` URL.
