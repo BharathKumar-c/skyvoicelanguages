@@ -7,11 +7,23 @@ Started: 2026-10-13
 | Piece | Status | Round | Brief critic | System critic | Craft critic |
 |---|---|---:|---|---|---|
 | 1. Style bible + lead mascot | **Complete** | 44 | **PASS** | **PASS** | **PASS** |
-| 2. Supporting cast + pose system | **In progress** | 2 | **PASS** | **PASS** | **FAIL** |
-| 3. Website artwork + integration | Pending | 0 | Pending | Pending | Pending |
+| 2. Supporting cast + pose system | **Complete** | 4 | **PASS** | **PASS** | **PASS** |
+| 3. Website artwork + integration | **In progress** | 2 | **FAIL** | **PASS** | **FAIL** |
 | 4. Motion loops + final QA | Blocked: new Higgsfield account session is not yet bound to this chat | 0 | Pending | Pending | Pending |
 
-Completed pieces: 1 / 4
+Completed pieces: 2 / 4
+
+## Piece 2 Round 4 completion — 2026-10-15
+
+- Four compact Skill Signals cover Listening, Reading, Writing, and Speaking while Aira remains the sole lead mascot.
+- Each skill ships in Idle, Active, and Success states as a common 420 × 420 transparent production asset.
+- Round 4 makes state readable from carrier geometry alone: compact/closed Idle, lateral/forward Active, and vertically opened/lifted Success.
+- Fresh-context Brief critic: PASS.
+- Fresh-context System critic: PASS.
+- Fresh-context Craft critic: PASS; Sky Voice R4 selected as stronger for this compact adult-IELTS supporting-system brief.
+- Validated master: `design/mascot/piece-2/renders/skill-signal-system-r4.png`.
+- Published web assets: `apps/web/public/mascot/skill-signals/`.
+- Master SHA-256: `552B261F03A5CD49062B5AF613C143ABF8BEFE975F280BCBC10B20C45D05A9F9`.
 
 ## Round 44 completion — 2026-10-15
 
@@ -51,6 +63,21 @@ Completed pieces: 1 / 4
 - Piece 2, Round 2 — System PASS: all four roles now share the Aira-derived broken-orbit/module family with correct palette, rendering, tone, transparency, and originality.
 - Piece 2, Round 2 — Craft FAIL: the common circular outer carrier makes identity depend on tiny center pictograms, while Active/Success still depend too much on peripheral rays and sparkles at 48 px.
 - Round 3 builder gap: give each skill a distinct outer carrier silhouette and make state changes reshape that silhouette so both identity and state read instantly at 48 px.
+- Piece 2, Round 3 — Brief PASS: distinct role silhouettes, functional state grammar, lead hierarchy, and complete 48 px exports are present.
+- Piece 2, Round 3 — System PASS: the role-specific carriers preserve the shared Aira-derived chassis, correct palette, flat rendering, adult tone, transparency, and originality.
+- Piece 2, Round 3 — Craft FAIL: Active and Success remain too similar at 48 px because carrier mass and posture do not change decisively enough; small detached accents still carry too much state meaning.
+- Round 4 builder gap: make state legible from carrier-body silhouette alone—Idle compact/closed, Active strongly directional and asymmetric, Success vertically opened with a visibly lifted center—before any orange accents are considered.
+- Piece 2, Round 4 — Brief PASS: four roles, lead hierarchy, and the three states remain functionally clear at 48 px.
+- Piece 2, Round 4 — System PASS: palette, Aira-derived chassis, adult tone, transparency, originality, and small-size behavior satisfy the governing system.
+- Piece 2, Round 4 — Craft PASS: role silhouettes and state transformation survive the 48 px monochrome proof; Sky Voice R4 was selected as stronger for the compact supporting-system brief.
+- Piece 3, Round 1 — Brief PASS: validated Aira and all four active Skill Signals are correctly integrated in desktop/mobile assessment and completion contexts.
+- Piece 3, Round 1 — System PASS: palette, illustration language, hierarchy, adult tone, whitespace, responsive behavior, and originality follow the design system.
+- Piece 3, Round 1 — Craft FAIL: Aira is treated as a narrow decorative card while headline, preview, and form compete; the character action does not organize the section and the family feels inserted rather than authored with the page.
+- Piece 3, Round 2 builder gap: simplify the hero around one larger purposeful Aira action integrated with concise adjacent copy/CTA and the form, and make the module story visibly Aira-led while keeping Skill Signals subordinate.
+- Piece 3, Round 2 — Brief FAIL: desktop integration works, but the 390 px capture does not demonstrate the required compact message → Aira → form handoff; Aira consumes the remaining viewport and the form is absent.
+- Piece 3, Round 2 — System PASS: palette, flat illustration language, adult tone, hierarchy, responsive behavior, and cross-screen consistency satisfy the design system.
+- Piece 3, Round 2 — Craft FAIL: the hero remains a copy–mascot–form compromise and the module Aira remains a small insert; large display also exposes raster edge roughness.
+- Piece 3, Round 3 builder gap: merge copy and Aira into one authored visual field at native-resolution scale, use the form as the second desktop column, make the mobile Aira beat compact enough to hand directly into the form, and enlarge/unbox Aira in the module introduction.
 
 - Piece 1, Round 1 — Brief FAIL: generic audio-wave form lacks an unmistakable adult IELTS-preparation cue.
 - Piece 1, Round 1 — System FAIL: bean-like proportions, mitten hands, and cutesy expressions feel too childish for adult learners.

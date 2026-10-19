@@ -91,6 +91,51 @@ const CONTEXT_PRESETS: Record<string, ContextPreset> = {
     sparkPulse: true,
     "aria-label": "Aira celebrates your assessment booking!",
   },
+  /* Alternating landing sections: one character action each. */
+  "why-stuck": {
+    pose: "reading",
+    size: 300,
+    idle: "breathe",
+    sparkPulse: true,
+    "aria-label": "Aira studying a learner's answers to find the score gap",
+  },
+  portal: {
+    pose: "listening",
+    size: 220,
+    idle: "float",
+    sparkPulse: true,
+    "aria-label": "Aira listening along with a practice set",
+  },
+  audience: {
+    pose: "three-quarter",
+    size: 280,
+    idle: "breathe",
+    sparkPulse: true,
+    "aria-label": "Aira ready to plan around your schedule",
+  },
+  /* About page. */
+  "about-hero": {
+    pose: "front",
+    size: 300,
+    idle: "float",
+    sparkPulse: true,
+    "aria-label": "Aira, the Sky Voice learning guide, welcoming you",
+  },
+  "about-environment": {
+    pose: "writing",
+    size: 280,
+    idle: "breathe",
+    sparkPulse: true,
+    "aria-label": "Aira working through a writing task",
+  },
+  /* Contact page. */
+  "contact-hero": {
+    pose: "speaking",
+    size: 280,
+    idle: "float",
+    sparkPulse: true,
+    "aria-label": "Aira ready to answer your questions",
+  },
   loading: {
     pose: "front",
     size: "sm",

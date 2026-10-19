@@ -11,7 +11,9 @@
 
 export { AiraMascot } from "./aira-mascot";
 export { AiraSprite } from "./aira-sprite";
+export { AiraGroundShadow } from "./aira-ground-shadow";
 export { AiraContext, AiraModule } from "./aira-context";
+export { SkillSignal } from "./skill-signal";
 export { useAiraAnimation } from "./use-aira-animation";
 
 export type {
@@ -27,9 +29,12 @@ export type {
   SpriteCell,
 } from "./types";
 
+export type { SkillSignalModule, SkillSignalState } from "./skill-signal";
+
 export {
   AIRA_PALETTE,
   CANONICAL_POSE_CELLS,
+  SPARK_ANCHORS,
   SPRITE_SHEET,
   resolveSize,
 } from "./types";

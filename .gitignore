@@ -24,3 +24,9 @@ Thumbs.db
 
 # local cache
 .turbo/
+
+# python caches
+__pycache__/
+
+# Website Settings data (server-side store; back up separately)
+apps/web/data/

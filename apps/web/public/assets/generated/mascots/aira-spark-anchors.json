@@ -1,0 +1,45 @@
+{
+  "$comment": "Spark centre per canonical pose as % of the 384x456 art box (apps/web/public/mascot/canonical/aira-<pose>.png). size_pct = spark width / 384.",
+  "anchors": {
+    "front": {
+      "x_pct": 68.17,
+      "y_pct": 6.46,
+      "size_pct": 10.68
+    },
+    "three-quarter": {
+      "x_pct": 66.09,
+      "y_pct": 6.53,
+      "size_pct": 10.68
+    },
+    "listening": {
+      "x_pct": 75.2,
+      "y_pct": 7.65,
+      "size_pct": 10.16
+    },
+    "speaking": {
+      "x_pct": 60.5,
+      "y_pct": 6.28,
+      "size_pct": 10.16
+    },
+    "reading": {
+      "x_pct": 67.88,
+      "y_pct": 6.75,
+      "size_pct": 9.38
+    },
+    "writing": {
+      "x_pct": 64.12,
+      "y_pct": 6.73,
+      "size_pct": 8.59
+    },
+    "feedback": {
+      "x_pct": 51.76,
+      "y_pct": 6.93,
+      "size_pct": 9.38
+    },
+    "celebration": {
+      "x_pct": 69.5,
+      "y_pct": 6.67,
+      "size_pct": 10.68
+    }
+  }
+}

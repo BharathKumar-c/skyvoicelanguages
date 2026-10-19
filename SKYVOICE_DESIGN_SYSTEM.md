@@ -110,6 +110,8 @@ Fallback: `ui-rounded`, `Inter`, `system-ui`, `sans-serif`.
 
 Do not use or redistribute Duolingo's proprietary Feather or Din-style brand fonts.
 
+**Amendment (15 October 2026): rounded display face.** Page and section headings (H1, H2) use **Nunito** at 900, the rounded sibling of Nunito Sans from the same open-source family, loaded through `next/font` as `--font-display`. Everything else (H3, body, labels, forms, dialog titles) stays in Nunito Sans. This gives headings a friendlier, rounded voice without a second vendor or any proprietary face.
+
 ### Weight roles
 
 - 900: hero display and major campaign statements.
@@ -294,6 +296,14 @@ These patterns establish a consistent future path without putting student-portal
 - Use transforms and opacity; avoid animating layout-heavy properties.
 - Respect `prefers-reduced-motion`; reduce or remove parallax, autoplay movement, counters, and large transforms.
 - Mobile interactions must not depend on hover.
+
+**Amendment (15 October 2026): characters move, text stays.**
+
+- Motion belongs to characters and sequences: Aira's idle loop and spark, Skill Signal state changes, the hero/finale signal waves, and line draws for real sequences (method path, score route).
+- Headings, paragraphs and cards do not animate individually. At most one entrance reveal per section, and it must start from a visible state for no-JS visitors.
+- Above-the-fold content must be visible at first paint (CSS-only entrance, never waiting for hydration).
+- Repeated calls to action are revealed progressively: the header CTA and the mobile conversion bar appear only after the hero (which carries its own CTA and form) has scrolled away.
+- No scroll parallax, pinned scroll scenes or counters on the campaign page.
 
 ## 10. Content voice
 

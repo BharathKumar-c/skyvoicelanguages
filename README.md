@@ -47,6 +47,17 @@ pnpm build
 pnpm test:e2e
 ```
 
+## Where to add real content
+
+The About and Contact pages are fully built and show an honest "being finalised"
+note wherever approved content is missing. Fill these typed files and the pages
+update automatically:
+
+- `apps/web/src/content/about.ts`: `trainers` (name, designation, photo, qualifications, expertise, years, bio, video), `achievements`, `successStories`, and approval of the drafted mission/vision wording.
+- `apps/web/src/content/contact.ts`: `contactDetails` (address, phones, WhatsApp, email, hours, weekly holiday), `branches` (each with a `mapQuery` for the embedded Google map and directions), and `socialLinks`.
+- Trainer photos go in `apps/web/public/trainers/`; videos in `apps/web/public/video/` (or a hosted URL).
+- Contact enquiries post to `/api/enquiries`. Set `CONTACT_ENQUIRY_WEBHOOK_URL` (optional; falls back to the assessment lead webhook).
+
 ## Content that must be supplied before launch
 
 - Verified business contact details and operating hours.

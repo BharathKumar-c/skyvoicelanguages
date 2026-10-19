@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { ArrowRight, CheckCircle2, Clock3, Map, MessageCircleMore } from "lucide-react";
+import { ArrowRight, Clock3, Map, MessageCircleMore } from "lucide-react";
 import Link from "next/link";
 
-import { AiraContext } from "@/components/mascot";
-import { BrandLogo } from "@/components/brand-logo";
+import { AnimatedArt } from "@/components/animated-art";
+import { AiraContext, AiraGroundShadow } from "@/components/mascot";
+import { SiteLogo } from "@/components/site-logo";
 
 export const metadata: Metadata = {
   title: "Assessment request received",
@@ -15,14 +16,25 @@ export default function ThankYouPage() {
     <main className="utility-page" id="main-content">
       <div className="utility-shell success-shell">
         <Link aria-label="Sky Voice Languages home" href="/">
-          <BrandLogo />
+          <SiteLogo />
         </Link>
         <div className="thank-you-mascot">
-          <AiraContext
-            context="thank-you"
-            size="xl"
-            aria-label="Aira celebrates your assessment booking!"
+          <AnimatedArt
+            className="thank-you-burst"
+            height={600}
+            src="/assets/generated/motion-graphics/celebration-spark-burst.svg"
+            staticSrc="/assets/generated/motion-graphics/celebration-spark-burst-static.svg"
+            width={600}
           />
+          <div className="aira-figure">
+            <AiraContext
+              context="thank-you"
+              eager
+              size="xl"
+              aria-label="Aira celebrates your assessment booking!"
+            />
+            <AiraGroundShadow width={180} />
+          </div>
         </div>
         <span className="eyebrow">Request received</span>
         <h1>Your IELTS roadmap starts here.</h1>

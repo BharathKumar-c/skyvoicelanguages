@@ -23,7 +23,9 @@ export const assessmentLeadSchema = z.object({
   targetBand: z.enum(["6.0", "6.5", "7.0", "7.5", "8.0+"], {
     message: "Choose your target band.",
   }),
-  website: z.string().max(0).optional(),
+  // Honeypot. Accepted here so a filled value reaches the API route, which
+  // drops it silently; rejecting it would block the form with no visible error.
+  website: z.string().max(200).optional(),
   sourcePage: z.string().max(180).optional(),
   utmSource: z.string().max(120).optional(),
   utmMedium: z.string().max(120).optional(),

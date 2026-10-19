@@ -27,7 +27,8 @@
   --radius-md: 16px;
   --radius-lg: 22px;
   --radius-xl: 30px;
-  --shell: 1200px;
+  --shell: 1360px;
+  --header-h: 80px;
 }
 
 * {
@@ -98,16 +99,18 @@ h2,
 h3 {
   color: var(--brand-navy);
   font-weight: 850;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.025em;
   line-height: 1.08;
+  text-wrap: balance;
 }
 
 h1 {
   font-size: clamp(2.7rem, 5.4vw, 4.85rem);
 }
 
+/* Design-system H2: 30px mobile → 48px desktop. */
 h2 {
-  font-size: clamp(2.15rem, 4vw, 3.65rem);
+  font-size: clamp(1.9rem, 3.2vw, 3rem);
 }
 
 h3 {
@@ -137,7 +140,7 @@ p {
 .site-shell {
   margin-inline: auto;
   max-width: var(--shell);
-  padding-inline: 24px;
+  padding-inline: clamp(24px, 2.6vw, 40px);
   width: 100%;
 }
 
@@ -415,12 +418,19 @@ p {
 }
 
 .hero-grid {
-  align-items: start;
+  align-items: center;
   display: grid;
-  gap: clamp(48px, 6vw, 82px);
-  grid-template-columns: minmax(0, 1.1fr) minmax(370px, 0.75fr);
+  gap: clamp(24px, 3vw, 46px);
+  grid-template-columns: minmax(0, 1.45fr) minmax(370px, 0.72fr);
   position: relative;
   z-index: 1;
+}
+
+.hero-left {
+  align-items: center;
+  display: grid;
+  gap: clamp(12px, 2vw, 28px);
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.72fr);
 }
 
 .hero-content {
@@ -522,146 +532,21 @@ p {
 }
 
 /* VSL preview */
-.vsl-card {
-  background:
-    radial-gradient(circle at 82% 26%, rgba(235, 157, 19, 0.48), transparent 22%),
-    linear-gradient(135deg, var(--brand-navy-deep), var(--brand-blue));
-  border: 0;
-  border-radius: 24px;
-  box-shadow: 0 7px 0 #071a39, var(--shadow-md);
-  color: var(--white);
-  cursor: pointer;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 160px;
-  min-height: 230px;
-  overflow: hidden;
-  padding: 28px;
-  position: relative;
-  text-align: left;
-  transition:
-    transform 180ms ease,
-    box-shadow 180ms ease;
-  width: 100%;
-}
 
-.vsl-card:hover {
-  box-shadow: 0 10px 0 #071a39, var(--shadow-lg);
-  transform: translateY(-3px);
-}
 
-.vsl-card:active {
-  box-shadow: 0 3px 0 #071a39, var(--shadow-sm);
-  transform: translateY(4px);
-}
 
-.vsl-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 32px 32px;
-  inset: 0;
-  position: absolute;
-}
 
-.vsl-orbit {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 50%;
-  position: absolute;
-}
 
-.vsl-orbit-one {
-  height: 210px;
-  right: -40px;
-  top: -70px;
-  width: 210px;
-}
 
-.vsl-orbit-two {
-  bottom: -120px;
-  height: 250px;
-  right: 80px;
-  width: 250px;
-}
 
-.vsl-copy {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  z-index: 1;
-}
 
-.vsl-kicker {
-  color: #ffd582;
-  font-size: 0.75rem;
-  font-weight: 850;
-  letter-spacing: 0.08em;
-  margin-bottom: 12px;
-  text-transform: uppercase;
-}
 
-.vsl-copy strong {
-  font-size: clamp(1.25rem, 2.2vw, 1.65rem);
-  letter-spacing: -0.025em;
-  line-height: 1.22;
-  max-width: 440px;
-}
 
-.vsl-action {
-  align-items: center;
-  color: #dce8ff;
-  display: flex;
-  font-size: 0.84rem;
-  font-weight: 750;
-  gap: 10px;
-  margin-top: 22px;
-}
 
-.vsl-play {
-  align-items: center;
-  background: var(--brand-orange);
-  border-radius: 50%;
-  color: var(--brand-navy);
-  display: inline-flex;
-  height: 40px;
-  justify-content: center;
-  width: 40px;
-}
 
-.vsl-score {
-  align-items: center;
-  align-self: center;
-  background: rgba(255, 255, 255, 0.94);
-  border: 4px solid rgba(255, 255, 255, 0.4);
-  border-radius: 50%;
-  color: var(--brand-navy);
-  display: flex;
-  flex-direction: column;
-  height: 150px;
-  justify-content: center;
-  position: relative;
-  width: 150px;
-  z-index: 1;
-}
 
-.vsl-score small {
-  color: var(--text-muted);
-  font-size: 0.66rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
 
-.vsl-score b {
-  color: var(--brand-blue);
-  font-size: 2.6rem;
-  line-height: 1.05;
-}
 
-.vsl-score span {
-  font-size: 0.66rem;
-  font-weight: 750;
-}
 
 .dialog-backdrop {
   align-items: center;
@@ -2511,8 +2396,12 @@ p {
   }
 
   .hero-grid {
-    gap: 42px;
-    grid-template-columns: minmax(0, 1fr) minmax(350px, 0.82fr);
+    gap: 22px;
+    grid-template-columns: minmax(0, 1fr) minmax(340px, 0.78fr);
+  }
+
+  .hero-left {
+    grid-template-columns: minmax(0, 1fr) 270px;
   }
 
   .hero-form-accent {
@@ -2588,6 +2477,12 @@ p {
 
   .hero-grid {
     grid-template-columns: 1fr;
+  }
+
+  .hero-mascot-wrap {
+    margin-inline: auto;
+    max-width: 300px;
+    width: 100%;
   }
 
   .hero-content {
@@ -2706,7 +2601,7 @@ p {
   }
 
   h2 {
-    font-size: clamp(2rem, 9.5vw, 2.75rem);
+    font-size: clamp(1.75rem, 7.6vw, 2rem);
   }
 
   .brand-logo {
@@ -2743,32 +2638,10 @@ p {
     width: 100%;
   }
 
-  .vsl-card {
-    grid-template-columns: 1fr;
-    min-height: 310px;
-    padding: 24px;
-  }
 
-  .vsl-copy {
-    justify-content: flex-start;
-    max-width: 85%;
-  }
 
-  .vsl-score {
-    bottom: 26px;
-    height: 116px;
-    position: absolute;
-    right: 22px;
-    width: 116px;
-  }
 
-  .vsl-score b {
-    font-size: 2.1rem;
-  }
 
-  .vsl-score span {
-    display: none;
-  }
 
   .dialog-card {
     max-height: calc(100svh - 32px);
@@ -3189,49 +3062,112 @@ p {
 /*  Placement helpers for hero, module cards, and thank-you page.     */
 /* ================================================================== */
 
-/* ------ Hero section mascot wrap ------ */
-/*
- * Displayed below VslPreview in the hero-content column.
- * Centered on mobile; left-aligned on desktop to sit under the copy.
- */
+/* ------ Hero section mascot lead ------ */
 .hero-mascot-wrap {
+  align-self: center;
   display: flex;
   justify-content: center;
-  margin-top: 32px;
-  pointer-events: none; /* decorative — never captures clicks */
+  pointer-events: none;
 }
 
-@media (min-width: 900px) {
-  .hero-mascot-wrap {
-    justify-content: flex-start;
-    margin-top: 40px;
-  }
+.hero-aira-stage {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 470px;
+  position: relative;
+  width: 100%;
 }
 
-/* ------ Module card mascot icon variant ------ */
-/*
- * Overrides the small icon-box sizing (.module-icon is 54×54px)
- * to accommodate the larger mascot. Background/border are removed
- * so the flat mascot illustration floats cleanly above the card.
- */
-.module-icon-mascot {
-  background: transparent;
-  border-radius: 0;
-  height: auto;
-  margin-bottom: 16px;
-  overflow: visible;
-  width: auto;
+.hero-aira-stage::before {
+  background: radial-gradient(circle, rgba(22, 85, 216, 0.14), transparent 66%);
+  content: "";
+  inset: 4% -16% 0;
+  position: absolute;
 }
 
-/* Remove the svg size constraint that targets the old Lucide icon */
-.module-icon-mascot svg {
-  height: unset;
-  width: unset;
+.hero-aira-stage > * {
+  position: relative;
+  z-index: 1;
 }
 
-/* Tighten card top-padding now that mascot is taller than 54px icon */
-.module-card {
-  padding-top: clamp(20px, 3vw, 32px);
+
+
+.hero-form-wrap {
+  align-self: start;
+}
+
+/* ------ IELTS Skill Signals ------ */
+.module-signal {
+  align-items: center;
+  display: flex;
+  height: 132px;
+  justify-content: center;
+  margin: -12px 0 2px;
+  position: relative;
+  width: 132px;
+  z-index: 1;
+}
+
+.module-signal-image {
+  height: 132px;
+  object-fit: contain;
+  width: 132px;
+}
+
+.module-tableau {
+  align-items: center;
+  display: grid;
+  gap: 34px;
+  grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1fr);
+  margin: 0 auto 34px;
+  max-width: 900px;
+  padding: 0 18px;
+}
+
+.module-tableau-aira {
+  align-items: center;
+  display: flex;
+  height: 350px;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.module-tableau-aira::before {
+  background: radial-gradient(circle, rgba(22, 85, 216, 0.42), transparent 68%);
+  content: "";
+  inset: 5% -10%;
+  position: absolute;
+}
+
+.module-tableau-aira > * {
+  position: relative;
+  z-index: 1;
+}
+
+.module-tableau-copy strong {
+  color: var(--white);
+  display: block;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.module-tableau-copy > p {
+  color: #bed0e9;
+  margin: 8px 0 10px;
+}
+
+.module-tableau-signals {
+  align-items: center;
+  display: flex;
+  gap: 2px;
+}
+
+.module-tableau-signals img {
+  height: 68px;
+  object-fit: contain;
+  width: 68px;
 }
 
 /* ------ Thank-you page mascot ------ */
@@ -3252,4 +3188,2469 @@ p {
     transform: scale(0.8);
     transform-origin: center top;
   }
+}
+
+@media (max-width: 920px) {
+  .hero-left {
+    grid-template-columns: minmax(0, 1fr) 300px;
+  }
+
+  .hero-aira-stage {
+    min-height: 390px;
+    overflow: hidden;
+  }
+
+  .hero-aira-stage > * {
+    scale: 0.78;
+  }
+
+
+}
+
+@media (max-width: 680px) {
+  .hero-left {
+    gap: 0;
+    grid-template-columns: 1fr;
+  }
+
+  .hero-mascot-wrap {
+    margin-block: -22px -12px;
+  }
+
+  .hero-aira-stage {
+    min-height: 275px;
+  }
+
+  .hero-aira-stage > * {
+    scale: 0.62;
+  }
+
+  .module-tableau {
+    gap: 12px;
+    grid-template-columns: 140px minmax(0, 1fr);
+    padding: 0;
+    text-align: left;
+  }
+
+  .module-tableau-aira {
+    height: 230px;
+    overflow: visible;
+  }
+
+  .module-tableau-aira > * {
+    scale: 0.55;
+  }
+
+  .module-tableau-signals {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    max-width: 130px;
+  }
+
+  .module-tableau-signals img {
+    height: 52px;
+    width: 52px;
+  }
+
+  .module-signal,
+  .module-signal-image {
+    height: 110px;
+    width: 110px;
+  }
+}
+
+/* ================================================================== */
+/*  GENERATED VISUAL ASSETS — integration                             */
+/*  Assets: public/assets/generated/** (see visual-assets-integration-  */
+/*  guide.md). Decorative layers only; content keeps its own styles.   */
+/* ================================================================== */
+
+/* ------ Shared Aira figure + ground shadow ------ */
+.aira-figure {
+  display: inline-flex;
+  justify-content: center;
+  position: relative;
+}
+
+.aira-ground-shadow {
+  bottom: -14px;
+  height: auto;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  translate: -50% 0;
+  z-index: -1;
+}
+
+.aira-ground-shadow-light {
+  filter: brightness(0) invert(1);
+  opacity: 0.14;
+}
+
+/* ------ Hero ------ */
+.hero {
+  background:
+    url("/assets/generated/backgrounds/hero-signal-field.svg") center top / cover no-repeat,
+    linear-gradient(180deg, #f8fbff 0%, #ffffff 82%),
+    var(--white);
+}
+
+/* The signal field replaces the generic dot grid and blurred blobs. */
+.hero::before {
+  display: none;
+}
+
+.hero-aira-stage::before {
+  display: none;
+}
+
+.hero-aira-stage > .hero-aira-orbit {
+  aspect-ratio: 480 / 560;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  translate: -50% -52%;
+  width: min(125%, 480px);
+  z-index: 0;
+}
+
+.hero-aira-orbit img,
+.thank-you-burst img {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+/* ------ Modules: orbit field + organic wave edges ------ */
+.modules-section {
+  background:
+    url("/assets/generated/backgrounds/modules-orbit-field.svg") center top / cover no-repeat,
+    var(--brand-navy-deep);
+  overflow: visible;
+}
+
+.modules-section::before,
+.modules-section::after {
+  -webkit-mask: url("/assets/generated/backgrounds/section-wave-edge.svg") center / 100% 100% no-repeat;
+  background: var(--brand-navy-deep);
+  content: "";
+  display: block;
+  height: var(--wave-edge);
+  left: 0;
+  mask: url("/assets/generated/backgrounds/section-wave-edge.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+  width: auto;
+}
+
+.modules-section {
+  --wave-edge: clamp(28px, 5.5vw, 80px);
+}
+
+.modules-section::before {
+  top: calc(1px - var(--wave-edge));
+}
+
+.modules-section::after {
+  bottom: calc(1px - var(--wave-edge));
+  transform: scaleY(-1);
+}
+
+/* The wave edges overhang the neighbouring sections, so the dark band must
+   paint above them. */
+.modules-section {
+  z-index: 1;
+}
+
+.module-tableau-aira {
+  height: auto;
+  min-height: 360px;
+  overflow: visible;
+}
+
+/* Skill Signal: active → success on hover (same 420 px registration). */
+.module-signal {
+  position: relative;
+}
+
+.module-signal-success {
+  height: 132px;
+  left: 0;
+  object-fit: contain;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transition: opacity 200ms ease;
+  width: 132px;
+}
+
+.module-signal-image {
+  transition: opacity 200ms ease;
+}
+
+/* Card lifts use the independent `translate` property: these cards are Reveal
+   (Motion) wrappers whose inline `transform` would override a hover transform. */
+@media (hover: hover) {
+  .gap-card,
+  .audience-card,
+  .module-card {
+    transition:
+      translate 180ms ease,
+      box-shadow 180ms ease,
+      border-color 180ms ease;
+  }
+
+  .gap-card:hover,
+  .audience-card:hover {
+    translate: 0 -3px;
+  }
+
+  .module-card:hover {
+    box-shadow: 0 10px 0 rgba(0, 0, 0, 0.18);
+    translate: 0 -4px;
+  }
+
+  .module-card:hover .module-signal-success {
+    opacity: 1;
+  }
+
+  .module-card:hover .module-signal-image {
+    opacity: 0;
+  }
+}
+
+/* ------ Portal: listening wave loop ------ */
+@keyframes portal-wave-bar {
+  0%,
+  100% {
+    transform: scaleY(0.55);
+  }
+
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.audio-wave span {
+  animation: portal-wave-bar 1.4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.audio-wave span:nth-child(3n) {
+  animation-delay: 0.2s;
+}
+
+.audio-wave span:nth-child(3n + 1) {
+  animation-delay: 0.45s;
+}
+
+/* ------ Proof: evidence-chain illustration ------ */
+.proof-visual {
+  flex-direction: column;
+  gap: 4px;
+  min-height: 0;
+  padding-block: 12px;
+}
+
+.proof-visual::before {
+  display: none;
+}
+
+.proof-figure {
+  width: min(100%, 440px);
+}
+
+.proof-illustration {
+  aspect-ratio: 500 / 460;
+  display: block;
+  height: auto;
+  width: 100%;
+}
+
+.proof-caption {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 320px;
+  text-align: center;
+}
+
+.proof-caption strong {
+  color: var(--brand-navy);
+  display: block;
+  font-size: 1.25rem;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.proof-caption-icon {
+  display: none;
+}
+
+@keyframes proof-float-bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+.proof-float {
+  animation: proof-float-bob 5s ease-in-out infinite;
+  z-index: 1;
+}
+
+.proof-float-one {
+  left: 0;
+  top: 24px;
+}
+
+.proof-float-two {
+  animation-delay: 1.6s;
+  bottom: 96px;
+  left: 0;
+}
+
+.proof-float-three {
+  animation-delay: 3.2s;
+  right: 0;
+  top: 300px;
+}
+
+/* ------ Final CTA signal waves ------ */
+.final-cta {
+  background:
+    url("/assets/generated/backgrounds/final-cta-signal-waves.svg") center / cover no-repeat,
+    linear-gradient(135deg, var(--brand-navy-deep), var(--brand-blue));
+}
+
+/* ------ Thank-you celebration burst ------ */
+.thank-you-mascot {
+  position: relative;
+}
+
+.thank-you-mascot > .thank-you-burst {
+  aspect-ratio: 1;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 46%;
+  translate: -50% -50%;
+  width: min(122%, 470px);
+  z-index: 0;
+}
+
+.thank-you-mascot {
+  margin-bottom: 40px;
+}
+
+.thank-you-mascot > .aira-figure {
+  z-index: 1;
+}
+
+.utility-shell {
+  overflow: hidden;
+}
+
+.utility-shell > .brand-logo {
+  margin-inline: auto;
+}
+
+/* ------ Utility illustrations (404 / error) ------ */
+.utility-illustration {
+  display: block;
+  height: auto;
+  margin: 18px auto 10px;
+  width: min(100%, 420px);
+}
+
+.utility-illustration-compact {
+  margin-top: 0;
+  width: min(100%, 260px);
+}
+
+/* ------ Responsive ------ */
+@media (max-width: 680px) {
+  .hero {
+    background-position: 70% top, center, center;
+  }
+
+  .module-tableau-aira {
+    min-height: 230px;
+  }
+
+
+  .proof-float {
+    font-size: 0.72rem;
+    padding: 9px 11px;
+  }
+
+  .proof-float-one {
+    top: 8px;
+  }
+
+  .proof-float-two {
+    bottom: 104px;
+  }
+
+  .proof-float-three {
+    top: 236px;
+  }
+}
+
+@media (max-width: 920px) {
+  /* Keep the orbit field at native scale so its sparks never land on copy. */
+  .modules-section {
+    background-size: 1440px auto, auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .thank-you-mascot > .thank-you-burst {
+    transform: none;
+    width: 120%;
+  }
+}
+
+/* Pre-existing 320 px overflow: the nowrap route label ran past the viewport. */
+@media (max-width: 420px) {
+  .score-route b {
+    max-width: calc(50% - 40px);
+    text-align: left;
+    white-space: normal;
+  }
+}
+
+/* Pre-existing bug: form controls inherit `color` (Tailwind preflight), so in
+   the dark .final-cta the typed text and selected options rendered white on
+   white. Pin field text to the brand text colour everywhere. */
+.field input,
+.field select {
+  color: var(--text);
+}
+
+/* ================================================================== */
+/*  LANDING PAGE — premium upgrade (video section, waves, depth)      */
+/* ================================================================== */
+
+/* ------ Interactive waves (landing hero + final CTA only) ------ */
+.interactive-waves {
+  display: block;
+  height: 100%;
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  z-index: 0;
+}
+
+/* ------ Header: lifts once the page scrolls ------ */
+.site-header {
+  transition:
+    box-shadow 220ms ease,
+    background-color 220ms ease;
+}
+
+.site-header[data-scrolled="true"] {
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 10px 30px rgba(14, 45, 94, 0.08);
+}
+
+/* ------ Hero: headline accent + elevated trust bar ------ */
+.hero-underline {
+  position: relative;
+  white-space: nowrap;
+}
+
+.hero-underline::after {
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 16' preserveAspectRatio='none'%3E%3Cpath d='M3 11C70 4 160 2 297 8' stroke='%23000' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  background: var(--brand-orange);
+  bottom: -0.06em;
+  content: "";
+  height: 0.16em;
+  left: 0.25em;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 16' preserveAspectRatio='none'%3E%3Cpath d='M3 11C70 4 160 2 297 8' stroke='%23000' stroke-width='5' stroke-linecap='round' fill='none'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  position: absolute;
+  right: 0;
+}
+
+.trust-strip {
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 6px 0 #dfe7f2, var(--shadow-md);
+  padding-block: 18px;
+}
+
+/* ------ Service video section ------ */
+.video-section {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(22, 85, 216, 0.07), transparent 60%),
+    linear-gradient(180deg, #ffffff 0%, var(--surface-soft) 100%);
+  overflow-x: clip;
+  padding-block: 72px 104px;
+}
+
+.video-shell {
+  max-width: 1040px;
+}
+
+.video-heading {
+  margin-bottom: 40px;
+}
+
+.video-stage {
+  position: relative;
+}
+
+.video-stage::before {
+  background:
+    radial-gradient(ellipse at 30% 40%, rgba(22, 85, 216, 0.22), transparent 60%),
+    radial-gradient(ellipse at 80% 70%, rgba(235, 157, 19, 0.16), transparent 55%);
+  content: "";
+  filter: blur(24px);
+  inset: 6% -4% -8%;
+  position: absolute;
+  z-index: -1;
+}
+
+.service-video {
+  aspect-ratio: 16 / 9;
+  background: var(--brand-navy-deep);
+  border-radius: 28px;
+  box-shadow: 0 10px 0 #071a39, var(--shadow-lg);
+  isolation: isolate;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.service-video-media {
+  background: var(--brand-navy-deep);
+  display: block;
+  height: 100%;
+  inset: 0;
+  object-fit: contain;
+  position: absolute;
+  width: 100%;
+}
+
+.service-video-preview {
+  background: none;
+  border: 0;
+  border-radius: inherit;
+  color: var(--white);
+  cursor: pointer;
+  display: block;
+  height: 100%;
+  inset: 0;
+  padding: 0;
+  position: absolute;
+  text-align: left;
+  width: 100%;
+  z-index: 1;
+}
+
+.service-video-preview:focus-visible {
+  outline: 3px solid var(--brand-orange);
+  outline-offset: -8px;
+}
+
+.service-video-poster {
+  filter: blur(6px) saturate(1.05);
+  inset: -2%;
+  position: absolute;
+  transform: scale(1.05);
+  transition:
+    filter 360ms ease,
+    transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-video-poster img {
+  object-fit: cover;
+}
+
+.service-video-scrim {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(7, 29, 63, 0) 25%, rgba(7, 29, 63, 0.4) 100%),
+    linear-gradient(180deg, rgba(7, 29, 63, 0.05) 40%, rgba(7, 29, 63, 0.72) 100%);
+  inset: 0;
+  position: absolute;
+}
+
+.service-video-play {
+  align-items: center;
+  background: var(--white);
+  border-radius: 50%;
+  box-shadow:
+    0 6px 0 rgba(7, 26, 57, 0.55),
+    0 22px 50px rgba(7, 29, 63, 0.45);
+  color: var(--brand-blue);
+  display: flex;
+  height: clamp(68px, 9vw, 96px);
+  justify-content: center;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+  transition:
+    transform 200ms cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 200ms ease;
+  translate: -50% -50%;
+  width: clamp(68px, 9vw, 96px);
+}
+
+.service-video-play svg {
+  height: 36%;
+  translate: 6% 0;
+  width: 36%;
+}
+
+@keyframes service-video-pulse {
+  0% {
+    opacity: 0.75;
+    transform: scale(0.92);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.45);
+  }
+}
+
+.service-video-play-ring {
+  animation: service-video-pulse 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  inset: 0;
+  position: absolute;
+}
+
+.service-video-meta {
+  bottom: clamp(16px, 3vw, 30px);
+  display: grid;
+  gap: 10px;
+  justify-items: start;
+  left: clamp(16px, 3vw, 32px);
+  position: absolute;
+  right: clamp(16px, 3vw, 32px);
+}
+
+.service-video-kicker {
+  align-items: center;
+  background: var(--brand-orange);
+  border-radius: 999px;
+  color: var(--brand-navy);
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 900;
+  gap: 6px;
+  letter-spacing: 0.06em;
+  padding: 6px 12px;
+  text-transform: uppercase;
+}
+
+.service-video-kicker svg {
+  height: 13px;
+  width: 13px;
+}
+
+.service-video-meta strong {
+  font-size: clamp(1.05rem, 2.2vw, 1.6rem);
+  line-height: 1.2;
+  max-width: 560px;
+  text-shadow: 0 2px 18px rgba(7, 29, 63, 0.5);
+}
+
+@media (hover: hover) {
+  .service-video-preview:hover .service-video-poster {
+    filter: blur(3px) saturate(1.1);
+    transform: scale(1.03);
+  }
+
+  .service-video-preview:hover .service-video-play {
+    box-shadow:
+      0 8px 0 rgba(7, 26, 57, 0.55),
+      0 26px 60px rgba(7, 29, 63, 0.5);
+    transform: scale(1.07);
+  }
+}
+
+.service-video-preview:active .service-video-play {
+  transform: scale(0.96);
+}
+
+.video-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 34px;
+}
+
+.video-points span {
+  align-items: center;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  color: var(--brand-navy);
+  display: inline-flex;
+  font-size: 0.88rem;
+  font-weight: 800;
+  gap: 8px;
+  padding: 9px 16px;
+}
+
+.video-points svg {
+  color: var(--brand-blue);
+  height: 18px;
+  width: 18px;
+}
+
+@media (max-width: 680px) {
+  .video-section {
+    padding-block: 48px 72px;
+  }
+
+  .video-heading {
+    margin-bottom: 28px;
+  }
+
+  .service-video {
+    border-radius: 20px;
+    box-shadow: 0 7px 0 #071a39, var(--shadow-md);
+  }
+
+  .service-video-kicker {
+    font-size: 0.64rem;
+    padding: 5px 10px;
+  }
+
+  .video-points {
+    align-items: stretch;
+    flex-direction: column;
+    margin-top: 26px;
+  }
+
+  .video-points span {
+    border-radius: 16px;
+  }
+
+  .trust-strip {
+    padding-block: 12px;
+  }
+}
+
+@media (max-width: 420px) {
+  .service-video-meta strong {
+    display: none;
+  }
+}
+
+/* ================================================================== */
+/*  HERO — viewport-fit layout, video preview above a compact form    */
+/*  Primary hero content (copy, both CTAs, Aira, video, form) fits    */
+/*  the first viewport on desktop/laptop; lower sections scroll.      */
+/* ================================================================== */
+
+.hero-right {
+  display: grid;
+  gap: 16px;
+}
+
+/* ------ Compact hero video (reuses ServiceVideo) ------ */
+.service-video-compact {
+  border-radius: 20px;
+  box-shadow: 0 6px 0 #071a39, var(--shadow-md);
+}
+
+.service-video-compact .service-video-play {
+  height: 58px;
+  width: 58px;
+}
+
+.service-video-compact .service-video-play-ring {
+  border-width: 1.5px;
+}
+
+.service-video-compact .service-video-meta {
+  bottom: 12px;
+  gap: 6px;
+  left: 14px;
+  right: 14px;
+}
+
+.service-video-compact .service-video-kicker {
+  font-size: 0.6rem;
+  padding: 4px 9px;
+}
+
+.service-video-compact .service-video-meta strong {
+  display: block;
+  font-size: 0.92rem;
+}
+
+.service-video-expand {
+  align-items: center;
+  background: rgba(7, 29, 63, 0.72);
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-radius: 12px;
+  color: var(--white);
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: center;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  transition:
+    background-color 160ms ease,
+    transform 160ms ease;
+  width: 40px;
+  z-index: 2;
+}
+
+.service-video-expand svg {
+  height: 18px;
+  width: 18px;
+}
+
+.service-video-expand:hover {
+  background: var(--brand-blue);
+}
+
+.service-video-expand:focus-visible {
+  outline: 3px solid var(--brand-orange);
+  outline-offset: 2px;
+}
+
+/* ------ Desktop + laptop: three-part hero sized to the viewport ------ */
+@media (min-width: 921px) {
+  .hero {
+    --aira-scale-w: 1;
+    --aira-scale-h: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: calc(100dvh - var(--header-h));
+    padding-block: clamp(14px, 2.6vh, 36px) clamp(18px, 3vh, 40px);
+  }
+
+  .hero-grid {
+    align-items: center;
+    gap: clamp(20px, 2.6vw, 44px);
+    grid-template-columns: minmax(0, 1fr) clamp(320px, 24vw, 410px);
+  }
+
+  .hero-left {
+    gap: clamp(8px, 1.4vw, 24px);
+    grid-template-columns: minmax(0, 1fr) clamp(220px, 19vw, 340px);
+  }
+
+  .hero-content {
+    padding-top: 0;
+  }
+
+  .hero-eyebrow-row {
+    margin-bottom: clamp(4px, 1vh, 10px);
+  }
+
+  .hero h1 {
+    font-size: clamp(2.3rem, min(4.3vw, 7.4vh), 4.3rem);
+    margin-bottom: clamp(10px, 2vh, 20px);
+  }
+
+  .hero-lede {
+    font-size: clamp(0.98rem, min(1.3vw, 2.2vh), 1.18rem);
+    line-height: 1.6;
+    margin-bottom: clamp(14px, 2.6vh, 26px);
+  }
+
+  .hero-reassurance {
+    margin: clamp(10px, 1.8vh, 20px) 0 0;
+  }
+
+  /* Aira keeps her validated art; the stage simply scales with the column. */
+  .hero-aira-stage {
+    min-height: calc(470px * min(var(--aira-scale-w), var(--aira-scale-h)));
+  }
+
+  .hero-aira-stage > * {
+    scale: min(var(--aira-scale-w), var(--aira-scale-h));
+  }
+
+  .hero-right {
+    align-content: center;
+    gap: clamp(10px, 1.8vh, 18px);
+  }
+
+  /* The "Start here" accent has no clear space between Aira and the form in
+     this layout (it collided with her hand or the form badge); the form now
+     sits directly under the video, which already leads the eye to it. */
+  .hero-form-accent {
+    display: none;
+  }
+
+  /* Compact assessment form: same fields, labels and behaviour, less height. */
+  .hero .lead-form {
+    border-radius: 22px;
+    box-shadow: 0 6px 0 #d9e4f2, var(--shadow-md);
+    padding: clamp(14px, 2vh, 22px) clamp(16px, 1.5vw, 24px);
+  }
+
+  .hero .lead-form::before {
+    left: 24px;
+    right: 24px;
+  }
+
+  .hero .form-heading {
+    margin-bottom: clamp(8px, 1.4vh, 14px);
+  }
+
+  .hero .form-heading h2 {
+    font-size: clamp(1.15rem, min(1.5vw, 2.8vh), 1.5rem);
+    margin: 6px 0 2px;
+  }
+
+  .hero .form-heading p {
+    font-size: 0.8rem;
+  }
+
+  .hero .form-badge {
+    font-size: 0.66rem;
+    padding: 4px 9px;
+  }
+
+  .hero .form-grid {
+    gap: clamp(6px, 1.1vh, 12px) 10px;
+  }
+
+  .hero .field {
+    gap: 3px;
+  }
+
+  .hero .field label {
+    font-size: 0.74rem;
+  }
+
+  .hero .field input,
+  .hero .field select {
+    border-radius: 12px;
+    font-size: 0.92rem;
+    min-height: 44px;
+    padding: 8px 12px;
+  }
+
+  .hero .field select {
+    background-position:
+      calc(100% - 17px) 18px,
+      calc(100% - 12px) 18px;
+    padding-right: 32px;
+  }
+
+  .hero .form-submit {
+    margin-top: clamp(10px, 1.4vh, 14px);
+    min-height: 48px;
+  }
+
+  .hero .form-privacy {
+    font-size: 0.68rem;
+    margin-top: 8px;
+  }
+
+  .trust-strip {
+    margin-top: clamp(20px, 4vh, 48px);
+  }
+}
+
+@media (min-width: 921px) and (max-width: 1599px) {
+  .hero {
+    --aira-scale-w: 0.86;
+  }
+}
+
+@media (min-width: 921px) and (max-width: 1366px) {
+  .hero {
+    --aira-scale-w: 0.78;
+  }
+}
+
+@media (min-width: 921px) and (max-width: 1180px) {
+  .hero {
+    --aira-scale-w: 0.64;
+  }
+}
+
+/* Shorter laptop screens: slimmer header, tighter art, no form subtitle. */
+@media (min-width: 921px) and (max-height: 860px) {
+  .hero {
+    --aira-scale-h: 0.8;
+  }
+}
+
+@media (min-width: 921px) and (max-height: 820px) {
+  :root {
+    --header-h: 68px;
+  }
+
+  .header-inner {
+    min-height: 68px;
+  }
+
+  .hero .form-heading p {
+    display: none;
+  }
+}
+
+@media (min-width: 921px) and (max-height: 740px) {
+  .hero {
+    --aira-scale-h: 0.7;
+  }
+
+  .hero .form-badge {
+    display: none;
+  }
+}
+
+/* Very short laptop viewports (browser chrome on 768 px screens):
+   a wider preview strip buys back height; playback returns to 16:9. */
+@media (min-width: 921px) and (max-height: 690px) {
+  .hero {
+    padding-block: 10px 14px;
+  }
+
+  .service-video-compact {
+    aspect-ratio: 2 / 1;
+  }
+
+  .service-video-compact[data-state="playing"] {
+    aspect-ratio: 16 / 9;
+  }
+
+  .hero-right {
+    gap: 10px;
+  }
+
+  .hero .lead-form {
+    padding-block: 12px;
+  }
+
+  .hero .form-privacy {
+    margin-top: 6px;
+  }
+}
+
+@media (min-width: 921px) and (max-height: 620px) {
+  .service-video-compact {
+    aspect-ratio: 21 / 9;
+  }
+
+  .hero .form-grid {
+    gap: 5px 10px;
+  }
+
+  .hero .form-heading {
+    margin-bottom: 6px;
+  }
+}
+
+/* ------ Tablet + mobile: stacked, video then form ------ */
+@media (max-width: 920px) {
+  .hero-right {
+    margin-inline: auto;
+    max-width: 660px;
+    width: 100%;
+  }
+}
+
+/* Tablet: video beside the form, so neither pushes the other off-screen. */
+@media (min-width: 681px) and (max-width: 920px) {
+  .hero-right {
+    align-items: start;
+    gap: 16px;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    max-width: none;
+  }
+
+  .hero-right .hero-form-wrap {
+    max-width: none;
+  }
+}
+
+/* ================================================================== */
+/*  PHASE 1 — calmer, more premium landing page                       */
+/*  Hero visible at first paint, still text, DS heading scale,        */
+/*  CTA reveal after the hero, white rhythm, final-CTA wave edge.     */
+/* ================================================================== */
+
+/* ------ R1: hero entrance without waiting for JavaScript ------ */
+@keyframes hero-enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-enter {
+  animation: hero-enter 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-enter-2 {
+  animation-delay: 0.1s;
+}
+
+.hero-enter-3 {
+  animation-delay: 0.16s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-enter {
+    animation: none;
+  }
+}
+
+/* ------ R3: readable paragraphs, two-line section headings ------ */
+p {
+  text-wrap: pretty;
+}
+
+.centered-heading h2 {
+  margin-inline: auto;
+  max-width: 24ch;
+}
+
+.section-copy h2,
+.portal-copy h2,
+.faq-intro h2,
+.final-copy h2 {
+  max-width: 20ch;
+}
+
+/* ------ R4: one call to action at a time ------ */
+.header-cta,
+.mobile-cta-bar {
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 0s linear 0s;
+}
+
+/* Only pages with a hero (#top) hide the CTA; elsewhere it shows from first
+   paint instead of fading in after hydration. */
+html:not([data-hero="passed"]):has(#top) .header-cta,
+html:not([data-hero="passed"]):has(#top) .mobile-cta-bar {
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    visibility 0s linear 180ms;
+  visibility: hidden;
+}
+
+html:not([data-hero="passed"]):has(#top) .header-cta {
+  transform: translateY(-4px);
+}
+
+html:not([data-hero="passed"]):has(#top) .mobile-cta-bar {
+  transform: translateY(100%);
+}
+
+/* ------ R7: white canvas; colour reserved for Fees and the navy bands ------ */
+.section-soft,
+.portal-section,
+.faq-section {
+  background: var(--white);
+}
+
+.video-section {
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(22, 85, 216, 0.07), transparent 60%),
+    var(--white);
+}
+
+/* The finale's top edge reuses the Modules wave, so the two navy bands frame
+   the page. Masking the section itself keeps its overflow clipping intact. */
+.final-cta {
+  --wave-edge: clamp(28px, 5.5vw, 80px);
+  -webkit-mask:
+    url("/assets/generated/backgrounds/section-wave-edge.svg") center top / 100% var(--wave-edge) no-repeat,
+    linear-gradient(#000 0 0) center bottom / 100% calc(100% - var(--wave-edge) + 1px) no-repeat;
+  mask:
+    url("/assets/generated/backgrounds/section-wave-edge.svg") center top / 100% var(--wave-edge) no-repeat,
+    linear-gradient(#000 0 0) center bottom / 100% calc(100% - var(--wave-edge) + 1px) no-repeat;
+  padding-top: calc(104px + var(--wave-edge) * 0.6);
+}
+
+@media (max-width: 920px) {
+  .final-cta {
+    padding-top: calc(82px + var(--wave-edge) * 0.6);
+  }
+}
+
+@media (max-width: 680px) {
+  .final-cta {
+    padding-top: calc(64px + var(--wave-edge) * 0.6);
+  }
+}
+
+/* Contrast fix surfaced once these blocks render visibly at load: dark orange
+   on orange-light measured 3.56:1. The DS reserves orange for fills, never
+   small text, so the labels use navy (≈13:1) and keep the orange chip. */
+.number-chip,
+.not-for-card span {
+  color: var(--brand-navy);
+}
+
+/* ================================================================== */
+/*  PHASE 2 — alternating character sections, mobile rows, FAQ,      */
+/*  header scroll-spy, display face                                   */
+/* ================================================================== */
+
+/* ------ R6: feature split (heading + Aira + borderless list) ------ */
+.feature-split {
+  align-items: start;
+  column-gap: clamp(32px, 5vw, 84px);
+  display: grid;
+  grid-template-areas:
+    "art head"
+    "art body";
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  row-gap: 30px;
+}
+
+.feature-head {
+  align-self: end;
+  grid-area: head;
+}
+
+.feature-head h2 {
+  margin-bottom: 16px;
+  max-width: 20ch;
+}
+
+.feature-head > p {
+  font-size: 1.05rem;
+  margin-bottom: 0;
+  max-width: 560px;
+}
+
+.feature-art {
+  align-self: center;
+  grid-area: art;
+}
+
+.feature-body {
+  grid-area: body;
+}
+
+.feature-foot {
+  grid-column: 1 / -1;
+}
+
+.feature-art-stage {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 420px;
+  position: relative;
+}
+
+.feature-art-orbit {
+  height: auto;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  translate: -50% -52%;
+  width: min(118%, 440px);
+}
+
+.feature-art-stage > .aira-figure {
+  position: relative;
+  z-index: 1;
+}
+
+/* Why scores get stuck: the four answers as a calm two-column list. */
+.feature-body.gap-grid {
+  gap: 28px 34px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.feature-body .gap-card {
+  align-content: start;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  column-gap: 14px;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  min-height: 0;
+  padding: 0;
+}
+
+.feature-body .gap-card > svg {
+  background: var(--brand-blue-light);
+  border-radius: 14px;
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  height: 48px;
+  margin: 0;
+  padding: 12px;
+  width: 48px;
+}
+
+.feature-body .gap-card .number-chip {
+  grid-column: 2;
+  justify-self: start;
+  margin-bottom: 6px;
+  position: static;
+}
+
+.feature-body .gap-card h3 {
+  font-size: 1.12rem;
+  grid-column: 2;
+  margin-bottom: 6px;
+}
+
+.feature-body .gap-card p {
+  grid-column: 2;
+}
+
+/* Audience: six situations as a borderless icon list. */
+.feature-body.audience-grid {
+  gap: 24px 30px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.feature-body .audience-card {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+.feature-foot.not-for-card {
+  margin-top: 6px;
+}
+
+/* These are list items now, not cards: no hover lift. */
+@media (hover: hover) {
+  .feature-body .gap-card:hover,
+  .feature-body .audience-card:hover {
+    border-color: transparent;
+    box-shadow: none;
+    translate: none;
+  }
+}
+
+/* ------ R6: Aira listening beside the practice-set preview ------ */
+.portal-stage {
+  min-width: 0;
+  position: relative;
+}
+
+.portal-aira {
+  bottom: -54px;
+  left: -72px;
+  pointer-events: none;
+  position: absolute;
+  z-index: 2;
+}
+
+@media (max-width: 1180px) {
+  .portal-aira {
+    left: -64px;
+    scale: 0.8;
+    transform-origin: bottom left;
+  }
+}
+
+@media (max-width: 920px) {
+  .feature-split {
+    grid-template-areas:
+      "head"
+      "art"
+      "body";
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .feature-art-stage {
+    min-height: 330px;
+  }
+
+  .feature-art-stage > * {
+    scale: 0.8;
+  }
+
+  /* Stacked layouts: the preview fills the width, so Aira would cover its
+     answers. The preview mock carries the illustration on its own. */
+  .portal-aira {
+    display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .feature-art-stage {
+    min-height: 260px;
+  }
+
+  .feature-art-stage > * {
+    scale: 0.66;
+  }
+
+  .feature-body.gap-grid,
+  .feature-body.audience-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+}
+
+/* ------ R9: module cards become a swipeable row on phones ------ */
+.module-grid:focus-visible {
+  border-radius: 24px;
+  outline: 3px solid var(--brand-orange);
+  outline-offset: 4px;
+}
+
+@media (max-width: 680px) {
+  .module-grid {
+    gap: 12px;
+    grid-auto-columns: 86%;
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    margin-inline: -18px;
+    overscroll-behavior-x: contain;
+    overflow-x: auto;
+    padding: 4px 18px 14px;
+    scroll-padding-inline: 18px;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .module-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .module-card {
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 420px) {
+  .module-grid {
+    margin-inline: -15px;
+    padding-inline: 15px;
+    scroll-padding-inline: 15px;
+  }
+}
+
+/* ------ R10: FAQ answers expand smoothly ------ */
+.faq-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq-item.is-open .faq-panel {
+  grid-template-rows: 1fr;
+}
+
+.faq-panel > .faq-answer {
+  border-top: 0;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.faq-answer-inner {
+  border-top: 1px solid var(--border);
+  padding: 0 19px 18px;
+}
+
+/* ------ Header scroll-spy ------ */
+.desktop-nav a[aria-current="location"] {
+  color: var(--brand-blue);
+}
+
+.desktop-nav a[aria-current="location"]::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ------ R11: rounded display face for page and section headings ------ */
+h1,
+h2 {
+  font-family: var(--font-display), var(--font-nunito), "Nunito", ui-rounded, system-ui, sans-serif;
+  font-weight: 900;
+}
+
+/* Form and dialog titles stay in the interface face. */
+.form-heading h2,
+.dialog-card h2 {
+  font-family: var(--font-nunito), "Nunito Sans", ui-rounded, system-ui, sans-serif;
+  font-weight: 850;
+}
+
+/* ------ Header: current page (About / Contact) ------ */
+.desktop-nav a[aria-current="page"] {
+  color: var(--brand-blue);
+}
+
+.desktop-nav a[aria-current="page"]::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+.mobile-menu-inner > a[aria-current] {
+  color: var(--brand-blue);
+}
+
+/* ================================================================== */
+/*  INNER PAGES — About and Contact                                    */
+/*  Same tokens, radii, borders, and patterns as the campaign page.    */
+/* ================================================================== */
+
+.sr-only {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.button-on-dark {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 4px 0 rgba(4, 16, 40, 0.45);
+  color: var(--white);
+}
+
+.button-on-dark:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--white);
+}
+
+/* ------ Page hero ------ */
+.page-hero {
+  background:
+    url("/assets/generated/backgrounds/hero-signal-field.svg") center top / cover no-repeat,
+    linear-gradient(180deg, #f8fbff 0%, #ffffff 90%);
+  overflow: hidden;
+  padding-block: clamp(40px, 7vw, 88px) clamp(32px, 5vw, 64px);
+}
+
+.page-hero-grid {
+  align-items: center;
+  display: grid;
+  gap: clamp(24px, 4vw, 64px);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+}
+
+.page-hero-copy h1 {
+  font-size: clamp(2.3rem, 4.6vw, 3.9rem);
+  margin-bottom: 18px;
+  max-width: 16ch;
+}
+
+.page-hero-lede {
+  font-size: clamp(1.02rem, 1.4vw, 1.18rem);
+  line-height: 1.65;
+  margin-bottom: 26px;
+  max-width: 600px;
+}
+
+.page-hero-art .feature-art-stage {
+  min-height: 400px;
+}
+
+/* ------ Borderless icon lists outside a feature split ------ */
+.plain-list,
+ul.feature-body,
+ul.audience-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.plain-list .audience-card {
+  background: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+
+@media (hover: hover) {
+  .plain-list .audience-card:hover {
+    border-color: transparent;
+    box-shadow: none;
+    translate: none;
+  }
+}
+
+.approach-grid {
+  align-items: center;
+  display: grid;
+  gap: clamp(32px, 5vw, 84px);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.approach-copy h2 {
+  margin-bottom: 18px;
+  max-width: 20ch;
+}
+
+.approach-copy > p {
+  font-size: 1.05rem;
+}
+
+.approach-list.audience-grid {
+  gap: 28px 30px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+/* ------ Mission / vision / goals: navy band like Modules ------ */
+.purpose-section {
+  --wave-edge: clamp(28px, 5.5vw, 80px);
+  background:
+    url("/assets/generated/backgrounds/modules-orbit-field.svg") center top / cover no-repeat,
+    var(--brand-navy-deep);
+  color: var(--white);
+  margin-block: var(--wave-edge);
+  z-index: 1;
+}
+
+.purpose-section::before,
+.purpose-section::after {
+  -webkit-mask: url("/assets/generated/backgrounds/section-wave-edge.svg") center / 100% 100% no-repeat;
+  background: var(--brand-navy-deep);
+  content: "";
+  height: var(--wave-edge);
+  left: 0;
+  mask: url("/assets/generated/backgrounds/section-wave-edge.svg") center / 100% 100% no-repeat;
+  pointer-events: none;
+  position: absolute;
+  right: 0;
+}
+
+.purpose-section::before {
+  top: calc(1px - var(--wave-edge));
+}
+
+.purpose-section::after {
+  bottom: calc(1px - var(--wave-edge));
+  transform: scaleY(-1);
+}
+
+.purpose-section h2 {
+  color: var(--white);
+}
+
+.purpose-section .eyebrow {
+  color: #ffd582;
+}
+
+.purpose-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.purpose-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 2px solid rgba(255, 255, 255, 0.14);
+  border-radius: 22px;
+  padding: 26px;
+}
+
+.purpose-label {
+  color: #ffd582;
+  display: block;
+  font-size: 0.74rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.purpose-card p {
+  color: #dbe6f6;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* ------ Pending states (honest placeholders) ------ */
+.pending-card {
+  align-items: flex-start;
+  background: var(--surface-soft);
+  border: 2px dashed var(--border-strong);
+  border-radius: 22px;
+  display: flex;
+  gap: 16px;
+  margin-inline: auto;
+  max-width: 780px;
+  padding: 24px 26px;
+}
+
+.pending-card > svg {
+  background: var(--brand-blue-light);
+  border-radius: 14px;
+  color: var(--brand-blue);
+  flex: 0 0 auto;
+  height: 48px;
+  padding: 12px;
+  width: 48px;
+}
+
+.pending-card strong {
+  color: var(--brand-navy);
+  display: block;
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.pending-card p {
+  font-size: 0.94rem;
+  margin: 0;
+}
+
+/* ------ Trainer directory ------ */
+.trainer-grid {
+  display: grid;
+  gap: 22px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 330px));
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.trainer-card {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  box-shadow: 0 5px 0 #dfe7f2;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.trainer-photo {
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(160deg, var(--brand-blue-light), #dce8ff);
+  position: relative;
+}
+
+.trainer-photo img {
+  object-fit: cover;
+}
+
+.trainer-monogram {
+  align-items: center;
+  color: var(--brand-blue);
+  display: flex;
+  font-family: var(--font-display), var(--font-nunito), sans-serif;
+  font-size: 3.4rem;
+  font-weight: 900;
+  inset: 0;
+  justify-content: center;
+  position: absolute;
+}
+
+.trainer-video-badge {
+  align-items: center;
+  background: rgba(7, 29, 63, 0.82);
+  border-radius: 999px;
+  bottom: 12px;
+  color: var(--white);
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 800;
+  gap: 6px;
+  left: 12px;
+  padding: 5px 11px 5px 7px;
+  position: absolute;
+}
+
+.trainer-video-badge svg {
+  height: 16px;
+  width: 16px;
+}
+
+.trainer-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 22px 22px;
+}
+
+.trainer-body h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.trainer-role {
+  color: var(--brand-blue);
+  font-size: 0.9rem;
+  font-weight: 800;
+  margin: 0;
+}
+
+.trainer-meta {
+  align-items: center;
+  color: var(--text-muted);
+  display: flex;
+  font-size: 0.86rem;
+  gap: 6px;
+  margin: 0;
+}
+
+.trainer-meta svg {
+  height: 16px;
+  width: 16px;
+}
+
+.trainer-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 6px 0 0;
+  padding: 0;
+}
+
+.trainer-chips li {
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--brand-navy);
+  font-size: 0.76rem;
+  font-weight: 700;
+  padding: 4px 10px;
+}
+
+.trainer-view {
+  margin-top: auto;
+  width: 100%;
+}
+
+.trainer-body .trainer-chips {
+  margin-bottom: 12px;
+}
+
+.trainer-dialog {
+  max-height: calc(100svh - 32px);
+  max-width: 760px;
+  overflow-y: auto;
+}
+
+.trainer-dialog-head {
+  align-items: center;
+  display: flex;
+  gap: 18px;
+  margin-bottom: 14px;
+  padding-right: 40px;
+}
+
+.trainer-dialog-head h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin: 4px 0 6px;
+}
+
+.trainer-dialog-photo {
+  aspect-ratio: 1;
+  background: linear-gradient(160deg, var(--brand-blue-light), #dce8ff);
+  border-radius: 20px;
+  flex: 0 0 auto;
+  overflow: hidden;
+  position: relative;
+  width: 104px;
+}
+
+.trainer-dialog-photo img {
+  object-fit: cover;
+}
+
+.trainer-dialog-photo .trainer-monogram {
+  font-size: 2.2rem;
+}
+
+.trainer-bio {
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+
+.trainer-dialog-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-bottom: 20px;
+}
+
+.trainer-dialog-grid h3,
+.trainer-video-title {
+  font-size: 1rem;
+  margin: 0 0 8px;
+}
+
+.trainer-list {
+  display: grid;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.trainer-list li {
+  align-items: flex-start;
+  display: flex;
+  font-size: 0.9rem;
+  gap: 8px;
+}
+
+.trainer-list svg {
+  color: var(--brand-orange-dark);
+  flex: 0 0 auto;
+  height: 18px;
+  margin-top: 2px;
+  width: 18px;
+}
+
+.service-video-preview.is-unavailable {
+  cursor: default;
+}
+
+.service-video-preview.is-unavailable .service-video-play {
+  opacity: 0.55;
+}
+
+.service-video-preview.is-unavailable .service-video-play-ring {
+  animation: none;
+  opacity: 0;
+}
+
+/* ------ Results and stories ------ */
+.achievement-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  margin: 0 0 24px;
+}
+
+.achievement-grid > div {
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 20px;
+}
+
+.achievement-grid dd {
+  color: var(--brand-blue);
+  font-family: var(--font-display), var(--font-nunito), sans-serif;
+  font-size: 2rem;
+  font-weight: 900;
+  margin: 0;
+}
+
+.achievement-grid dt {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.story-grid {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.story-card {
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  display: grid;
+  gap: 10px;
+  padding: 24px;
+}
+
+.story-card > svg {
+  color: var(--brand-orange);
+}
+
+.story-score {
+  color: var(--brand-blue);
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+/* ------ Closing call to action ------ */
+.page-cta {
+  background: linear-gradient(135deg, var(--brand-navy-deep), var(--brand-blue));
+  color: var(--white);
+  padding-block: clamp(48px, 7vw, 88px);
+}
+
+.page-cta-inner {
+  align-items: center;
+  display: grid;
+  gap: 28px;
+  grid-template-columns: minmax(0, 1.2fr) auto;
+}
+
+.page-cta h2 {
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.page-cta p {
+  color: #cfddf0;
+  margin: 0;
+  max-width: 560px;
+}
+
+.page-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* ------ Forms: textarea + hints (contact form) ------ */
+.field textarea {
+  appearance: none;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 13px;
+  color: var(--text);
+  font: inherit;
+  min-height: 132px;
+  padding: 11px 13px;
+  resize: vertical;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease;
+  width: 100%;
+}
+
+.field textarea:hover {
+  border-color: var(--border-strong);
+}
+
+.field textarea:focus {
+  border-color: var(--brand-blue);
+  box-shadow: 0 0 0 4px rgba(22, 85, 216, 0.09);
+  outline: none;
+}
+
+.field textarea[aria-invalid="true"] {
+  border-color: var(--error);
+}
+
+.field-hint {
+  color: var(--text-muted);
+  font-size: 0.74rem;
+  justify-self: end;
+}
+
+/* ------ Responsive ------ */
+@media (max-width: 920px) {
+  .page-hero-grid,
+  .approach-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-hero-art .feature-art-stage {
+    min-height: 300px;
+  }
+
+  .page-hero-art .feature-art-stage > * {
+    scale: 0.8;
+  }
+
+  .purpose-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .page-cta-inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 680px) {
+  .page-hero-art .feature-art-stage {
+    min-height: 250px;
+  }
+
+  .page-hero-art .feature-art-stage > * {
+    scale: 0.66;
+  }
+
+  .approach-list.audience-grid,
+  .trainer-dialog-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .trainer-dialog {
+    padding: 28px 20px 22px;
+  }
+
+  .pending-card {
+    flex-direction: column;
+  }
+
+  .page-cta-actions .button {
+    width: 100%;
+  }
+}
+
+/* ------ Contact page ------ */
+.contact-grid {
+  align-items: start;
+  display: grid;
+  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+
+.contact-details h2 {
+  margin-bottom: 22px;
+}
+
+.contact-list {
+  display: grid;
+  gap: 18px;
+  margin: 0;
+}
+
+.contact-row {
+  align-items: flex-start;
+  display: flex;
+  gap: 14px;
+}
+
+.contact-row > svg {
+  background: var(--brand-blue-light);
+  border-radius: 14px;
+  color: var(--brand-blue);
+  flex: 0 0 auto;
+  height: 46px;
+  padding: 11px;
+  width: 46px;
+}
+
+.contact-row dt {
+  color: var(--text-muted);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.contact-row dd {
+  color: var(--brand-navy);
+  font-weight: 700;
+  margin: 2px 0 0;
+}
+
+.contact-row address {
+  font-style: normal;
+}
+
+.branch-address-line,
+.contact-link {
+  display: block;
+}
+
+.contact-link {
+  color: var(--brand-blue);
+  font-weight: 800;
+  min-height: 28px;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.contact-pending {
+  align-items: flex-start;
+  background: var(--surface-soft);
+  border: 2px dashed var(--border-strong);
+  border-radius: 16px;
+  display: flex;
+  font-size: 0.92rem;
+  gap: 10px;
+  margin: 4px 0 0;
+  padding: 14px 16px;
+}
+
+.contact-pending svg {
+  color: var(--brand-blue);
+  flex: 0 0 auto;
+  height: 20px;
+  margin-top: 2px;
+  width: 20px;
+}
+
+.contact-social {
+  border-top: 1px solid var(--border);
+  margin-top: 28px;
+  padding-top: 22px;
+}
+
+.contact-social h3 {
+  align-items: center;
+  display: flex;
+  font-size: 1rem;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.contact-social h3 svg {
+  color: var(--brand-blue);
+  height: 18px;
+  width: 18px;
+}
+
+.social-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.social-link {
+  align-items: center;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  box-shadow: 0 4px 0 #dfe7f2;
+  color: var(--brand-navy);
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  transition:
+    translate 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease;
+  width: 48px;
+}
+
+.social-link:hover {
+  border-color: var(--brand-blue);
+  color: var(--brand-blue);
+  translate: 0 -2px;
+}
+
+.muted-note {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.text-link-inline {
+  color: var(--brand-blue);
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Locations + map */
+.branch-layout {
+  align-items: start;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+
+.branch-list {
+  display: grid;
+  gap: 14px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.branch-card {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  display: grid;
+  gap: 8px;
+  padding: 20px 22px;
+  transition: border-color 160ms ease;
+}
+
+.branch-card.is-selected {
+  border-color: var(--brand-blue);
+}
+
+.branch-card h3 {
+  font-size: 1.15rem;
+  margin: 0 0 4px;
+}
+
+.branch-line {
+  align-items: flex-start;
+  display: flex;
+  font-size: 0.92rem;
+  gap: 10px;
+  margin: 0;
+}
+
+.branch-line svg {
+  color: var(--brand-blue);
+  flex: 0 0 auto;
+  height: 18px;
+  margin-top: 3px;
+  width: 18px;
+}
+
+.branch-line a {
+  color: var(--brand-blue);
+  font-weight: 800;
+}
+
+.branch-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.branch-actions .button {
+  min-height: 44px;
+}
+
+.branch-map {
+  aspect-ratio: 4 / 3;
+  background: var(--surface-soft);
+  border: 2px solid var(--border);
+  border-radius: 22px;
+  overflow: hidden;
+  position: sticky;
+  top: calc(var(--header-h) + 20px);
+}
+
+.branch-map iframe {
+  border: 0;
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.branch-map-facade {
+  align-items: center;
+  background:
+    url("/assets/generated/backgrounds/hero-signal-field.svg") center / cover no-repeat,
+    var(--brand-blue-light);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 100%;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+
+.branch-map-facade > svg {
+  color: var(--brand-blue);
+  height: 40px;
+  width: 40px;
+}
+
+.branch-map-facade p {
+  font-size: 0.9rem;
+  margin: 0 0 6px;
+}
+
+@media (max-width: 920px) {
+  .contact-grid,
+  .branch-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .branch-map {
+    position: static;
+  }
+}
+
+@media (max-width: 680px) {
+  .branch-actions .button {
+    flex: 1 1 100%;
+  }
+}
+
+/* ------ Website Settings: footer contact + social (shown once configured) ------ */
+.footer-contact,
+.footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+}
+
+.footer-contact a,
+.footer-social a {
+  align-items: center;
+  color: #aec3df;
+  display: inline-flex;
+  font-size: 0.88rem;
+  gap: 8px;
+  min-height: 44px;
+  overflow-wrap: anywhere;
+}
+
+.footer-contact a:hover,
+.footer-social a:hover {
+  color: #ffd582;
+}
+
+.footer-contact svg,
+.footer-social svg {
+  flex: none;
+  height: 18px;
+  width: 18px;
+}
+
+.footer-social {
+  gap: 4px;
+}
+
+.footer-social a {
+  justify-content: center;
+  min-width: 44px;
+}
+
+/* Testimonial photo and fee extras */
+.story-card .story-photo {
+  border-radius: 50%;
+  height: 48px;
+  object-fit: cover;
+  width: 48px;
+}
+
+.price-installment {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  margin: 8px 0 0;
 }

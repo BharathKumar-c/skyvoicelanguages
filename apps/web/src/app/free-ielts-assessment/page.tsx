@@ -7,74 +7,85 @@ import {
   CheckCircle2,
   ChevronRight,
   CircleDot,
+  GraduationCap,
   Clock3,
   Headphones,
   Laptop2,
   MessageCircleMore,
+  MessagesSquare,
   MousePointerClick,
-  PlayCircle,
+  Plane,
   Route,
+  SearchCheck,
   ShieldCheck,
   Sparkles,
   Star,
   Target,
   TimerReset,
   TrendingUp,
+  Users,
   Video,
   WandSparkles,
 } from "lucide-react";
 import Link from "next/link";
 
-import { AiraContext, AiraModule } from "@/components/mascot";
+import { AiraContext, AiraGroundShadow, SkillSignal } from "@/components/mascot";
+import { AnimatedArt } from "@/components/animated-art";
+import type { SkillSignalModule } from "@/components/mascot";
 import { BrandLogo } from "@/components/brand-logo";
+import { DrawLine } from "@/components/draw-line";
 import { FaqList } from "@/components/faq-list";
+import { InteractiveWaves } from "@/components/interactive-waves";
 import { LeadForm } from "@/components/lead-form";
 import { Reveal } from "@/components/reveal";
+import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
-import { VslPreview } from "@/components/vsl-preview";
+import { ServiceVideo } from "@/components/service-video";
+import { landingVideos } from "@/config/media";
 import { siteConfig } from "@/config/site";
-import {
-  audiences,
-  faqs,
-  methodSteps,
-  modules,
-  pricing,
-  scoreGaps,
-  trustPoints,
-} from "@/content/landing";
+import { audiences, methodSteps, modules, scoreGaps, trustPoints } from "@/content/landing";
+import { brandLogos, formatFee, siteUrl } from "@/lib/settings/format";
+import type { SiteSettings } from "@/lib/settings/schema";
+import { getSettings } from "@/lib/settings/store";
 
-export const metadata: Metadata = {
-  title: "Online IELTS Coaching & Free Assessment",
-  description:
-    "Find the exact IELTS skills holding back your score. Book a free online assessment for a personalised Academic or General Training roadmap.",
-  alternates: {
-    canonical: `${siteConfig.url}${siteConfig.campaignPath}`,
-  },
-  openGraph: {
-    title: "Know what is holding back your IELTS score",
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  const url = siteUrl(settings, siteConfig.campaignPath);
+  return {
+    title: "Online IELTS Coaching & Free Assessment",
     description:
-      "Free IELTS assessment, a clear preparation roadmap, and personalised online coaching for Academic and General Training.",
-    url: `${siteConfig.url}${siteConfig.campaignPath}`,
-  },
-};
+      "Find the exact IELTS skills holding back your score. Book a free online assessment for a personalised Academic or General Training roadmap.",
+    alternates: { canonical: url },
+    openGraph: {
+      title: "Know what is holding back your IELTS score",
+      description:
+        "Free IELTS assessment, a clear preparation roadmap, and personalised online coaching for Academic and General Training.",
+      url,
+    },
+  };
+}
 
-const structuredData = {
+const structuredDataFor = (settings: SiteSettings) => ({
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "EducationalOrganization",
-      "@id": `${siteConfig.url}/#organization`,
-      name: siteConfig.name,
-      url: siteConfig.url,
-      logo: `${siteConfig.url}/brand/skyvoice-icon.svg`,
+      "@id": siteUrl(settings, "/#organization"),
+      name: settings.company.name,
+      url: settings.company.domain,
+      logo: siteUrl(settings, "/brand/skyvoice-icon.svg"),
+      description: settings.company.description,
+      ...(settings.company.socialLinks.length
+        ? { sameAs: settings.company.socialLinks.map((link) => link.url) }
+        : {}),
     },
     {
       "@type": "Service",
-      "@id": `${siteConfig.url}${siteConfig.campaignPath}#service`,
+      "@id": siteUrl(settings, `${siteConfig.campaignPath}#service`),
       name: "Online IELTS Coaching and Assessment",
-      provider: { "@id": `${siteConfig.url}/#organization` },
+      provider: { "@id": siteUrl(settings, "/#organization") },
       serviceType: "IELTS coaching",
-      areaServed: "Online",
+      areaServed: settings.company.serviceArea || "Online",
       description:
         "Personalised online IELTS coaching for Academic and General Training, beginning with a free diagnostic assessment.",
       offers: {
@@ -86,82 +97,115 @@ const structuredData = {
     },
     {
       "@type": "FAQPage",
-      mainEntity: faqs.map((faq) => ({
+      mainEntity: settings.content.faqs.map((faq) => ({
         "@type": "Question",
         name: faq.question,
         acceptedAnswer: { "@type": "Answer", text: faq.answer },
       })),
     },
   ],
-};
+});
 
-export default function FreeIeltsAssessmentPage() {
+export default async function FreeIeltsAssessmentPage() {
+  const settings = await getSettings();
+  const { courses, content } = settings;
+  const { hero } = content;
+  const videos = landingVideos(settings);
+  // Underline the configured words only when they end the second line.
+  const underline =
+    hero.titleUnderline && hero.titleLine2.endsWith(hero.titleUnderline) ? hero.titleUnderline : "";
+  const line2Lead = underline ? hero.titleLine2.slice(0, -underline.length) : hero.titleLine2;
+
   return (
     <>
       <script
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          __html: JSON.stringify(structuredDataFor(settings)).replace(/</g, "\\u003c"),
         }}
         type="application/ld+json"
       />
+      <noscript>
+        {/* Without JavaScript nothing reveals or toggles: show it all. */}
+        <style>{"[data-reveal],.header-cta,.mobile-cta-bar{opacity:1!important;transform:none!important;visibility:visible!important;pointer-events:auto!important}"}</style>
+      </noscript>
       <SiteHeader />
       <main id="main-content">
         <section className="hero section" id="top">
-          <div aria-hidden="true" className="hero-ambient hero-ambient-one" />
-          <div aria-hidden="true" className="hero-ambient hero-ambient-two" />
+          <InteractiveWaves band={0.56} bandCompact={0.3} fadeLeft />
           <div className="site-shell hero-grid">
-            <div className="hero-content">
-              <Reveal>
-                <div className="hero-eyebrow-row">
-                  <span className="eyebrow">
-                    <Sparkles aria-hidden="true" />
-                    Online IELTS coaching
-                  </span>
-                  <span className="availability-dot">Academic + General</span>
+            <div className="hero-left">
+              <div className="hero-content">
+                <div className="hero-enter">
+                  <div className="hero-eyebrow-row">
+                    <span className="eyebrow">
+                      <Sparkles aria-hidden="true" />
+                      {hero.eyebrow}
+                    </span>
+                    <span className="availability-dot">Academic + General</span>
+                  </div>
+                  <h1>
+                    {hero.titleLine1}
+                    {hero.titleLine2 ? (
+                      <span>
+                        {" "}
+                        {line2Lead}
+                        {underline ? <span className="hero-underline">{underline}</span> : null}
+                      </span>
+                    ) : null}
+                  </h1>
+                  <p className="hero-lede">{hero.lede}</p>
+                  <div className="hero-actions">
+                    <Link className="button button-accent button-large" href="#assessment-form">
+                      {hero.primaryCtaLabel}
+                      <ArrowRight aria-hidden="true" />
+                    </Link>
+                    <Link className="button button-secondary button-large" href={hero.secondaryCtaHref}>
+                      {hero.secondaryCtaLabel}
+                    </Link>
+                  </div>
+                  {hero.reassurance ? (
+                    <p className="hero-reassurance">
+                      <ShieldCheck aria-hidden="true" />
+                      {hero.reassurance}
+                    </p>
+                  ) : null}
                 </div>
-                <h1>
-                  Stuck at Band 5 or 6?
-                  <span> Find the exact gap.</span>
-                </h1>
-                <p className="hero-lede">
-                  Stop preparing blindly. Start with a free assessment that maps your
-                  current level, weak modules, target band, and clearest route forward.
-                </p>
-                <div className="hero-actions">
-                  <Link className="button button-accent button-large" href="#assessment-form">
-                    Book my free assessment
-                    <ArrowRight aria-hidden="true" />
-                  </Link>
-                  <Link className="button button-secondary button-large" href="#method">
-                    See how it works
-                  </Link>
+              </div>
+
+              <div className="hero-mascot-wrap hero-enter hero-enter-2">
+                <div className="hero-aira-stage">
+                  <AnimatedArt
+                    className="hero-aira-orbit"
+                    height={560}
+                    src="/assets/generated/motion-graphics/hero-aira-orbit-stage.svg"
+                    staticSrc="/assets/generated/motion-graphics/hero-aira-orbit-stage-static.svg"
+                    width={480}
+                  />
+                  <div className="aira-figure">
+                    <AiraContext
+                      context="hero-speaking"
+                      eager
+                      size="xl"
+                      aria-label="Aira, your SkyVoice IELTS guide, presents your next score move"
+                    />
+                    <AiraGroundShadow width={190} />
+                  </div>
                 </div>
-                <p className="hero-reassurance">
-                  <ShieldCheck aria-hidden="true" />
-                  Free whether you join or not. No payment details.
-                </p>
-              </Reveal>
-
-              <Reveal delay={0.08}>
-                <VslPreview />
-              </Reveal>
-
-              <Reveal className="hero-mascot-wrap" delay={0.16}>
-                <AiraContext
-                  context="hero"
-                  size="xl"
-                  aria-label="Aira, your SkyVoice IELTS guide, welcomes you"
-                />
-              </Reveal>
+              </div>
             </div>
 
-            <Reveal className="hero-form-wrap" delay={0.12}>
-              <div className="hero-form-accent" aria-hidden="true">
-                <span>Start here</span>
-                <ArrowRight />
+            <div className="hero-right">
+              <div className="hero-video hero-enter hero-enter-2">
+                <ServiceVideo variant="compact" video={videos.hero} />
               </div>
-              <LeadForm idPrefix="assessment" />
-            </Reveal>
+              <div className="hero-form-wrap hero-enter hero-enter-3">
+                <div className="hero-form-accent" aria-hidden="true">
+                  <span>Start here</span>
+                  <ArrowRight />
+                </div>
+                <LeadForm assessmentDuration={courses.assessmentDuration} idPrefix="assessment" />
+              </div>
+            </div>
           </div>
 
           <div className="site-shell trust-strip" aria-label="Course highlights">
@@ -177,6 +221,33 @@ export default function FreeIeltsAssessmentPage() {
                 <span>{item.label}</span>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section aria-labelledby="video-title" className="section video-section" id="video">
+          <div className="site-shell video-shell">
+            <Reveal className="section-heading centered-heading video-heading">
+              <span className="eyebrow">Meet Sky Voice</span>
+              <h2 id="video-title">See how one assessment turns into a clear plan.</h2>
+              <p>
+                A short introduction to the free assessment, the personalised roadmap,
+                and how coaching works week to week.
+              </p>
+            </Reveal>
+            <Reveal className="video-stage" delay={0.06}>
+              <ServiceVideo video={videos.service} />
+            </Reveal>
+            <div className="video-points">
+              <span>
+                <SearchCheck aria-hidden="true" /> Find your current level
+              </span>
+              <span>
+                <Target aria-hidden="true" /> Spot the module holding you back
+              </span>
+              <span>
+                <Route aria-hidden="true" /> Leave with a written roadmap
+              </span>
+            </div>
           </div>
         </section>
 
@@ -219,7 +290,7 @@ export default function FreeIeltsAssessmentPage() {
                 <small>Practising, but unsure why the score is not moving</small>
               </div>
               <div className="score-route" aria-hidden="true">
-                <div className="route-line" />
+                <DrawLine className="route-line" delay={0.35} />
                 <span>
                   <Route />
                 </span>
@@ -235,8 +306,8 @@ export default function FreeIeltsAssessmentPage() {
         </section>
 
         <section className="section section-soft" id="why-stuck">
-          <div className="site-shell">
-            <Reveal className="section-heading centered-heading">
+          <div className="site-shell feature-split">
+            <Reveal className="feature-head">
               <span className="eyebrow">Why scores get stuck</span>
               <h2>Practice tells you the score. Diagnosis tells you what to change.</h2>
               <p>
@@ -244,14 +315,32 @@ export default function FreeIeltsAssessmentPage() {
                 gives you.
               </p>
             </Reveal>
-            <div className="gap-grid">
+            <Reveal className="feature-art" delay={0.06}>
+              <div className="feature-art-stage">
+                {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG */}
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className="feature-art-orbit"
+                  height={560}
+                  loading="lazy"
+                  src="/assets/generated/motion-graphics/hero-aira-orbit-stage-static.svg"
+                  width={480}
+                />
+                <div className="aira-figure">
+                  <AiraContext context="why-stuck" decorative />
+                  <AiraGroundShadow width={170} />
+                </div>
+              </div>
+            </Reveal>
+            <div className="feature-body gap-grid">
               {scoreGaps.map((gap, index) => (
-                <Reveal className="gap-card" delay={index * 0.04} key={gap.title}>
+                <div className="gap-card" key={gap.title}>
                   <span className="number-chip">0{index + 1}</span>
                   <gap.icon aria-hidden="true" />
                   <h3>{gap.title}</h3>
                   <p>{gap.body}</p>
-                </Reveal>
+                </div>
               ))}
             </div>
           </div>
@@ -271,9 +360,9 @@ export default function FreeIeltsAssessmentPage() {
             </Reveal>
 
             <div className="method-path">
-              <div className="method-line" aria-hidden="true" />
-              {methodSteps.map((step, index) => (
-                <Reveal className="method-step" delay={index * 0.04} key={step.number}>
+              <DrawLine className="method-line" duration={1.2} />
+              {methodSteps.map((step) => (
+                <div className="method-step" key={step.number}>
                   <div className={`method-marker ${step.free ? "is-free" : ""}`}>
                     <step.icon aria-hidden="true" />
                     {step.free ? <span>Free</span> : null}
@@ -281,7 +370,7 @@ export default function FreeIeltsAssessmentPage() {
                   <span className="step-number">{step.number}</span>
                   <h3>{step.label}</h3>
                   <p>{step.body}</p>
-                </Reveal>
+                </div>
               ))}
             </div>
           </div>
@@ -298,25 +387,55 @@ export default function FreeIeltsAssessmentPage() {
               </p>
             </Reveal>
 
-            <div className="module-grid">
+            <Reveal className="module-tableau" delay={0.04}>
+              <div className="module-tableau-aira">
+                <div className="aira-figure">
+                  <AiraContext
+                    context="feedback"
+                    size="xl"
+                    aria-label="Aira connects feedback across all four IELTS skills"
+                  />
+                  <AiraGroundShadow tone="light" width={190} />
+                </div>
+              </div>
+              <div className="module-tableau-copy">
+                <strong>One guide. Four connected skill signals.</strong>
+                <p>Aira turns feedback from each module into one clear next step.</p>
+                <div className="module-tableau-signals" aria-hidden="true">
+                  {(["listening", "reading", "writing", "speaking"] as const).map(
+                    (skill) => (
+                      <SkillSignal
+                        decorative
+                        key={skill}
+                        module={skill}
+                        size={76}
+                        state="idle"
+                      />
+                    ),
+                  )}
+                </div>
+              </div>
+            </Reveal>
+
+            <div aria-label="The four IELTS modules" className="module-grid" role="region" tabIndex={0}>
               {modules.map((module, index) => (
-                <Reveal
+                <div
                   className={`module-card module-card-${index + 1}`}
-                  delay={index * 0.05}
                   key={module.name}
                 >
-                  <div className="module-icon module-icon-mascot">
-                    <AiraModule
-                      module={
-                        module.name.toLowerCase() as
-                          | "listening"
-                          | "reading"
-                          | "writing"
-                          | "speaking"
-                      }
-                      size="md"
-                      idle="breathe"
-                      sparkPulse={false}
+                  <div className="module-signal" aria-hidden="true">
+                    <SkillSignal
+                      className="module-signal-image"
+                      module={module.name.toLowerCase() as SkillSignalModule}
+                      state="active"
+                      size={152}
+                      decorative
+                    />
+                    <SkillSignal
+                      className="module-signal-success"
+                      module={module.name.toLowerCase() as SkillSignalModule}
+                      state="success"
+                      size={152}
                       decorative
                     />
                   </div>
@@ -331,11 +450,11 @@ export default function FreeIeltsAssessmentPage() {
                       </li>
                     ))}
                   </ul>
-                </Reveal>
+                </div>
               ))}
             </div>
 
-            <Reveal className="test-type-banner">
+            <div className="test-type-banner">
               <div>
                 <span className="type-icon">
                   <GraduationCapIcon />
@@ -355,7 +474,7 @@ export default function FreeIeltsAssessmentPage() {
                 </div>
               </div>
               <Link href="#assessment-form">Not sure? We’ll help you choose.</Link>
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -369,10 +488,12 @@ export default function FreeIeltsAssessmentPage() {
                 an exam-like computer-delivered environment.
               </p>
               <div className="portal-features">
-                <div>
-                  <strong>80</strong>
-                  <span>practice sets</span>
-                </div>
+                {courses.portalPracticeSets ? (
+                  <div>
+                    <strong>{courses.portalPracticeSets}</strong>
+                    <span>practice sets</span>
+                  </div>
+                ) : null}
                 <div>
                   <strong>4</strong>
                   <span>IELTS modules</span>
@@ -384,90 +505,118 @@ export default function FreeIeltsAssessmentPage() {
               </div>
               <p className="inline-note">
                 <Clock3 aria-hidden="true" />
-                Access duration will be displayed after final client confirmation.
+                {courses.portalAccessDuration
+                  ? `Portal access: ${courses.portalAccessDuration}.`
+                  : "Access duration will be displayed after final client confirmation."}
               </p>
             </Reveal>
 
-            <Reveal
-              ariaLabel="IELTS practice portal concept preview"
-              className="portal-preview"
-              delay={0.08}
-              role="region"
-              tabIndex={0}
-            >
-              <div className="portal-window-bar">
-                <span />
-                <span />
-                <span />
-                <small>Concept preview · final screenshots pending</small>
-              </div>
-              <div className="portal-body">
-                <aside>
-                  <BrandLogo />
-                  <nav aria-label="Concept portal navigation">
-                    <span className="active">
-                      <Headphones aria-hidden="true" /> Practice
-                    </span>
-                    <span>
-                      <Target aria-hidden="true" /> Progress
-                    </span>
-                    <span>
-                      <MessageCircleMore aria-hidden="true" /> Tutor
-                    </span>
-                  </nav>
-                </aside>
-                <div className="portal-question">
-                  <div className="portal-topline">
-                    <span>Listening · Set 12</span>
-                    <b>
-                      <TimerReset aria-hidden="true" /> 24:18
-                    </b>
-                  </div>
-                  <div className="audio-wave" aria-hidden="true">
-                    {[18, 32, 44, 24, 52, 38, 64, 30, 46, 28, 58, 36].map((height, i) => (
-                      <span key={`${height}-${i}`} style={{ height }} />
-                    ))}
-                  </div>
-                  <p>Choose the answer that best matches the speaker’s purpose.</p>
-                  <div className="portal-options">
-                    <span>A · To compare two study plans</span>
-                    <span className="selected">B · To explain a change in schedule</span>
-                    <span>C · To recommend a preparation book</span>
-                  </div>
-                  <div className="portal-progress">
-                    <span style={{ width: "62%" }} />
+            <div className="portal-stage">
+              <Reveal
+                ariaLabel="IELTS practice portal concept preview"
+                className="portal-preview"
+                delay={0.08}
+                role="region"
+                tabIndex={0}
+              >
+                <div className="portal-window-bar">
+                  <span />
+                  <span />
+                  <span />
+                  <small>Concept preview · final screenshots pending</small>
+                </div>
+                <div className="portal-body">
+                  <aside>
+                    <BrandLogo src={brandLogos(settings).default} />
+                    <nav aria-label="Concept portal navigation">
+                      <span className="active">
+                        <Headphones aria-hidden="true" /> Practice
+                      </span>
+                      <span>
+                        <Target aria-hidden="true" /> Progress
+                      </span>
+                      <span>
+                        <MessageCircleMore aria-hidden="true" /> Tutor
+                      </span>
+                    </nav>
+                  </aside>
+                  <div className="portal-question">
+                    <div className="portal-topline">
+                      <span>Listening · Set 12</span>
+                      <b>
+                        <TimerReset aria-hidden="true" /> 24:18
+                      </b>
+                    </div>
+                    <div className="audio-wave" aria-hidden="true">
+                      {[18, 32, 44, 24, 52, 38, 64, 30, 46, 28, 58, 36].map((height, i) => (
+                        <span key={`${height}-${i}`} style={{ height }} />
+                      ))}
+                    </div>
+                    <p>Choose the answer that best matches the speaker’s purpose.</p>
+                    <div className="portal-options">
+                      <span>A · To compare two study plans</span>
+                      <span className="selected">B · To explain a change in schedule</span>
+                      <span>C · To recommend a preparation book</span>
+                    </div>
+                    <div className="portal-progress">
+                      <span style={{ width: "62%" }} />
+                    </div>
                   </div>
                 </div>
+              </Reveal>
+              <div aria-hidden="true" className="portal-aira">
+                <div className="aira-figure">
+                  <AiraContext context="portal" decorative />
+                  <AiraGroundShadow width={130} />
+                </div>
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
 
         <section className="section audience-section" id="audience">
-          <div className="site-shell">
-            <Reveal className="section-heading centered-heading">
+          <div className="site-shell feature-split">
+            <Reveal className="feature-head">
               <span className="eyebrow">Built around real life</span>
               <h2>For people preparing with a deadline, a job, or a second attempt.</h2>
             </Reveal>
-            <div className="audience-grid">
-              {audiences.map((audience, index) => (
-                <Reveal className="audience-card" delay={index * 0.035} key={audience.title}>
+            <Reveal className="feature-art" delay={0.06}>
+              <div className="feature-art-stage">
+                {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG */}
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className="feature-art-orbit"
+                  height={560}
+                  loading="lazy"
+                  src="/assets/generated/motion-graphics/hero-aira-orbit-stage-static.svg"
+                  width={480}
+                />
+                <div className="aira-figure">
+                  <AiraContext context="audience" decorative />
+                  <AiraGroundShadow width={160} />
+                </div>
+              </div>
+            </Reveal>
+            <div className="feature-body audience-grid">
+              {audiences.map((audience) => (
+                <div className="audience-card" key={audience.title}>
                   <audience.icon aria-hidden="true" />
                   <div>
                     <h3>{audience.title}</h3>
                     <p>{audience.body}</p>
                   </div>
-                </Reveal>
+                </div>
               ))}
             </div>
-            <Reveal className="not-for-card">
+            <div className="feature-foot not-for-card">
               <span>Probably not for you if…</span>
               <p>
                 You only want last-minute exam tips at 7.5+, or the lowest-cost
                 40-student lecture batch. Sky Voice is built around small groups and
                 personalised 1-on-1 attention.
               </p>
-            </Reveal>
+            </div>
           </div>
         </section>
 
@@ -476,19 +625,18 @@ export default function FreeIeltsAssessmentPage() {
             <Reveal className="section-heading centered-heading">
               <span className="eyebrow">Clear formats · transparent fees</span>
               <h2>Two ways to train. One personalised method.</h2>
-              <p>Both include the assessment, roadmap, portal, and tutor support.</p>
+              {courses.feeNote ? <p>{courses.feeNote}</p> : null}
             </Reveal>
             <div className="pricing-grid">
-              {pricing.map((plan, index) => (
-                <Reveal
+              {courses.plans.map((plan) => (
+                <div
                   className={`pricing-card ${plan.featured ? "is-featured" : ""}`}
-                  delay={index * 0.08}
                   key={plan.name}
                 >
                   {plan.featured ? <span className="popular-badge">Most focused</span> : null}
                   <div className="pricing-title">
                     <span>
-                      <plan.icon aria-hidden="true" />
+                      {plan.featured ? <MessagesSquare aria-hidden="true" /> : <Users aria-hidden="true" />}
                     </span>
                     <div>
                       <h3>{plan.name}</h3>
@@ -498,20 +646,29 @@ export default function FreeIeltsAssessmentPage() {
                   <dl className="price-list">
                     <div>
                       <dt>IELTS Academic</dt>
-                      <dd>{plan.academic}</dd>
+                      <dd>{formatFee(plan.academicFee) ?? "Fee on request"}</dd>
                     </div>
                     <div>
                       <dt>IELTS General Training</dt>
-                      <dd>{plan.general}</dd>
+                      <dd>{formatFee(plan.generalFee) ?? "Fee on request"}</dd>
                     </div>
                   </dl>
                   <ul className="plan-features">
-                    <li>
-                      <Check aria-hidden="true" /> {plan.bestFor}
-                    </li>
-                    <li>
-                      <Check aria-hidden="true" /> {plan.schedule}
-                    </li>
+                    {plan.description ? (
+                      <li>
+                        <Check aria-hidden="true" /> {plan.description}
+                      </li>
+                    ) : null}
+                    {plan.schedule ? (
+                      <li>
+                        <Check aria-hidden="true" /> {plan.schedule}
+                      </li>
+                    ) : null}
+                    {plan.duration ? (
+                      <li>
+                        <Check aria-hidden="true" /> {plan.duration}
+                      </li>
+                    ) : null}
                     <li>
                       <Check aria-hidden="true" /> Writing and Speaking feedback
                     </li>
@@ -523,29 +680,45 @@ export default function FreeIeltsAssessmentPage() {
                     Find my best format
                     <ArrowRight aria-hidden="true" />
                   </Link>
-                </Reveal>
+                </div>
               ))}
             </div>
-            <Reveal className="price-note">
+            <div className="price-note">
               <WandSparkles aria-hidden="true" />
               <div>
                 <strong>Not sure which format fits?</strong>
                 <p>Your free assessment ends with a format recommendation—before you pay.</p>
+                {courses.installmentInfo ? (
+                  <p className="price-installment">{courses.installmentInfo}</p>
+                ) : null}
               </div>
-            </Reveal>
+            </div>
           </div>
         </section>
 
         <section className="section proof-section">
           <div className="site-shell proof-grid">
             <Reveal className="proof-visual">
-              <div className="proof-ring">
-                <span>
+              <div className="proof-figure">
+                {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG illustration */}
+                <img
+                  alt=""
+                  aria-hidden="true"
+                  className="proof-illustration"
+                  decoding="async"
+                  height={460}
+                  loading="lazy"
+                  src="/assets/generated/illustrations/proof-evidence-chain.svg"
+                  width={500}
+                />
+              </div>
+              <p className="proof-caption">
+                <span className="proof-caption-icon">
                   <TrendingUp aria-hidden="true" />
                 </span>
                 <strong>Progress you can explain</strong>
-                <p>Not a mystery score. A visible chain from feedback to correction.</p>
-              </div>
+                Not a mystery score. A visible chain from feedback to correction.
+              </p>
               <div className="proof-float proof-float-one">
                 <CheckCircle2 aria-hidden="true" />
                 Task 2 structure
@@ -610,12 +783,13 @@ export default function FreeIeltsAssessmentPage() {
               </Link>
             </Reveal>
             <Reveal delay={0.08}>
-              <FaqList />
+              <FaqList items={content.faqs} />
             </Reveal>
           </div>
         </section>
 
         <section className="section final-cta" id="final-assessment">
+          <InteractiveWaves band={0.84} tone="dark" />
           <div aria-hidden="true" className="final-orbit final-orbit-one" />
           <div aria-hidden="true" className="final-orbit final-orbit-two" />
           <div className="site-shell final-grid">
@@ -651,46 +825,13 @@ export default function FreeIeltsAssessmentPage() {
               </ol>
             </Reveal>
             <Reveal className="final-form-card" delay={0.08}>
-              <LeadForm compact idPrefix="final-assessment" />
+              <LeadForm assessmentDuration={courses.assessmentDuration} compact idPrefix="final-assessment" />
             </Reveal>
           </div>
         </section>
       </main>
 
-      <footer className="site-footer">
-        <div className="site-shell footer-grid">
-          <div className="footer-brand">
-            <BrandLogo variant="white" />
-            <p>
-              Personalised online IELTS preparation for people with a real target and a
-              reason to reach it.
-            </p>
-          </div>
-          <div className="footer-links">
-            <div>
-              <strong>Explore</strong>
-              <Link href="#method">Method</Link>
-              <Link href="#modules">Modules</Link>
-              <Link href="#portal">Portal</Link>
-              <Link href="#fees">Fees</Link>
-            </div>
-            <div>
-              <strong>Support</strong>
-              <Link href="#faq">FAQ</Link>
-              <Link href="/privacy">Privacy</Link>
-              <Link href="/terms">Terms</Link>
-            </div>
-          </div>
-        </div>
-        <div className="site-shell footer-bottom">
-          <p>© {new Date().getFullYear()} Sky Voice Languages.</p>
-          <p>
-            Sky Voice is an independent coaching provider. IELTS is jointly owned by
-            the British Council, IDP: IELTS Australia, and Cambridge University Press
-            &amp; Assessment. Results vary by student effort and starting level.
-          </p>
-        </div>
-      </footer>
+      <SiteFooter />
 
       <aside aria-label="Mobile assessment shortcut" className="mobile-cta-bar">
         <Link className="button button-accent" href="#assessment-form">
@@ -703,9 +844,9 @@ export default function FreeIeltsAssessmentPage() {
 }
 
 function GraduationCapIcon() {
-  return <BookOpenCheck aria-hidden="true" />;
+  return <GraduationCap aria-hidden="true" />;
 }
 
 function PlaneIcon() {
-  return <PlayCircle aria-hidden="true" />;
+  return <Plane aria-hidden="true" />;
 }

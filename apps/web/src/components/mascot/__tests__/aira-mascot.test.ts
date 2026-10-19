@@ -6,7 +6,7 @@
  */
 
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, act } from "@testing-library/react";
+import { act } from "@testing-library/react";
 
 import {
   CANONICAL_POSE_CELLS,
@@ -30,6 +30,11 @@ describe("SPRITE_SHEET constants", () => {
   it("cell dimensions match sheet dimensions", () => {
     expect(SPRITE_SHEET.cellWidth).toBe(SPRITE_SHEET.width / SPRITE_SHEET.cols);
     expect(SPRITE_SHEET.cellHeight).toBe(SPRITE_SHEET.height / SPRITE_SHEET.rows);
+  });
+
+  it("crops the QA pose-name pill from production artwork", () => {
+    expect(SPRITE_SHEET.artHeight).toBeLessThan(SPRITE_SHEET.cellHeight);
+    expect(SPRITE_SHEET.artHeight).toBe(456);
   });
 
   it("has exactly 8 canonical pose cells", () => {

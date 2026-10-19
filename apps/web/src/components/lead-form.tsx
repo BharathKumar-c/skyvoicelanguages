@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { postForm } from "@/lib/forms/post-form";
 import {
   assessmentLeadSchema,
   type AssessmentLead,
@@ -15,6 +16,8 @@ import {
 type LeadFormProps = {
   idPrefix: string;
   compact?: boolean;
+  /** From Website Settings, e.g. "45-minute"; empty shows "Free · online assessment". */
+  assessmentDuration?: string;
 };
 
 type FormState =
@@ -22,7 +25,7 @@ type FormState =
   | { type: "preview"; message: string }
   | { type: "error"; message: string };
 
-export function LeadForm({ idPrefix, compact = false }: LeadFormProps) {
+export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }: LeadFormProps) {
   const router = useRouter();
   const [formState, setFormState] = useState<FormState>({ type: "idle" });
   const {
@@ -43,27 +46,17 @@ export function LeadForm({ idPrefix, compact = false }: LeadFormProps) {
     const params = new URLSearchParams(window.location.search);
 
     try {
-      const response = await fetch("/api/leads", {
-        body: JSON.stringify({
+      const result = await postForm(
+        "/api/leads",
+        {
           ...values,
           sourcePage: window.location.pathname,
           utmSource: params.get("utm_source") ?? undefined,
           utmMedium: params.get("utm_medium") ?? undefined,
           utmCampaign: params.get("utm_campaign") ?? undefined,
-        }),
-        headers: { "Content-Type": "application/json" },
-        method: "POST",
-      });
-      const result = (await response.json()) as {
-        message?: string;
-        mode?: "live" | "preview";
-      };
-
-      if (!response.ok) {
-        throw new Error(
-          result.message ?? "We could not send your request. Please try again.",
-        );
-      }
+        },
+        "We could not send your request. Please try again.",
+      );
 
       if (result.mode === "preview") {
         setFormState({
@@ -96,7 +89,9 @@ export function LeadForm({ idPrefix, compact = false }: LeadFormProps) {
     >
       {!compact ? (
         <div className="form-heading">
-          <span className="form-badge">Free · 45-minute online assessment</span>
+          <span className="form-badge">
+            Free · {assessmentDuration ? `${assessmentDuration} ` : ""}online assessment
+          </span>
           <h2>Book your free IELTS assessment</h2>
           <p>Five quick details. No payment. No obligation.</p>
         </div>
@@ -178,7 +173,7 @@ export function LeadForm({ idPrefix, compact = false }: LeadFormProps) {
 
       <div aria-hidden="true" className="honeypot">
         <label htmlFor={`${idPrefix}-website`}>Website</label>
-        <input id={`${idPrefix}-website`} tabIndex={-1} {...register("website")} />
+        <input autoComplete="off" id={`${idPrefix}-website`} tabIndex={-1} {...register("website")} />
       </div>
 
       {formState.type !== "idle" ? (
@@ -208,8 +203,10 @@ export function LeadForm({ idPrefix, compact = false }: LeadFormProps) {
 
       <p className="form-privacy">
         <ShieldCheck aria-hidden="true" />
-        Your details are used only to arrange the assessment. Read our{" "}
-        <Link href="/privacy">privacy notice</Link>.
+        <span>
+          Your details are used only to arrange the assessment. Read our{" "}
+          <Link href="/privacy">privacy notice</Link>.
+        </span>
       </p>
     </form>
   );

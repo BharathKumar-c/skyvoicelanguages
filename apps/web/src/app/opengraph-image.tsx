@@ -1,10 +1,17 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
+
 import { ImageResponse } from "next/og";
 
 export const alt = "Sky Voice Languages — Know what is holding back your IELTS score";
 export const size = { height: 630, width: 1200 };
 export const contentType = "image/png";
 
-export default function OpenGraphImage() {
+export default async function OpenGraphImage() {
+  // Validated canonical pose (384×456, transparent) so link previews show Aira.
+  const aira = await readFile(join(process.cwd(), "public/mascot/canonical/aira-front.png"));
+  const airaSrc = `data:image/png;base64,${aira.toString("base64")}`;
+
   return new ImageResponse(
     (
       <div
@@ -35,19 +42,17 @@ export default function OpenGraphImage() {
         <div
           style={{
             alignItems: "center",
-            background: "#ffffff",
-            border: "12px solid rgba(255,255,255,.25)",
+            background:
+              "radial-gradient(circle, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0.06) 55%, transparent 70%)",
             borderRadius: 999,
-            color: "#0e2d5e",
             display: "flex",
-            flexDirection: "column",
-            height: 260,
+            height: 420,
             justifyContent: "center",
-            width: 260,
+            width: 420,
           }}
         >
-          <div style={{ color: "#52657a", fontSize: 24 }}>YOUR TARGET</div>
-          <div style={{ color: "#1655d8", fontSize: 86, fontWeight: 900 }}>7.0</div>
+          {/* eslint-disable-next-line @next/next/no-img-element -- ImageResponse renders plain img */}
+          <img alt="" height={392} src={airaSrc} width={330} />
         </div>
       </div>
     ),

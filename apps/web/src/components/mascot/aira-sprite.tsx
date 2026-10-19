@@ -3,15 +3,14 @@
 /**
  * Aira Mascot — Sprite-based renderer
  *
- * Renders a single pose from the canonical 4×2 sprite sheet using
- * CSS background-position. This avoids loading 8 separate images
- * and gives instant pose switching with zero network latency.
+ * Renders one canonical pose from its individual transparent PNG export.
+ * next/image serves it as WebP/AVIF at the displayed size.
  */
 
-import { useMemo } from "react";
+import Image from "next/image";
 
 import type { CanonicalPose, AiraSize } from "./types";
-import { CANONICAL_POSE_CELLS, SPRITE_SHEET, resolveSize } from "./types";
+import { SPRITE_SHEET, resolveSize } from "./types";
 
 interface AiraSpriteProps {
   /** Canonical pose to display. */
@@ -20,42 +19,27 @@ interface AiraSpriteProps {
   size: AiraSize;
   /** Additional class name for the wrapper. */
   className?: string;
+  /** Above-the-fold placement: load eagerly with high fetch priority. */
+  eager?: boolean;
 }
 
-/**
- * Low-level sprite renderer. Crops the correct cell from the
- * production sprite sheet using CSS `background-position`.
- */
-export function AiraSprite({ pose, size, className }: AiraSpriteProps) {
+/** Low-level renderer for one canonical pose. */
+export function AiraSprite({ pose, size, className, eager = false }: AiraSpriteProps) {
   const px = resolveSize(size);
-
-  const style = useMemo(() => {
-    const cell = CANONICAL_POSE_CELLS[pose];
-    const { cols, rows } = SPRITE_SHEET;
-
-    // Scale the sprite sheet so that each cell fills `px` width.
-    // The aspect ratio of each cell is cellWidth:cellHeight = 384:512 = 3:4
-    const cellAspect = SPRITE_SHEET.cellWidth / SPRITE_SHEET.cellHeight;
-    const displayHeight = px / cellAspect;
-    const sheetDisplayWidth = px * cols;
-    const sheetDisplayHeight = displayHeight * rows;
-
-    return {
-      width: px,
-      height: displayHeight,
-      backgroundImage: "url(/mascot/lead-mascot-sheet.png)",
-      backgroundSize: `${sheetDisplayWidth}px ${sheetDisplayHeight}px`,
-      backgroundPosition: `-${cell.col * px}px -${cell.row * displayHeight}px`,
-      backgroundRepeat: "no-repeat" as const,
-      imageRendering: "auto" as const,
-    };
-  }, [pose, px]);
+  const displayHeight = px * (SPRITE_SHEET.artHeight / SPRITE_SHEET.cellWidth);
 
   return (
-    <div
-      className={className}
-      style={style}
+    <Image
+      alt=""
       aria-hidden="true"
+      className={className}
+      fetchPriority={eager ? "high" : undefined}
+      height={SPRITE_SHEET.artHeight}
+      loading={eager ? "eager" : "lazy"}
+      sizes={`${px}px`}
+      src={`/mascot/canonical/aira-${pose}.png`}
+      style={{ height: displayHeight, width: px }}
+      width={SPRITE_SHEET.cellWidth}
     />
   );
 }

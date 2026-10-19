@@ -14,7 +14,19 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
   },
   projects: [
-    { name: "chromium", use: { ...devices["Desktop Chrome"] } },
-    { name: "mobile-chrome", use: { ...devices["Pixel 7"] } },
+    // Edits the shared settings file, so it runs first, alone, and restores it.
+    { name: "admin", testMatch: /admin\.spec\.ts/, use: { ...devices["Desktop Chrome"] } },
+    {
+      dependencies: ["admin"],
+      name: "chromium",
+      testIgnore: /admin\.spec\.ts/,
+      use: { ...devices["Desktop Chrome"] },
+    },
+    {
+      dependencies: ["admin"],
+      name: "mobile-chrome",
+      testIgnore: /admin\.spec\.ts/,
+      use: { ...devices["Pixel 7"] },
+    },
   ],
 });
