@@ -8,18 +8,27 @@ export const siteConfig = {
 } as const;
 
 /**
- * Primary navigation, in page order. Section links are absolute so they work
- * from every page; on the campaign page they scroll in place. "Home" is the
- * campaign page itself ("/" redirects there). The Method and Modules sections
- * stay on the page but are no longer menu items; "Portal" stays in the footer;
- * "Results" returns once verified student results are published.
+ * Features held back until the client approves them. The code stays in place;
+ * set a flag to true to show the feature again.
+ *   studentLogin — "Student login" links (header, mobile menu, footer, and the
+ *   IELTS & PTE portal button). Planned for the second enhancement phase.
+ */
+export const features = {
+  studentLogin: false,
+} as const;
+
+/**
+ * Primary navigation, in page order. "Home" is the campaign page itself ("/"
+ * redirects there). The header button comes from Website Settings. Labels are
+ * looked up by `key` in the interface text (i18n/messages, `client.nav`).
  */
 export const navigation = [
-  { label: "Home", href: siteConfig.campaignPath },
-  { label: "Fees", href: `${siteConfig.campaignPath}#fees` },
-  { label: "FAQ", href: `${siteConfig.campaignPath}#faq` },
-  { label: "About Us", href: "/about" },
-  { label: "Contact Us", href: "/contact" },
+  { key: "home", href: siteConfig.campaignPath },
+  { key: "about", href: "/about" },
+  { key: "expertise", href: "/our-expertise" },
+  { key: "ieltsPte", href: "/ielts-pte-coaching-chennai" },
+  { key: "why", href: "/why-choose-us" },
+  { key: "contact", href: "/contact" },
 ] as const;
 
 export const assessmentHref = `${siteConfig.campaignPath}#assessment-form`;

@@ -19,6 +19,7 @@ import {
   ContentTab,
   CoursesTab,
   IntegrationsTab,
+  PagesTab,
   ResultsTab,
   TeamTab,
   type IntegrationStatus,
@@ -31,6 +32,7 @@ const tabs: { id: SettingsSection; label: string }[] = [
   { id: "team", label: "Trainers" },
   { id: "results", label: "Results & reviews" },
   { id: "content", label: "Website content" },
+  { id: "pages", label: "Pages" },
   { id: "integrations", label: "Integrations" },
 ];
 
@@ -42,7 +44,7 @@ function pendingItems(values: SiteSettingsInput, status: IntegrationStatus) {
   const add = (condition: boolean, section: SettingsSection, text: string) => {
     if (condition) items.push({ section, text });
   };
-  const { contact, company, courses, team, results, integrations } = values;
+  const { contact, company, courses, team, results, integrations, pages } = values;
   add(!contact.phones.some(Boolean), "contact", "Phone number");
   add(!contact.whatsapp, "contact", "WhatsApp number");
   add(!contact.email, "contact", "Contact email");
@@ -52,6 +54,13 @@ function pendingItems(values: SiteSettingsInput, status: IntegrationStatus) {
   add(!team.trainers.some((trainer) => trainer.published), "team", "Published trainer profiles");
   add(!results.stats.some((stat) => stat.verified), "results", "Verified student statistics");
   add(!results.testimonials.some((item) => item.published), "results", "Consented testimonials");
+  add(!company.tagline, "company", "Approved tagline");
+  add(!courses.pte.offersAcademic && !courses.pte.offersCore, "courses", "PTE products offered (Academic / Core)");
+  add(!courses.pte.plans.length, "courses", "PTE packages and fees");
+  add(!contact.branches.length, "contact", "Chennai centre address (or confirm online-only)");
+  add(!results.awards.some((award) => award.verified && award.published), "results", "Verified awards");
+  add(!results.countries.verified, "results", "Verified list of students' countries");
+  add(!pages.home.learningPoints.length, "pages", "How you'll learn (learning style) copy");
   add(!courses.portalAccessDuration, "courses", "Portal access duration");
   add(!courses.installmentInfo, "courses", "Instalment / EMI terms");
   add(!(integrations.email.notifyTo || status.notifyToEnv) || !status.smtp, "integrations", "Email delivery for forms");
@@ -226,6 +235,7 @@ export function SettingsEditor({
             {tab.id === "team" ? <TeamTab /> : null}
             {tab.id === "results" ? <ResultsTab /> : null}
             {tab.id === "content" ? <ContentTab /> : null}
+            {tab.id === "pages" ? <PagesTab /> : null}
             {tab.id === "integrations" ? <IntegrationsTab status={status} /> : null}
           </div>
         ))}

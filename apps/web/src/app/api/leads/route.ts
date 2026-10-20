@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+import { getMessages } from "@/i18n/server";
 import { deliverSubmission } from "@/lib/delivery/deliver";
 import { assessmentLeadSchema } from "@/lib/leads/schema";
 import { clientKey, createRateLimiter } from "@/lib/rate-limit";
@@ -14,26 +15,22 @@ const ieltsTypeLabels = {
 } as const;
 
 export async function POST(request: Request) {
+  // Messages the visitor sees come back in their language; staff emails stay in English.
+  const t = (await getMessages()).api;
   if (isRateLimited(clientKey(request))) {
-    return NextResponse.json(
-      { message: "Too many attempts. Please wait a few minutes and try again." },
-      { status: 429 },
-    );
+    return NextResponse.json({ message: t.tooMany }, { status: 429 });
   }
 
   let raw: unknown;
   try {
     raw = await request.json();
   } catch {
-    return NextResponse.json({ message: "Invalid request." }, { status: 400 });
+    return NextResponse.json({ message: t.invalidRequest }, { status: 400 });
   }
 
   const parsed = assessmentLeadSchema.safeParse(raw);
   if (!parsed.success) {
-    return NextResponse.json(
-      { message: "Please review the highlighted form details." },
-      { status: 400 },
-    );
+    return NextResponse.json({ message: t.reviewForm }, { status: 400 });
   }
 
   const { website, ...lead } = parsed.data;
@@ -68,27 +65,14 @@ export async function POST(request: Request) {
 
   if (result === "unconfigured") {
     if (process.env.NODE_ENV === "development") {
-      return NextResponse.json({
-        message:
-          "Preview validated successfully. Connect lead delivery (email or webhook) before production launch.",
-        mode: "preview",
-      });
+      return NextResponse.json({ message: t.leadPreview, mode: "preview" });
     }
 
-    return NextResponse.json(
-      {
-        message:
-          "Online booking is temporarily unavailable while lead delivery is being connected.",
-      },
-      { status: 503 },
-    );
+    return NextResponse.json({ message: t.leadUnavailable }, { status: 503 });
   }
 
   if (result === "failed") {
-    return NextResponse.json(
-      { message: "We could not send your request. Please try again shortly." },
-      { status: 502 },
-    );
+    return NextResponse.json({ message: t.leadFailed }, { status: 502 });
   }
 
   return NextResponse.json({ message: "Assessment request received.", mode: "live" });

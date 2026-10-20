@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 
 import { enquiryTypes } from "@/content/contact";
+import { getMessages } from "@/i18n/server";
 import { deliverSubmission } from "@/lib/delivery/deliver";
 import { contactEnquirySchema } from "@/lib/enquiries/schema";
 import { clientKey, createRateLimiter } from "@/lib/rate-limit";
@@ -16,26 +17,22 @@ const isRateLimited = createRateLimiter({ limit: 5, windowMs: 10 * 60 * 1000 });
  * production.
  */
 export async function POST(request: Request) {
+  // Messages the visitor sees come back in their language; staff emails stay in English.
+  const t = (await getMessages()).api;
   if (isRateLimited(clientKey(request))) {
-    return NextResponse.json(
-      { message: "Too many attempts. Please wait a few minutes and try again." },
-      { status: 429 },
-    );
+    return NextResponse.json({ message: t.tooMany }, { status: 429 });
   }
 
   let raw: unknown;
   try {
     raw = await request.json();
   } catch {
-    return NextResponse.json({ message: "Invalid request." }, { status: 400 });
+    return NextResponse.json({ message: t.invalidRequest }, { status: 400 });
   }
 
   const parsed = contactEnquirySchema.safeParse(raw);
   if (!parsed.success) {
-    return NextResponse.json(
-      { message: "Please review the highlighted form details." },
-      { status: 400 },
-    );
+    return NextResponse.json({ message: t.reviewForm }, { status: 400 });
   }
 
   const { website, ...enquiry } = parsed.data;
@@ -71,24 +68,14 @@ export async function POST(request: Request) {
 
   if (result === "unconfigured") {
     if (process.env.NODE_ENV === "development") {
-      return NextResponse.json({
-        message:
-          "Preview validated successfully. Connect enquiry delivery (email or webhook) before production launch.",
-        mode: "preview",
-      });
+      return NextResponse.json({ message: t.enquiryPreview, mode: "preview" });
     }
 
-    return NextResponse.json(
-      { message: "The enquiry form is temporarily unavailable. Please try again later." },
-      { status: 503 },
-    );
+    return NextResponse.json({ message: t.enquiryUnavailable }, { status: 503 });
   }
 
   if (result === "failed") {
-    return NextResponse.json(
-      { message: "We could not send your enquiry. Please try again shortly." },
-      { status: 502 },
-    );
+    return NextResponse.json({ message: t.enquiryFailed }, { status: 502 });
   }
 
   return NextResponse.json({ message: "Enquiry received.", mode: "live" });

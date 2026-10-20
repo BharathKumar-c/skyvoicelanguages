@@ -4,6 +4,8 @@ import { Clock3, MapPin, Navigation, Phone } from "lucide-react";
 import { useState } from "react";
 
 import type { Branch } from "@/content/contact";
+import { useI18n } from "@/i18n/client";
+import { format } from "@/i18n/merge";
 
 export function directionsUrl(query: string) {
   return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
@@ -23,6 +25,7 @@ function telHref(phone: string) {
  * key is needed for the embed or the directions link.
  */
 export function BranchLocations({ branches }: { branches: Branch[] }) {
+  const t = useI18n().m.branches;
   const [selectedId, setSelectedId] = useState(branches[0]?.id ?? null);
   const [mapRequested, setMapRequested] = useState(false);
   const selected = branches.find((branch) => branch.id === selectedId) ?? branches[0];
@@ -70,7 +73,7 @@ export function BranchLocations({ branches }: { branches: Branch[] }) {
                   type="button"
                 >
                   <MapPin aria-hidden="true" />
-                  Show on map
+                  {t.showOnMap}
                 </button>
                 <a
                   className="button button-primary"
@@ -79,8 +82,8 @@ export function BranchLocations({ branches }: { branches: Branch[] }) {
                   target="_blank"
                 >
                   <Navigation aria-hidden="true" />
-                  Get directions
-                  <span className="sr-only"> to {branch.name} (opens Google Maps)</span>
+                  {t.directions}
+                  <span className="sr-only">{format(t.directionsTo, { name: branch.name })}</span>
                 </a>
               </div>
             </li>
@@ -96,15 +99,15 @@ export function BranchLocations({ branches }: { branches: Branch[] }) {
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             src={embedUrl(selected.mapQuery)}
-            title={`Map showing ${selected.name}`}
+            title={format(t.mapTitle, { name: selected.name })}
           />
         ) : (
           <div className="branch-map-facade">
             <MapPin aria-hidden="true" />
             <strong>{selected.name}</strong>
-            <p>The map loads from Google Maps when you ask for it.</p>
+            <p>{t.mapNotice}</p>
             <button className="button button-primary" onClick={() => setMapRequested(true)} type="button">
-              Load map
+              {t.loadMap}
             </button>
           </div>
         )}

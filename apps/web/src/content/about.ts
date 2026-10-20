@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 
 import type { VideoConfig } from "@/config/media";
+import type { Messages } from "@/i18n/messages";
 
 /**
  * About page content.
@@ -24,84 +25,18 @@ import type { VideoConfig } from "@/config/media";
  * should be approved by Sky Voice before launch.
  */
 
-export const aboutIntro = {
-  eyebrow: "About Sky Voice",
-  title: "IELTS coaching that starts with a diagnosis.",
-  lede: "Sky Voice Languages is an online IELTS coaching provider for Academic and General Training candidates. Every learner starts with a free assessment, so the coaching that follows is built around their own score gaps rather than a fixed syllabus.",
-};
+type About = Messages["about"];
 
-export const philosophy = {
-  eyebrow: "Our approach",
-  title: "Find the gap first. Then train it until it holds under exam pressure.",
-  paragraphs: [
-    "Most candidates already practise a lot. What they rarely get is a clear explanation of where their marks disappear and what to change next. Sky Voice exists to close that gap.",
-    "We test Listening, Reading, Writing, and Speaking separately, turn public band descriptors into specific corrections, and keep practising each fix with feedback until it still works when the clock is running.",
-  ],
-};
+const differentiatorIcons = [SearchCheck, Users, Target, Laptop2];
+const environmentIcons = [GraduationCap, Headphones, MessagesSquare, ClipboardCheck];
 
-export const differentiators = [
-  {
-    icon: SearchCheck,
-    title: "Diagnosis before coaching",
-    body: "A free assessment maps your current level, weak modules, and target band before you pay for anything.",
-  },
-  {
-    icon: Users,
-    title: "1-on-1 or groups of 3–5",
-    body: "Small formats only, so feedback stays personal. No 40-student lecture batches.",
-  },
-  {
-    icon: Target,
-    title: "Four modules, one plan",
-    body: "Each skill is trained the way the examiner sees it, inside one connected roadmap.",
-  },
-  {
-    icon: Laptop2,
-    title: "Fully online",
-    body: "Live classes and exam-style practice for Academic and General Training, wherever you are.",
-  },
-] as const;
+/** "Our approach" points, with icons; the wording comes from the interface text. */
+export const differentiators = (t: About) =>
+  t.differentiators.map((item, i) => ({ ...item, icon: differentiatorIcons[i] }));
 
-export const purpose = [
-  {
-    label: "Mission",
-    statement:
-      "Help every IELTS candidate understand exactly what is holding back their score, and give them a clear, personal plan to fix it.",
-  },
-  {
-    label: "Vision",
-    statement:
-      "IELTS preparation that feels clear and manageable, where progress is explained by evidence rather than left to guesswork.",
-  },
-  {
-    label: "Goals",
-    statement:
-      "Diagnose before we teach, keep groups small enough for real feedback, and publish results only when they are verified and shared with consent.",
-  },
-] as const;
-
-export const learningEnvironment = [
-  {
-    icon: GraduationCap,
-    title: "Live online classes",
-    body: "1-on-1 sessions or focused groups of 3–5, scheduled around work and study.",
-  },
-  {
-    icon: Headphones,
-    title: "Exam-style practice portal",
-    body: "80 practice sets across all four modules in a computer-delivered format.",
-  },
-  {
-    icon: MessagesSquare,
-    title: "Writing and Speaking feedback",
-    body: "Personal corrections against the public band descriptors after each task.",
-  },
-  {
-    icon: ClipboardCheck,
-    title: "A written roadmap",
-    body: "Your plan, priorities, and recommended format, in writing, from the first assessment.",
-  },
-] as const;
+/** "Facilities and learning environment" points, with icons. */
+export const learningEnvironment = (t: About) =>
+  t.environment.items.map((item, i) => ({ ...item, icon: environmentIcons[i] }));
 
 export type Trainer = {
   /** Stable slug, used for element ids. */

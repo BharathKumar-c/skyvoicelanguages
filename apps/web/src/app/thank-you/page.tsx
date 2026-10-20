@@ -4,20 +4,24 @@ import Link from "next/link";
 
 import { AnimatedArt } from "@/components/animated-art";
 import { AiraContext, AiraGroundShadow } from "@/components/mascot";
-import { SiteLogo } from "@/components/site-logo";
+import { UtilityTop } from "@/components/utility-top";
+import { getMessages } from "@/i18n/server";
 
-export const metadata: Metadata = {
-  title: "Assessment request received",
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const { thankYou } = await getMessages();
+  return { title: thankYou.metaTitle, robots: { index: false, follow: false } };
+}
 
-export default function ThankYouPage() {
+const stepIcons = [MessageCircleMore, Clock3, Map];
+
+export default async function ThankYouPage() {
+  const m = await getMessages();
+  const t = m.thankYou;
+
   return (
     <main className="utility-page" id="main-content">
       <div className="utility-shell success-shell">
-        <Link aria-label="Sky Voice Languages home" href="/">
-          <SiteLogo />
-        </Link>
+        <UtilityTop homeLabel={m.client.nav.homeLink} />
         <div className="thank-you-mascot">
           <AnimatedArt
             className="thank-you-burst"
@@ -27,40 +31,27 @@ export default function ThankYouPage() {
             width={600}
           />
           <div className="aira-figure">
-            <AiraContext
-              context="thank-you"
-              eager
-              size="xl"
-              aria-label="Aira celebrates your assessment booking!"
-            />
+            <AiraContext aria-label={t.airaLabel} context="thank-you" eager size="xl" />
             <AiraGroundShadow width={180} />
           </div>
         </div>
-        <span className="eyebrow">Request received</span>
-        <h1>Your IELTS roadmap starts here.</h1>
-        <p>
-          Thank you. The next step is to arrange your online assessment slot and learn
-          which modules deserve your attention first.
-        </p>
+        <span className="eyebrow">{t.eyebrow}</span>
+        <h1>{t.title}</h1>
+        <p>{t.body}</p>
         <div className="thank-you-steps">
-          <div>
-            <MessageCircleMore aria-hidden="true" />
-            <strong>Watch for the WhatsApp message</strong>
-            <span>The team will use the number from your form.</span>
-          </div>
-          <div>
-            <Clock3 aria-hidden="true" />
-            <strong>Set aside 45 minutes</strong>
-            <span>Your assessment looks across all four modules.</span>
-          </div>
-          <div>
-            <Map aria-hidden="true" />
-            <strong>Receive a written roadmap</strong>
-            <span>Know the priorities, format, and next step.</span>
-          </div>
+          {t.steps.map((step, index) => {
+            const Icon = stepIcons[index];
+            return (
+              <div key={step.title}>
+                <Icon aria-hidden="true" />
+                <strong>{step.title}</strong>
+                <span>{step.body}</span>
+              </div>
+            );
+          })}
         </div>
         <Link className="button button-primary" href="/free-ielts-assessment">
-          Return to the IELTS guide
+          {t.back}
           <ArrowRight aria-hidden="true" />
         </Link>
       </div>

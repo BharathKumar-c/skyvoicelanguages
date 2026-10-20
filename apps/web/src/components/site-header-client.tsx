@@ -1,14 +1,17 @@
 "use client";
 
-import { Menu, X } from "lucide-react";
+import { KeyRound, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { navigation, siteConfig } from "@/config/site";
 
+import { useI18n } from "@/i18n/client";
+
 import { BrandLogo } from "./brand-logo";
 import { HomeLink } from "./home-link";
+import { LanguageSwitcher } from "./language-switcher";
 
 /** Splits "/path#section" into its parts; plain page links have no section. */
 function parseHref(href: string) {
@@ -16,11 +19,13 @@ function parseHref(href: string) {
   return { path, section: section ?? null };
 }
 
-export type SiteHeaderProps = { logoSrc: string; ctaLabel: string; ctaHref: string };
+export type SiteHeaderProps = { logoSrc: string; ctaLabel: string; ctaHref: string; portalUrl: string };
 
-export function SiteHeaderClient({ logoSrc, ctaLabel, ctaHref }: SiteHeaderProps) {
+export function SiteHeaderClient({ logoSrc, ctaLabel, ctaHref, portalUrl }: SiteHeaderProps) {
   const pathname = usePathname();
+  const { m } = useI18n();
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const [scrolled, setScrolled] = useState(false);
   const [activeHref, setActiveHref] = useState<string | null>(null);
 
@@ -105,20 +110,22 @@ export function SiteHeaderClient({ logoSrc, ctaLabel, ctaHref }: SiteHeaderProps
       };
     }
 
-    // Escape closes the open menu, and widening past the mobile breakpoint
-    // (where the menu is hidden) resets it so it is not stuck open later.
+    // Escape closes the open menu. Resizing or rotating to a layout without
+    // the menu button (desktop navigation) closes it too, so the menu and the
+    // page scroll lock are never left on. Checking the button itself covers
+    // every breakpoint, including the wider one Tamil uses.
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
     };
-    const desktop = window.matchMedia("(min-width: 921px)");
-    const onWiden = () => {
-      if (desktop.matches) setOpen(false);
+    const onResize = () => {
+      const button = menuButtonRef.current;
+      if (button && window.getComputedStyle(button).display === "none") setOpen(false);
     };
     window.addEventListener("keydown", onKey);
-    desktop.addEventListener("change", onWiden);
+    window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("keydown", onKey);
-      desktop.removeEventListener("change", onWiden);
+      window.removeEventListener("resize", onResize);
       delete document.body.dataset.menuOpen;
     };
   }, [open]);
@@ -126,30 +133,40 @@ export function SiteHeaderClient({ logoSrc, ctaLabel, ctaHref }: SiteHeaderProps
   return (
     <header className="site-header" data-scrolled={scrolled}>
       <div className="site-shell header-inner">
-        <Link aria-label="Sky Voice Languages home" className="header-brand" href="/">
+        <Link aria-label={m.nav.homeLink} className="header-brand" href="/">
           <BrandLogo src={logoSrc} />
         </Link>
 
-        <nav aria-label="Primary navigation" className="desktop-nav">
+        <nav aria-label={m.nav.primaryLabel} className="desktop-nav">
           {navigation.map((item) => {
             const ItemLink = NavLink(item.href);
             return (
               <ItemLink aria-current={currentFor(item.href)} href={item.href} key={item.href}>
-                {item.label}
+                {m.nav[item.key]}
               </ItemLink>
             );
           })}
         </nav>
 
-        <Link className="button button-primary header-cta" href={ctaHref}>
-          {ctaLabel}
-        </Link>
+        <div className="header-actions">
+          {portalUrl ? (
+            <a className="header-login" href={portalUrl}>
+              <KeyRound aria-hidden="true" />
+              {m.nav.studentLogin}
+            </a>
+          ) : null}
+          <LanguageSwitcher />
+          <Link className="button button-primary header-cta" href={ctaHref}>
+            {ctaLabel}
+          </Link>
+        </div>
 
         <button
           aria-controls="mobile-menu"
           aria-expanded={open}
-          aria-label={open ? "Close navigation" : "Open navigation"}
+          aria-label={open ? m.nav.closeMenu : m.nav.openMenu}
           className="menu-button"
+          ref={menuButtonRef}
           onClick={() => setOpen((value) => !value)}
           type="button"
         >
@@ -158,7 +175,7 @@ export function SiteHeaderClient({ logoSrc, ctaLabel, ctaHref }: SiteHeaderProps
       </div>
 
       <div className={`mobile-menu ${open ? "is-open" : ""}`} id="mobile-menu">
-        <nav aria-label="Mobile navigation" className="site-shell mobile-menu-inner">
+        <nav aria-label={m.nav.mobileLabel} className="site-shell mobile-menu-inner">
           {navigation.map((item) => {
             const ItemLink = NavLink(item.href);
             return (
@@ -168,10 +185,16 @@ export function SiteHeaderClient({ logoSrc, ctaLabel, ctaHref }: SiteHeaderProps
                 key={item.href}
                 onClick={() => setOpen(false)}
               >
-                {item.label}
+                {m.nav[item.key]}
               </ItemLink>
             );
           })}
+          {portalUrl ? (
+            <a className="mobile-login" href={portalUrl}>
+              <KeyRound aria-hidden="true" />
+              {m.nav.studentLogin}
+            </a>
+          ) : null}
           <Link
             className="button button-primary"
             href={ctaHref}

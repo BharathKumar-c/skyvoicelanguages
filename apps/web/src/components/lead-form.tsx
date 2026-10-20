@@ -7,11 +7,11 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
+import { useI18n } from "@/i18n/client";
+import { useLocalizedSchema, useRevalidateOnLocaleChange } from "@/i18n/forms";
+import { format } from "@/i18n/merge";
 import { postForm } from "@/lib/forms/post-form";
-import {
-  assessmentLeadSchema,
-  type AssessmentLead,
-} from "@/lib/leads/schema";
+import { assessmentLeadSchemaFor, type AssessmentLead } from "@/lib/leads/schema";
 
 type LeadFormProps = {
   idPrefix: string;
@@ -27,19 +27,24 @@ type FormState =
 
 export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }: LeadFormProps) {
   const router = useRouter();
+  const { m } = useI18n();
+  const t = m.leadForm;
+  const schema = useLocalizedSchema(assessmentLeadSchemaFor);
   const [formState, setFormState] = useState<FormState>({ type: "idle" });
   const {
     formState: { errors, isSubmitting },
     handleSubmit,
     register,
+    trigger,
   } = useForm<AssessmentLead>({
-    resolver: zodResolver(assessmentLeadSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       ieltsType: "not-sure",
       targetBand: "7.0",
       website: "",
     },
   });
+  useRevalidateOnLocaleChange(trigger, Object.keys(errors));
 
   const onSubmit = handleSubmit(async (values) => {
     setFormState({ type: "idle" });
@@ -55,16 +60,12 @@ export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }:
           utmMedium: params.get("utm_medium") ?? undefined,
           utmCampaign: params.get("utm_campaign") ?? undefined,
         },
-        "We could not send your request. Please try again.",
+        t.errorFallback,
+        m.common.networkError,
       );
 
       if (result.mode === "preview") {
-        setFormState({
-          type: "preview",
-          message:
-            result.message ??
-            "Your form is valid. Lead delivery must be connected before launch.",
-        });
+        setFormState({ type: "preview", message: result.message ?? t.previewFallback });
         return;
       }
 
@@ -72,10 +73,7 @@ export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }:
     } catch (error) {
       setFormState({
         type: "error",
-        message:
-          error instanceof Error
-            ? error.message
-            : "We could not send your request. Please try again.",
+        message: error instanceof Error ? error.message : t.errorFallback,
       });
     }
   });
@@ -90,22 +88,22 @@ export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }:
       {!compact ? (
         <div className="form-heading">
           <span className="form-badge">
-            Free · {assessmentDuration ? `${assessmentDuration} ` : ""}online assessment
+            {format(t.badge, { duration: assessmentDuration ? `${assessmentDuration} ` : "" })}
           </span>
-          <h2>Book your free IELTS assessment</h2>
-          <p>Five quick details. No payment. No obligation.</p>
+          <h2>{t.heading}</h2>
+          <p>{t.intro}</p>
         </div>
       ) : null}
 
       <div className="form-grid">
         <div className="field field-wide">
-          <label htmlFor={`${idPrefix}-name`}>Full name</label>
+          <label htmlFor={`${idPrefix}-name`}>{t.fullName}</label>
           <input
             aria-describedby={errors.name ? `${idPrefix}-name-error` : undefined}
             aria-invalid={Boolean(errors.name)}
             autoComplete="name"
             id={`${idPrefix}-name`}
-            placeholder="Your name"
+            placeholder={t.namePlaceholder}
             {...register("name")}
           />
           {errors.name ? (
@@ -116,7 +114,7 @@ export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }:
         </div>
 
         <div className="field">
-          <label htmlFor={`${idPrefix}-phone`}>WhatsApp number</label>
+          <label htmlFor={`${idPrefix}-phone`}>{t.whatsapp}</label>
           <input
             aria-describedby={errors.phone ? `${idPrefix}-phone-error` : undefined}
             aria-invalid={Boolean(errors.phone)}
@@ -134,13 +132,13 @@ export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }:
         </div>
 
         <div className="field">
-          <label htmlFor={`${idPrefix}-city`}>City</label>
+          <label htmlFor={`${idPrefix}-city`}>{t.city}</label>
           <input
             aria-describedby={errors.city ? `${idPrefix}-city-error` : undefined}
             aria-invalid={Boolean(errors.city)}
             autoComplete="address-level2"
             id={`${idPrefix}-city`}
-            placeholder="Your city"
+            placeholder={t.cityPlaceholder}
             {...register("city")}
           />
           {errors.city ? (
@@ -151,16 +149,16 @@ export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }:
         </div>
 
         <div className="field">
-          <label htmlFor={`${idPrefix}-type`}>IELTS type</label>
+          <label htmlFor={`${idPrefix}-type`}>{t.ieltsType}</label>
           <select id={`${idPrefix}-type`} {...register("ieltsType")}>
-            <option value="academic">Academic</option>
-            <option value="general">General Training</option>
-            <option value="not-sure">Not sure yet</option>
+            <option value="academic">{t.academic}</option>
+            <option value="general">{t.general}</option>
+            <option value="not-sure">{t.notSure}</option>
           </select>
         </div>
 
         <div className="field">
-          <label htmlFor={`${idPrefix}-band`}>Target band</label>
+          <label htmlFor={`${idPrefix}-band`}>{t.targetBand}</label>
           <select id={`${idPrefix}-band`} {...register("targetBand")}>
             <option value="6.0">6.0</option>
             <option value="6.5">6.5</option>
@@ -172,7 +170,7 @@ export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }:
       </div>
 
       <div aria-hidden="true" className="honeypot">
-        <label htmlFor={`${idPrefix}-website`}>Website</label>
+        <label htmlFor={`${idPrefix}-website`}>{m.common.honeypot}</label>
         <input autoComplete="off" id={`${idPrefix}-website`} tabIndex={-1} {...register("website")} />
       </div>
 
@@ -191,11 +189,11 @@ export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }:
         {isSubmitting ? (
           <>
             <LoaderCircle aria-hidden="true" className="spin" />
-            Sending securely
+            {m.common.sendingSecurely}
           </>
         ) : (
           <>
-            Book my free assessment
+            {t.submit}
             <ArrowRight aria-hidden="true" />
           </>
         )}
@@ -204,8 +202,7 @@ export function LeadForm({ idPrefix, compact = false, assessmentDuration = "" }:
       <p className="form-privacy">
         <ShieldCheck aria-hidden="true" />
         <span>
-          Your details are used only to arrange the assessment. Read our{" "}
-          <Link href="/privacy">privacy notice</Link>.
+          {t.privacy} {m.common.readOur} <Link href="/privacy">{m.common.privacyNotice}</Link>.
         </span>
       </p>
     </form>

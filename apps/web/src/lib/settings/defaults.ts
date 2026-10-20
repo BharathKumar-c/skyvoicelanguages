@@ -22,6 +22,8 @@ export const defaultSettings: SiteSettings = {
     description:
       "Personalised online IELTS coaching for Academic and General Training, beginning with a free IELTS assessment and a clear preparation roadmap.",
     serviceArea: "Online",
+    tagline: "",
+    portalUrl: "",
     address: [],
     socialLinks: [],
   },
@@ -67,9 +69,17 @@ export const defaultSettings: SiteSettings = {
       "A free online assessment that maps your current level, weak modules, target band, and clearest route forward.",
     portalPracticeSets: "80",
     portalAccessDuration: "",
+    pte: {
+      offersAcademic: false,
+      offersCore: false,
+      summary:
+        "Coaching for the computer-based PTE, with the same diagnosis-first approach: find the item types costing you marks, then practise them under exam timing.",
+      plans: [],
+      feeNote: "",
+    },
   },
   team: { trainers: [] },
-  results: { stats: [], testimonials: [] },
+  results: { stats: [], testimonials: [], awards: [], countries: { list: [], verified: false, source: "" } },
   content: {
     hero: {
       eyebrow: "Online IELTS coaching",
@@ -82,8 +92,8 @@ export const defaultSettings: SiteSettings = {
       secondaryCtaHref: "#method",
       reassurance: "Free whether you join or not. No payment details.",
     },
-    headerCtaLabel: "Free assessment",
-    headerCtaHref: "/free-ielts-assessment#assessment-form",
+    headerCtaLabel: "Enquire Now",
+    headerCtaHref: "/enquire-now",
     about: {
       title: "IELTS coaching that starts with a diagnosis.",
       lede: "Sky Voice Languages is an online IELTS coaching provider for Academic and General Training candidates. Every learner starts with a free assessment, so the coaching that follows is built around their own score gaps rather than a fixed syllabus.",
@@ -150,12 +160,90 @@ export const defaultSettings: SiteSettings = {
     ],
     footer: {
       tagline:
-        "Personalised online IELTS preparation for people with a real target and a reason to reach it.",
+        "Personalised online IELTS and PTE preparation for people with a real target and a reason to reach it.",
       disclaimer:
         "Sky Voice is an independent coaching provider. IELTS is jointly owned by the British Council, IDP: IELTS Australia, and Cambridge University Press & Assessment. Results vary by student effort and starting level.",
+      pteDisclaimer: "PTE is a trademark of Pearson.",
     },
     serviceVideoUrl: "",
     heroVideoUrl: "",
+  },
+  pages: {
+    home: {
+      onboardingTitle: "How you join Sky Voice",
+      onboardingSteps: [
+        { title: "Send an enquiry", body: "Tell us your exam, your target, and when you plan to take the test." },
+        { title: "We reply on WhatsApp", body: "The team contacts you on the number you share to answer questions and arrange a time." },
+        { title: "Free online assessment", body: "We look at your current level across Listening, Reading, Writing, and Speaking." },
+        { title: "Your written roadmap", body: "Your weak areas, a realistic timeline, and the format that suits you, before you pay anything." },
+        { title: "Start your coaching", body: "Join a small group or 1-on-1 training and begin practising against your plan." },
+      ],
+      learningTitle: "",
+      learningIntro: "",
+      learningPoints: [],
+    },
+    expertise: {
+      title: "What we teach, and who teaches it.",
+      lede: "Coaching for IELTS Academic, IELTS General Training, and PTE, built around personal feedback on the skills that move your score.",
+      subjects: [
+        { title: "IELTS Academic", body: "For university admission and professional registration: all four modules, with Writing Task 1 report practice." },
+        { title: "IELTS General Training", body: "For work and migration routes: all four modules, with Task 1 letter writing." },
+        { title: "PTE", body: "Computer-based test practice: item types, timing, and the skills each item scores." },
+        { title: "Writing feedback", body: "Your essays and reports corrected against the public marking criteria, with specific fixes." },
+        { title: "Speaking practice", body: "Live practice with corrections on fluency, vocabulary, grammar, and pronunciation." },
+        { title: "Listening and Reading technique", body: "Question-type strategies and timing, practised in exam format." },
+      ],
+    },
+    whyChooseUs: {
+      title: "Why students choose Sky Voice.",
+      lede: "A clear diagnosis, small classes, and feedback on your own work, so you always know what to fix next.",
+      points: [
+        { title: "Diagnosis before coaching", body: "Every student starts with a free assessment, so the plan is built on your real gaps." },
+        { title: "1-on-1 or groups of 3–5", body: "Small enough that your tutor reads your work and hears you speak in every class." },
+        { title: "Personal Writing and Speaking feedback", body: "Corrections on your own essays and answers, not generic model answers." },
+        { title: "Exam-format practice portal", body: "Practise in a computer-delivered format between classes." },
+        { title: "Published fees", body: "Fees are listed on the site, so you can compare before you speak to anyone." },
+        { title: "Fully online", body: "Join from anywhere, with batch timings that fit around work or study." },
+      ],
+    },
+    ieltsPte: {
+      seoTitle: "IELTS & PTE Coaching in Chennai and Online",
+      seoDescription:
+        "IELTS Academic, General Training, and PTE coaching for students in Chennai and worldwide. Free assessment, small groups or 1-on-1, published fees.",
+      title: "IELTS and PTE coaching for Chennai and beyond.",
+      lede: "Personal coaching for IELTS Academic, IELTS General Training, and PTE, delivered online so you can join from Chennai or anywhere else.",
+      comparison: [
+        { label: "How it is taken", ielts: "On paper or on computer", pte: "On computer only" },
+        { label: "Speaking test", ielts: "Live conversation with an examiner", pte: "Recorded through a microphone" },
+        { label: "Score scale", ielts: "Bands 0–9, in half-band steps", pte: "10–90 points" },
+        { label: "Versions", ielts: "Academic and General Training", pte: "PTE Academic and PTE Core" },
+      ],
+      faqs: [
+        {
+          question: "Should I take IELTS or PTE?",
+          answer:
+            "Start with what your university, employer, or visa route accepts, because requirements differ. If both are accepted, the free assessment helps you compare how you perform in each format before you decide.",
+        },
+        {
+          question: "Is the coaching online or in Chennai?",
+          answer:
+            "Coaching is delivered online, so you can join from Chennai or anywhere else. Class timings are agreed when you enrol.",
+        },
+        {
+          question: "Can you help with both IELTS Academic and General Training?",
+          answer: "Yes. Both versions are covered, including the different Writing Task 1 for each.",
+        },
+        {
+          question: "Are the scores from your practice tests official?",
+          answer:
+            "No. Practice scores and tutor estimates show your progress, but only the official test gives you an IELTS or PTE result.",
+        },
+      ],
+    },
+    enquire: {
+      title: "Tell us what you are preparing for.",
+      lede: "Send a quick enquiry about IELTS or PTE coaching. The team replies on WhatsApp to answer your questions and arrange a free assessment.",
+    },
   },
   integrations: {
     email: { notifyTo: "" },

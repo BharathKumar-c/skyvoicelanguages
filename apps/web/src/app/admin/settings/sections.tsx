@@ -36,6 +36,14 @@ export function CompanyTab() {
         <Field hint="Full origin, no trailing slash. Used for links, SEO, and the sitemap." label="Domain" name="company.domain" wide />
         <Field label="Business description" multiline name="company.description" hint="Used for search results and link previews." />
         <Field label="Service location" name="company.serviceArea" hint='e.g. "Online" or "Online and Kochi".' />
+        <Field label="Tagline" name="company.tagline" hint="The approved brand line. Shown in the Home hero and footer; hidden while empty." wide />
+        <Field
+          hint="The practice-portal sign-in page. Student login links appear in the header and footer once set."
+          label="Student portal link"
+          name="company.portalUrl"
+          placeholder="https://portal.skyvoicelanguages.com"
+          wide
+        />
       </Section>
       <Section title="Logo and favicon" intro={imageHint}>
         <Field label="Logo (light backgrounds)" name="company.logoUrl" placeholder="/assets/generated/brand/skyvoice-horizontal-cropped.svg" />
@@ -145,6 +153,32 @@ export function CoursesTab() {
           name="courses.installmentInfo"
         />
       </Section>
+      <Section title="PTE coaching" intro="Shown on the Home and IELTS & PTE pages. With no packages, the site says PTE packages and fees are being confirmed.">
+        <CheckboxField label="We coach PTE Academic" name="courses.pte.offersAcademic" />
+        <CheckboxField label="We coach PTE Core" name="courses.pte.offersCore" />
+        <Field label="PTE summary" multiline name="courses.pte.summary" />
+        <Field label="Note under the PTE fees" name="courses.pte.feeNote" wide />
+        <ListEditor
+          addLabel="Add PTE package"
+          emptyItem={{ description: "", duration: "", featured: false, fee: "", name: "", schedule: "", size: "" }}
+          emptyText="No PTE packages yet."
+          itemLabel="PTE package"
+          max={6}
+          name="courses.pte.plans"
+        >
+          {(index) => (
+            <>
+              <Field label="Package name" name={`courses.pte.plans.${index}.name`} />
+              <Field label="Group size" name={`courses.pte.plans.${index}.size`} />
+              <Field label="Best for" name={`courses.pte.plans.${index}.description`} wide />
+              <Field label="Schedule" name={`courses.pte.plans.${index}.schedule`} />
+              <Field hint="Optional, e.g. 6 weeks." label="Course duration" name={`courses.pte.plans.${index}.duration`} />
+              <Field label="Fee (₹)" name={`courses.pte.plans.${index}.fee`} placeholder="15999" />
+              <CheckboxField label="Highlight as 'Most focused'" name={`courses.pte.plans.${index}.featured`} />
+            </>
+          )}
+        </ListEditor>
+      </Section>
       <Section title="Free assessment and practice portal">
         <Field hint='Shown as "Free · 45-minute online assessment".' label="Assessment length" name="courses.assessmentDuration" />
         <Field label="Practice sets in the portal" name="courses.portalPracticeSets" />
@@ -233,10 +267,39 @@ export function ResultsTab() {
           )}
         </ListEditor>
       </Section>
+      <Section
+        title="Awards and recognition"
+        intro="Only awards ticked Verified and Published appear. Verify each against its certificate or letter; the evidence note is internal and never shown."
+      >
+        <ListEditor
+          addLabel="Add award"
+          emptyItem={{ evidenceNote: "", issuer: "", published: false, title: "", verified: false, year: "" }}
+          emptyText="No awards yet — award sections stay hidden."
+          itemLabel="Award"
+          max={12}
+          name="results.awards"
+        >
+          {(index) => (
+            <>
+              <Field label="Award" name={`results.awards.${index}.title`} />
+              <Field label="Awarded by" name={`results.awards.${index}.issuer`} />
+              <Field label="Year" name={`results.awards.${index}.year`} placeholder="2025" />
+              <Field label="Evidence (internal)" name={`results.awards.${index}.evidenceNote`} placeholder="Certificate in shared drive" />
+              <CheckboxField label="Verified against the certificate" name={`results.awards.${index}.verified`} />
+              <CheckboxField label="Published" name={`results.awards.${index}.published`} />
+            </>
+          )}
+        </ListEditor>
+      </Section>
+      <Section title="Students worldwide" intro="Countries your students have joined from. Shown only when Verified is ticked.">
+        <LinesField label="Countries" name="results.countries.list" rows={5} />
+        <Field label="Source (internal)" name="results.countries.source" placeholder="Enrolment records, 2023–2026" wide />
+        <CheckboxField hint="Every country is backed by an enrolment record." label="Verified" name="results.countries.verified" />
+      </Section>
       <Section title="Testimonials and band results" intro="A testimonial can only be published once the student's written consent is recorded.">
         <ListEditor
           addLabel="Add testimonial"
-          emptyItem={{ consent: false, from: "", module: "", name: "", photoUrl: "", published: false, quote: "", to: "" }}
+          emptyItem={{ consent: false, detail: "", from: "", journey: [], module: "", name: "", outcome: "", photoUrl: "", published: false, quote: "", to: "" }}
           emptyText="No testimonials yet."
           itemLabel="Testimonial"
           max={30}
@@ -248,7 +311,24 @@ export function ResultsTab() {
               <Field label="Module or test" name={`results.testimonials.${index}.module`} placeholder="Overall · Academic" />
               <Field label="Band before" name={`results.testimonials.${index}.from`} placeholder="6.0" />
               <Field label="Band after" name={`results.testimonials.${index}.to`} placeholder="7.5" />
-              <Field label="Quote" multiline name={`results.testimonials.${index}.quote`} />
+              <Field label="Course, job, or city" name={`results.testimonials.${index}.detail`} placeholder="MSc applicant · Chennai" />
+              <Field label="Outcome" name={`results.testimonials.${index}.outcome`} placeholder="University offer, UK" />
+              <Field hint="Shown when the student has no question-and-answer journey below." label="Quote" multiline name={`results.testimonials.${index}.quote`} />
+              <ListEditor
+                addLabel="Add question and answer"
+                emptyItem={{ answer: "", question: "" }}
+                emptyText="No journey answers — the card shows the quote."
+                itemLabel="Answer"
+                max={6}
+                name={`results.testimonials.${index}.journey` as const}
+              >
+                {(answerIndex) => (
+                  <>
+                    <Field label="Question" name={`results.testimonials.${index}.journey.${answerIndex}.question`} wide />
+                    <Field label="Student's answer" multiline name={`results.testimonials.${index}.journey.${answerIndex}.answer`} rows={2} />
+                  </>
+                )}
+              </ListEditor>
               <Field label="Photo (optional, with consent)" name={`results.testimonials.${index}.photoUrl`} wide />
               <CheckboxField label="Written consent received" name={`results.testimonials.${index}.consent`} />
               <CheckboxField label="Published" name={`results.testimonials.${index}.published`} />
@@ -322,10 +402,112 @@ export function ContentTab() {
       <Section title="Footer">
         <Field label="Tagline" multiline name="content.footer.tagline" />
         <Field label="Disclaimer" multiline name="content.footer.disclaimer" />
+        <Field label="PTE disclaimer" name="content.footer.pteDisclaimer" wide />
       </Section>
       <Section title="Videos" intro="MP4 path or https URL. While empty, the player shows its preview and opens the written overview.">
         <Field label="Hero teaser video" name="content.heroVideoUrl" />
         <Field label="Service introduction video" name="content.serviceVideoUrl" />
+      </Section>
+    </>
+  );
+}
+
+function PointsEditor({
+  name,
+  itemLabel,
+  max,
+  emptyText,
+}: {
+  name:
+    | "pages.home.onboardingSteps"
+    | "pages.home.learningPoints"
+    | "pages.expertise.subjects"
+    | "pages.whyChooseUs.points";
+  itemLabel: string;
+  max: number;
+  emptyText: string;
+}) {
+  return (
+    <ListEditor
+      addLabel={`Add ${itemLabel.toLowerCase()}`}
+      emptyItem={{ body: "", title: "" }}
+      emptyText={emptyText}
+      itemLabel={itemLabel}
+      max={max}
+      name={name}
+    >
+      {(index) => (
+        <>
+          <Field label="Title" name={`${name}.${index}.title`} wide />
+          <Field label="Text" multiline name={`${name}.${index}.body`} rows={2} />
+        </>
+      )}
+    </ListEditor>
+  );
+}
+
+export function PagesTab() {
+  return (
+    <>
+      <Section title="How you join (onboarding steps)" intro="Shown on Why Choose Us and Enquire Now.">
+        <Field label="Heading" name="pages.home.onboardingTitle" wide />
+        <PointsEditor emptyText="No steps — the section is hidden." itemLabel="Step" max={7} name="pages.home.onboardingSteps" />
+      </Section>
+      <Section title="How you'll learn" intro="The learning-style section on Why Choose Us. Hidden until at least one point is added.">
+        <Field label="Heading" name="pages.home.learningTitle" wide />
+        <Field label="Introduction" multiline name="pages.home.learningIntro" />
+        <PointsEditor emptyText="No points — the section is hidden." itemLabel="Point" max={6} name="pages.home.learningPoints" />
+      </Section>
+      <Section title="Our Expertise page">
+        <Field label="Heading" name="pages.expertise.title" wide />
+        <Field label="Introduction" multiline name="pages.expertise.lede" />
+        <PointsEditor emptyText="No subjects — the section is hidden." itemLabel="Subject" max={10} name="pages.expertise.subjects" />
+      </Section>
+      <Section title="Why Choose Us page" intro="Points are also shown on the IELTS & PTE page.">
+        <Field label="Heading" name="pages.whyChooseUs.title" wide />
+        <Field label="Introduction" multiline name="pages.whyChooseUs.lede" />
+        <PointsEditor emptyText="No reasons — the section is hidden." itemLabel="Reason" max={8} name="pages.whyChooseUs.points" />
+      </Section>
+      <Section title="IELTS & PTE page">
+        <Field hint="Search-result title; keep it under 60 characters." label="Search title" name="pages.ieltsPte.seoTitle" wide />
+        <Field hint="Search-result description, about 150 characters." label="Search description" multiline name="pages.ieltsPte.seoDescription" />
+        <Field label="Heading" name="pages.ieltsPte.title" wide />
+        <Field label="Introduction" multiline name="pages.ieltsPte.lede" />
+        <ListEditor
+          addLabel="Add row"
+          emptyItem={{ ielts: "", label: "", pte: "" }}
+          emptyText="No comparison rows — the IELTS vs PTE table is hidden."
+          itemLabel="Comparison row"
+          max={10}
+          name="pages.ieltsPte.comparison"
+        >
+          {(index) => (
+            <>
+              <Field label="Row" name={`pages.ieltsPte.comparison.${index}.label`} wide />
+              <Field label="IELTS" name={`pages.ieltsPte.comparison.${index}.ielts`} />
+              <Field label="PTE" name={`pages.ieltsPte.comparison.${index}.pte`} />
+            </>
+          )}
+        </ListEditor>
+        <ListEditor
+          addLabel="Add question"
+          emptyItem={{ answer: "", question: "" }}
+          emptyText="No FAQs — the FAQ section is hidden."
+          itemLabel="Question"
+          max={15}
+          name="pages.ieltsPte.faqs"
+        >
+          {(index) => (
+            <>
+              <Field label="Question" name={`pages.ieltsPte.faqs.${index}.question`} wide />
+              <Field label="Answer" multiline name={`pages.ieltsPte.faqs.${index}.answer`} rows={3} />
+            </>
+          )}
+        </ListEditor>
+      </Section>
+      <Section title="Enquire Now page">
+        <Field label="Heading" name="pages.enquire.title" wide />
+        <Field label="Introduction" multiline name="pages.enquire.lede" />
       </Section>
     </>
   );

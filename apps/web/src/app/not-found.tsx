@@ -1,12 +1,15 @@
 import Link from "next/link";
 
-import { SiteLogo } from "@/components/site-logo";
+import { UtilityTop } from "@/components/utility-top";
+import { getMessages } from "@/i18n/server";
 
-export default function NotFound() {
+export default async function NotFound() {
+  const m = await getMessages();
+  const t = m.notFound;
   return (
     <main className="utility-page" id="main-content">
       <div className="utility-shell">
-        <SiteLogo />
+        <UtilityTop homeLabel={m.client.nav.homeLink} linked={false} />
         {/* eslint-disable-next-line @next/next/no-img-element -- decorative SVG illustration */}
         <img
           alt=""
@@ -17,11 +20,11 @@ export default function NotFound() {
           src="/assets/generated/illustrations/route-lost-404.svg"
           width={560}
         />
-        <span className="eyebrow">404 · Page not found</span>
-        <h1>This is not part of your IELTS route.</h1>
-        <p>The page may have moved. Return to the free assessment guide and continue from there.</p>
-        <Link className="button button-primary" href="/free-ielts-assessment">
-          Return to Sky Voice
+        <span className="eyebrow">{t.eyebrow}</span>
+        <h1>{t.title}</h1>
+        <p>{t.body}</p>
+        <Link className="button button-primary" href="/">
+          {t.back}
         </Link>
       </div>
     </main>

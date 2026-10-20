@@ -1,6 +1,6 @@
 # Sky Voice Languages
 
-Public IELTS assessment and coaching website for `skyvoicelanguages.com`, implemented from the project requirements and Sky Voice design-system documents.
+Public IELTS and PTE coaching website for `skyvoicelanguages.com`, implemented from the project requirements and Sky Voice design-system documents.
 
 ## Project structure
 
@@ -26,7 +26,44 @@ pnpm install
 pnpm dev
 ```
 
-Open `http://localhost:3000`; the root route redirects to `/free-ielts-assessment`.
+Open `http://localhost:3000`; the root route redirects to the homepage at `/free-ielts-assessment`. Site pages:
+
+| Route | Page |
+|---|---|
+| `/free-ielts-assessment` | Home: the campaign page with the free-assessment form, Where IELTS Can Take You, and Student Success Stories |
+| `/about` | About Us |
+| `/our-expertise` | Our Expertise (subjects and tutors) |
+| `/ielts-pte-coaching-chennai` | IELTS & PTE (fees, comparison, FAQ, Chennai SEO) |
+| `/why-choose-us` | Why Choose Us |
+| `/contact` | Contact Us |
+| `/enquire-now` | Enquire Now (IELTS and PTE enquiry form, `POST /api/enquire`) |
+| `/disclaimer`, `/privacy`, `/terms` | Legal pages, linked from the footer |
+
+### Languages (English / தமிழ்)
+
+A globe button in the header (and on the legal, thank-you, and 404 pages) switches the whole site between English (the default) and Tamil. The choice is stored in the `sv_lang` cookie, mirrored in localStorage, and kept across pages and refreshes; the visitor stays on the same page, typed form text is kept, and `<html lang>` follows the language. Because the server reads the cookie, pages render per request rather than being prerendered.
+
+| Where | What |
+|---|---|
+| `apps/web/src/i18n/config.ts` | The supported languages (drives the switcher and `<html lang>`) |
+| `apps/web/src/i18n/messages/en.ts` | All interface text in English: the source of every key |
+| `apps/web/src/i18n/messages/ta.ts` | Tamil interface text (same keys; anything missing falls back to English) |
+| `apps/web/src/i18n/settings/ta.ts` | Tamil versions of the built-in Website Settings copy |
+| `apps/web/src/i18n/settings/localize.ts` | Shows built-in settings copy in the visitor's language |
+
+To add a language (e.g. Hindi):
+
+1. Add `{ code: "hi", label: "Hindi", nativeName: "हिन्दी", htmlLang: "hi" }` to `locales` in `i18n/config.ts`.
+2. Create `i18n/messages/hi.ts` typed as `DeepPartial<Messages>` (copy `ta.ts` as a template) and register it in `i18n/messages/index.ts`.
+3. Optionally create `i18n/settings/hi.ts` for the built-in Website Settings copy and register it in `i18n/settings/localize.ts`.
+4. If the script needs a font that Nunito lacks, add it in `app/layout.tsx` the way Noto Sans Tamil is added, and append its CSS variable to the font stacks.
+5. Run `pnpm test`: the dictionary tests check for unknown keys, list lengths, and placeholders.
+
+No component changes are needed. Text an administrator changes in Website Settings is shown exactly as saved in every language, because Website Settings has no per-language fields yet.
+
+### Previewing with sample content
+
+Many sections wait on details from Sky Voice (tagline, tutors, awards, countries, PTE fees, contact details, learning style). To review layouts with placeholder data, start the dev server with `SAMPLE_CONTENT=on` (for example, add it to `apps/web/.env.local`). Empty Website Settings fields are then filled from `apps/web/src/lib/settings/sample.ts`, every page shows a "Sample content preview" banner, and every page is marked noindex. Saved settings always win over samples. On a server, set it in the server environment and restart the Node service. Never enable it on the public site.
 
 ## Environment variables
 
@@ -60,6 +97,8 @@ Business details and site copy are managed in **Website Settings** at `/admin/se
 - trainers;
 - verified results and testimonials;
 - hero text, FAQs and footer;
+- tagline, student-portal link, PTE packages, awards, and students' countries;
+- Home, Our Expertise, Why Choose Us, IELTS & PTE, and Enquire Now page copy (**Pages** tab);
 - videos and integrations.
 
 Empty items stay hidden, or show an honest "being confirmed" note. See `document/WEBSITE_SETTINGS_REPORT.md`.

@@ -72,6 +72,10 @@ export const companySchema = z.object({
   faviconUrl: mediaUrl,
   description: required(300, "Business description"),
   serviceArea: text(120),
+  /** Brand tagline; empty = the Home hero and footer use the description instead. */
+  tagline: text(160),
+  /** Practice-portal sign-in page; empty = "Student login" links stay hidden. */
+  portalUrl: httpsUrl,
   address: lines(6, 120),
   socialLinks: z
     .array(z.object({ platform: z.enum(socialPlatforms), url: httpsUrl.refine(Boolean, "Add the profile link.") }))
@@ -110,8 +114,28 @@ export const planSchema = z.object({
   featured: z.boolean(),
 });
 
+export const ptePlanSchema = z.object({
+  name: required(60, "Package name"),
+  size: required(60, "Group size"),
+  description: text(200),
+  schedule: text(160),
+  duration: text(80),
+  fee: fee,
+  featured: z.boolean(),
+});
+
+/** PTE coaching. Empty plans = the site says PTE packages are being confirmed. */
+export const pteSchema = z.object({
+  offersAcademic: z.boolean(),
+  offersCore: z.boolean(),
+  summary: text(400),
+  plans: z.array(ptePlanSchema).max(6),
+  feeNote: text(240),
+});
+
 export const coursesSchema = z.object({
   plans: z.array(planSchema).min(1, "Keep at least one package.").max(6),
+  pte: pteSchema,
   feeNote: text(240),
   installmentInfo: text(300),
   assessmentDuration: text(40),
@@ -147,6 +171,15 @@ export const testimonialSchema = z
     to: text(10),
     module: text(40),
     quote: required(600, "Quote"),
+    /** e.g. "MSc Nursing applicant · Chennai". Added later, so optional in saved files. */
+    detail: text(120).default(""),
+    /** e.g. "Offer from a UK university". */
+    outcome: text(120).default(""),
+    /** The student's own answers, shown as a short conversation on the story card. */
+    journey: z
+      .array(z.object({ question: required(160, "Question"), answer: required(400, "Answer") }))
+      .max(6)
+      .default([]),
     photoUrl: mediaUrl,
     consent: z.boolean(),
     published: z.boolean(),
@@ -156,9 +189,32 @@ export const testimonialSchema = z
     path: ["published"],
   });
 
+export const awardSchema = z
+  .object({
+    title: required(120, "Award"),
+    issuer: required(120, "Awarded by"),
+    year: text(4).refine((value) => value === "" || /^\d{4}$/.test(value), "Use a four-digit year."),
+    /** Internal: where the proof is kept. Never shown on the site. */
+    evidenceNote: text(200),
+    verified: z.boolean(),
+    published: z.boolean(),
+  })
+  .refine((item) => !item.published || item.verified, {
+    message: "Verify the award against its certificate before publishing.",
+    path: ["published"],
+  });
+
 export const resultsSchema = z.object({
   stats: z.array(statSchema).max(8),
   testimonials: z.array(testimonialSchema).max(30),
+  awards: z.array(awardSchema).max(12),
+  /** Countries students have joined from; shown only when verified. */
+  countries: z.object({
+    list: lines(100, 60),
+    verified: z.boolean(),
+    /** Internal: the records the list comes from. Never shown on the site. */
+    source: text(200),
+  }),
 });
 
 const faqSchema = z.object({
@@ -198,9 +254,52 @@ export const contentSchema = z.object({
   footer: z.object({
     tagline: required(200, "Footer tagline"),
     disclaimer: required(400, "Footer disclaimer"),
+    pteDisclaimer: text(300),
   }),
   serviceVideoUrl: mediaUrl,
   heroVideoUrl: mediaUrl,
+});
+
+const pointSchema = z.object({
+  title: required(80, "Title"),
+  body: required(300, "Text"),
+});
+
+/** Copy for the Home, Our Expertise, Why Choose Us, IELTS & PTE, and Enquire Now pages. */
+export const pagesSchema = z.object({
+  /** Shared blocks: "How you join" and "How you'll learn". */
+  home: z.object({
+    onboardingTitle: required(120, "How you join heading"),
+    onboardingSteps: z.array(pointSchema).max(7),
+    /** "How you'll learn" (the learning-style section); hidden while there are no points. */
+    learningTitle: text(120),
+    learningIntro: text(400),
+    learningPoints: z.array(pointSchema).max(6),
+  }),
+  expertise: z.object({
+    title: required(120, "Heading"),
+    lede: required(400, "Introduction"),
+    subjects: z.array(pointSchema).max(10),
+  }),
+  whyChooseUs: z.object({
+    title: required(120, "Heading"),
+    lede: required(400, "Introduction"),
+    points: z.array(pointSchema).max(8),
+  }),
+  ieltsPte: z.object({
+    seoTitle: required(70, "Search title"),
+    seoDescription: required(170, "Search description"),
+    title: required(120, "Heading"),
+    lede: required(400, "Introduction"),
+    comparison: z
+      .array(z.object({ label: required(60, "Row"), ielts: required(160, "IELTS"), pte: required(160, "PTE") }))
+      .max(10),
+    faqs: z.array(faqSchema).max(15),
+  }),
+  enquire: z.object({
+    title: required(120, "Heading"),
+    lede: required(300, "Introduction"),
+  }),
 });
 
 export const integrationsSchema = z.object({
@@ -246,6 +345,7 @@ export const settingsSchema = z.object({
   team: z.object({ trainers: z.array(trainerSchema).max(30) }),
   results: resultsSchema,
   content: contentSchema,
+  pages: pagesSchema,
   integrations: integrationsSchema,
 });
 

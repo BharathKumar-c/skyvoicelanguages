@@ -9,7 +9,7 @@ const NETWORK_ERROR =
  * sent one, or `fallback` when the reply is not JSON (a proxy error page, a
  * timeout) — never a raw "Failed to fetch" or JSON parse error.
  */
-export async function postForm(url: string, body: unknown, fallback: string) {
+export async function postForm(url: string, body: unknown, fallback: string, networkError = NETWORK_ERROR) {
   let response: Response;
   try {
     response = await fetch(url, {
@@ -18,7 +18,7 @@ export async function postForm(url: string, body: unknown, fallback: string) {
       method: "POST",
     });
   } catch {
-    throw new Error(NETWORK_ERROR);
+    throw new Error(networkError);
   }
 
   let result: FormResult = {};

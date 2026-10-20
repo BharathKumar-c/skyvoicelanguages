@@ -43,7 +43,7 @@ html {
 body {
   background: var(--surface);
   color: var(--text);
-  font-family: var(--font-nunito), "Nunito Sans", ui-rounded, system-ui, sans-serif;
+  font-family: var(--font-nunito), var(--font-tamil), "Nunito Sans", ui-rounded, system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.6;
   margin: 0;
@@ -104,8 +104,9 @@ h3 {
   text-wrap: balance;
 }
 
+/* Design-system H1: 36px mobile → 56px desktop (scale allows up to 60px). */
 h1 {
-  font-size: clamp(2.7rem, 5.4vw, 4.85rem);
+  font-size: clamp(2.25rem, 3.9vw, 3.5rem);
 }
 
 /* Design-system H2: 30px mobile → 48px desktop. */
@@ -2277,7 +2278,7 @@ p {
 }
 
 .utility-shell h1 {
-  font-size: clamp(2.3rem, 5vw, 4rem);
+  font-size: clamp(2.1rem, 3.6vw, 3rem);
   margin-bottom: 18px;
 }
 
@@ -2597,7 +2598,7 @@ p {
   }
 
   h1 {
-    font-size: clamp(2.45rem, 12vw, 3.4rem);
+    font-size: clamp(2.1rem, 9.2vw, 2.5rem);
   }
 
   h2 {
@@ -4048,7 +4049,7 @@ p {
   }
 
   .hero h1 {
-    font-size: clamp(2.3rem, min(4.3vw, 7.4vh), 4.3rem);
+    font-size: clamp(2.3rem, min(3.9vw, 6.8vh), 3.75rem);
     margin-bottom: clamp(10px, 2vh, 20px);
   }
 
@@ -4675,14 +4676,14 @@ html:not([data-hero="passed"]):has(#top) .mobile-cta-bar {
 /* ------ R11: rounded display face for page and section headings ------ */
 h1,
 h2 {
-  font-family: var(--font-display), var(--font-nunito), "Nunito", ui-rounded, system-ui, sans-serif;
+  font-family: var(--font-display), var(--font-nunito), var(--font-tamil), "Nunito", ui-rounded, system-ui, sans-serif;
   font-weight: 900;
 }
 
 /* Form and dialog titles stay in the interface face. */
 .form-heading h2,
 .dialog-card h2 {
-  font-family: var(--font-nunito), "Nunito Sans", ui-rounded, system-ui, sans-serif;
+  font-family: var(--font-nunito), var(--font-tamil), "Nunito Sans", ui-rounded, system-ui, sans-serif;
   font-weight: 850;
 }
 
@@ -4745,9 +4746,9 @@ h2 {
 }
 
 .page-hero-copy h1 {
-  font-size: clamp(2.3rem, 4.6vw, 3.9rem);
+  font-size: clamp(2.25rem, 3.6vw, 3.25rem);
   margin-bottom: 18px;
-  max-width: 16ch;
+  max-width: 18ch;
 }
 
 .page-hero-lede {
@@ -4948,7 +4949,7 @@ ul.audience-grid {
   align-items: center;
   color: var(--brand-blue);
   display: flex;
-  font-family: var(--font-display), var(--font-nunito), sans-serif;
+  font-family: var(--font-display), var(--font-nunito), var(--font-tamil), sans-serif;
   font-size: 3.4rem;
   font-weight: 900;
   inset: 0;
@@ -5147,7 +5148,7 @@ ul.audience-grid {
 
 .achievement-grid dd {
   color: var(--brand-blue);
-  font-family: var(--font-display), var(--font-nunito), sans-serif;
+  font-family: var(--font-display), var(--font-nunito), var(--font-tamil), sans-serif;
   font-size: 2rem;
   font-weight: 900;
   margin: 0;
@@ -5715,5 +5716,1294 @@ ul.audience-grid {
   html:not([data-hero="passed"]):has(#top) .header-cta,
   html:not([data-hero="passed"]):has(#top) .mobile-cta-bar {
     transform: none;
+  }
+}
+
+/* ======================================================================
+   Project 1 pages: Home, Our Expertise, IELTS & PTE, Why Choose Us,
+   Enquire Now, and the sample-content preview banner.
+   ====================================================================== */
+
+/* ------ Sample content banner (SAMPLE_CONTENT=on only) ------ */
+.sample-banner {
+  background: repeating-linear-gradient(-45deg, var(--brand-orange-light) 0 14px, #ffefcc 14px 28px);
+  border-bottom: 2px solid var(--brand-orange);
+  color: var(--brand-navy);
+  font-size: 0.86rem;
+  margin: 0;
+  padding: 8px 16px;
+  text-align: center;
+}
+
+/* ------ Header: student login + CTA ------ */
+.header-actions {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-self: end;
+}
+
+.header-login,
+.mobile-login {
+  align-items: center;
+  color: var(--text-muted);
+  display: inline-flex;
+  font-size: 0.86rem;
+  font-weight: 800;
+  gap: 6px;
+}
+
+.header-login:hover,
+.mobile-login:hover {
+  color: var(--brand-navy);
+}
+
+.header-login svg,
+.mobile-login svg {
+  height: 16px;
+  width: 16px;
+}
+
+/* Desktop menu: labels stay on one line. Narrower desktops step the type,
+   gaps, and logo down so the six items, the language switcher, and the header
+   button fit without wrapping or crowding. */
+.desktop-nav a {
+  white-space: nowrap;
+}
+
+@media (min-width: 1024px) and (max-width: 1240px) {
+  .desktop-nav {
+    gap: 16px;
+  }
+
+  .desktop-nav a {
+    font-size: 0.84rem;
+  }
+
+  .header-login {
+    display: none;
+  }
+}
+
+@media (min-width: 921px) and (max-width: 1023px) {
+  .header-inner {
+    gap: 16px;
+  }
+
+  .header-brand .brand-logo {
+    width: 150px;
+  }
+
+  .desktop-nav {
+    gap: 10px;
+  }
+
+  .desktop-nav a {
+    font-size: 0.78rem;
+  }
+
+  .header-actions {
+    gap: 10px;
+  }
+
+  .header-login {
+    display: none;
+  }
+}
+
+@media (max-width: 920px) {
+  .header-actions {
+    gap: 0;
+  }
+
+  /* The mobile menu carries the login link. */
+  .header-login {
+    display: none;
+  }
+}
+
+.mobile-login {
+  padding-block: 10px;
+}
+
+.footer-tagline {
+  color: var(--white);
+  font-weight: 800;
+}
+
+/* ------ Onboarding journey ------ */
+.journey-steps {
+  counter-reset: none;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.journey-steps li {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px;
+  position: relative;
+}
+
+.journey-number {
+  align-items: center;
+  background: var(--brand-orange);
+  border-radius: 50%;
+  color: var(--brand-navy);
+  display: inline-flex;
+  font-weight: 900;
+  height: 38px;
+  justify-content: center;
+  margin-bottom: 12px;
+  width: 38px;
+}
+
+.journey-steps h3 {
+  font-size: 1.05rem;
+  margin: 0 0 6px;
+}
+
+.journey-steps p {
+  color: var(--text-muted);
+  font-size: 0.94rem;
+  margin: 0;
+}
+
+/* ------ Awards and countries ------ */
+.award-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+}
+
+.award-card {
+  align-items: flex-start;
+  background: var(--brand-orange-light);
+  border: 2px solid #f4d39a;
+  border-radius: 20px;
+  display: flex;
+  gap: 14px;
+  padding: 20px;
+}
+
+.award-card > svg {
+  color: var(--brand-orange-dark);
+  flex: 0 0 auto;
+  height: 32px;
+  width: 32px;
+}
+
+.award-card strong {
+  display: block;
+  line-height: 1.3;
+}
+
+.award-card span {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.country-block {
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.country-heading {
+  align-items: center;
+  display: inline-flex;
+  font-weight: 900;
+  gap: 8px;
+  margin: 0 0 12px;
+}
+
+.country-heading svg {
+  color: var(--brand-blue);
+}
+
+.country-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.country-list li {
+  background: var(--brand-blue-light);
+  border-radius: 99px;
+  color: var(--brand-navy);
+  font-size: 0.88rem;
+  font-weight: 700;
+  padding: 6px 14px;
+}
+
+/* ------ Enquire layouts ------ */
+.enquire-grid {
+  align-items: start;
+  display: grid;
+  gap: clamp(28px, 4vw, 64px);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+}
+
+.enquire-hero .enquire-grid {
+  align-items: center;
+}
+
+.enquire-form .form-grid {
+  margin-bottom: 4px;
+}
+
+/* ------ IELTS & PTE page ------ */
+.jump-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.jump-links a {
+  border: 2px solid var(--border);
+  border-radius: 99px;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  font-weight: 800;
+  padding: 6px 14px;
+}
+
+.jump-links a:hover {
+  border-color: var(--brand-blue);
+  color: var(--brand-blue);
+}
+
+.fee-footnote {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin: 20px auto 0;
+  max-width: 720px;
+  text-align: center;
+}
+
+.compare-wrap {
+  margin-inline: auto;
+  max-width: 900px;
+  overflow-x: auto;
+}
+
+.compare-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  min-width: 520px;
+  width: 100%;
+}
+
+.compare-table th,
+.compare-table td {
+  border-bottom: 1px solid var(--border);
+  padding: 14px 18px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.compare-table thead th {
+  background: var(--brand-navy);
+  color: var(--white);
+  font-size: 0.95rem;
+}
+
+.compare-table thead th:first-child {
+  border-top-left-radius: 14px;
+}
+
+.compare-table thead th:last-child {
+  border-top-right-radius: 14px;
+}
+
+.compare-table tbody th {
+  color: var(--brand-navy);
+  font-weight: 800;
+  width: 30%;
+}
+
+.compare-table tbody tr:nth-child(even) {
+  background: var(--surface-soft);
+}
+
+.portal-cta {
+  align-items: center;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-xl);
+  display: grid;
+  gap: 24px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: clamp(24px, 4vw, 40px);
+}
+
+.portal-cta-icon {
+  background: var(--brand-blue-light);
+  border-radius: 18px;
+  color: var(--brand-blue);
+  height: 64px;
+  padding: 16px;
+  width: 64px;
+}
+
+.portal-cta h2 {
+  margin-bottom: 8px;
+}
+
+.portal-cta p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+@media (max-width: 920px) {
+  .enquire-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .portal-cta {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ======================================================================
+   Homepage additions: Where IELTS can take you, Student success stories,
+   social band, and footer legal links.
+   ====================================================================== */
+
+/* ------ Where IELTS can take you ------ */
+.destinations-section {
+  background:
+    radial-gradient(ellipse at 85% 10%, rgba(235, 157, 19, 0.12), transparent 55%),
+    radial-gradient(ellipse at 10% 90%, rgba(22, 85, 216, 0.1), transparent 55%),
+    var(--surface-soft);
+  overflow: hidden;
+  position: relative;
+}
+
+.destinations-route {
+  height: 120px;
+  left: 50%;
+  pointer-events: none;
+  position: absolute;
+  top: 36px;
+  transform: translateX(-50%);
+  width: 900px;
+}
+
+/* Direct children only: the plane icon inside the badge has its own paths. */
+.destinations-route > svg > path {
+  fill: none;
+  stroke: rgba(22, 85, 216, 0.45);
+  stroke-dasharray: 8 10;
+  stroke-linecap: round;
+  stroke-width: 3;
+}
+
+.destinations-route .route-start {
+  fill: var(--brand-orange);
+  stroke: var(--white);
+  stroke-width: 3;
+}
+
+.destinations-route .route-end {
+  fill: var(--brand-blue);
+  stroke: var(--white);
+  stroke-width: 3;
+}
+
+.destinations-route > svg {
+  display: block;
+  overflow: visible;
+}
+
+/*
+ * A solid blue badge carrying a white plane, flying along the dashed route.
+ * Lucide's plane points up-right, so offset-rotate adds 45deg to face the
+ * direction of travel.
+ */
+.destinations-plane {
+  align-items: center;
+  animation: plane-fly 9s ease-in-out infinite;
+  background: var(--brand-blue);
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  box-shadow: 0 6px 16px rgba(22, 85, 216, 0.35);
+  color: var(--white);
+  display: flex;
+  height: 46px;
+  justify-content: center;
+  left: 0;
+  offset-path: path("M 10 100 C 250 0, 650 0, 890 100");
+  offset-rotate: auto 45deg;
+  position: absolute;
+  top: 0;
+  width: 46px;
+}
+
+.destinations-plane svg {
+  fill: var(--white);
+  height: 24px;
+  stroke: var(--white);
+  stroke-width: 1.5;
+  width: 24px;
+}
+
+@keyframes plane-fly {
+  0% {
+    offset-distance: 0%;
+    opacity: 0;
+  }
+
+  5%,
+  92% {
+    opacity: 1;
+  }
+
+  100% {
+    offset-distance: 100%;
+    opacity: 0;
+  }
+}
+
+.destinations {
+  margin-inline: auto;
+  max-width: 1080px;
+  position: relative;
+}
+
+.destination-tabs {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 99px;
+  display: flex;
+  gap: 6px;
+  margin: 0 auto 28px;
+  padding: 6px;
+  width: fit-content;
+}
+
+.destination-tabs button {
+  align-items: center;
+  background: none;
+  border: 0;
+  border-radius: 99px;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 800;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 18px;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.destination-tabs button svg {
+  height: 18px;
+  width: 18px;
+}
+
+.destination-tabs button:hover {
+  color: var(--brand-navy);
+}
+
+.destination-tabs button.is-active {
+  background: var(--brand-blue);
+  color: var(--white);
+}
+
+.destination-intro {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.destination-intro p {
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 640px;
+}
+
+.destination-test {
+  align-items: center;
+  background: var(--brand-orange-light);
+  border-radius: 99px;
+  color: var(--brand-navy);
+  display: inline-flex;
+  font-size: 0.86rem;
+  font-weight: 800;
+  gap: 6px;
+  padding: 5px 14px;
+}
+
+.destination-test svg {
+  color: var(--brand-orange-dark);
+  height: 16px;
+  width: 16px;
+}
+
+.destination-grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.destination-card {
+  align-items: center;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 20px;
+  box-shadow: 0 5px 0 #dfe7f2;
+  display: flex;
+  gap: 16px;
+  padding: 18px;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    translate 180ms ease;
+}
+
+.destination-card:hover {
+  border-color: #a9c1ed;
+  box-shadow: 0 5px 0 #c9d8f1;
+  translate: 0 -3px;
+}
+
+.destination-code {
+  align-items: center;
+  background: linear-gradient(135deg, var(--brand-blue), var(--brand-navy));
+  border-radius: 16px;
+  color: var(--white);
+  display: flex;
+  flex: none;
+  font-family: var(--font-display), var(--font-nunito), var(--font-tamil), sans-serif;
+  font-size: 0.95rem;
+  font-weight: 900;
+  height: 52px;
+  justify-content: center;
+  letter-spacing: 0.04em;
+  width: 52px;
+}
+
+.destination-card strong {
+  display: block;
+  font-size: 1.02rem;
+}
+
+.destination-card span:not(.destination-code) {
+  align-items: center;
+  color: var(--text-muted);
+  display: inline-flex;
+  font-size: 0.88rem;
+  gap: 5px;
+}
+
+.destination-card span svg {
+  color: var(--brand-blue);
+  flex: none;
+  height: 14px;
+  width: 14px;
+}
+
+.destinations-note {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  margin: 24px auto 0;
+  max-width: 680px;
+  text-align: center;
+}
+
+/* ------ Student success stories ------ */
+.stories-section {
+  overflow: hidden;
+}
+
+.stories-carousel {
+  position: relative;
+}
+
+.story-track {
+  display: grid;
+  gap: 20px;
+  grid-auto-columns: minmax(min(86%, 340px), 360px);
+  grid-auto-flow: column;
+  list-style: none;
+  margin: 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  padding: 8px 4px 24px;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+}
+
+.story-slide {
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 6px 0 #dfe7f2;
+  display: flex;
+  flex-direction: column;
+  padding: 26px 22px 22px;
+  scroll-snap-align: start;
+  text-align: center;
+}
+
+.story-avatar {
+  align-self: center;
+  background: linear-gradient(135deg, var(--brand-orange), #ffd582);
+  border: 4px solid var(--white);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--brand-blue-light);
+  height: 88px;
+  margin-bottom: 14px;
+  overflow: hidden;
+  width: 88px;
+}
+
+.story-avatar img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.story-avatar span {
+  align-items: center;
+  color: var(--brand-navy);
+  display: flex;
+  font-family: var(--font-display), var(--font-nunito), var(--font-tamil), sans-serif;
+  font-size: 1.7rem;
+  font-weight: 900;
+  height: 100%;
+  justify-content: center;
+}
+
+.story-slide h3 {
+  font-size: 1.15rem;
+  letter-spacing: 0.03em;
+  margin: 0 0 4px;
+  text-transform: uppercase;
+}
+
+.story-detail {
+  align-items: center;
+  color: var(--brand-blue);
+  display: inline-flex;
+  font-size: 0.86rem;
+  gap: 4px;
+  justify-content: center;
+  margin: 0 0 12px;
+}
+
+.story-detail svg {
+  color: var(--brand-orange-dark);
+  flex: none;
+  height: 15px;
+  width: 15px;
+}
+
+.story-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin: 0 0 10px;
+}
+
+.story-band {
+  background: var(--brand-navy);
+  border-radius: 99px;
+  color: var(--white);
+  font-weight: 900;
+  padding: 3px 12px;
+}
+
+.story-module {
+  background: var(--brand-blue-light);
+  border-radius: 99px;
+  color: var(--brand-navy);
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 4px 12px;
+}
+
+.story-outcome {
+  align-items: center;
+  color: var(--success);
+  display: inline-flex;
+  font-size: 0.86rem;
+  font-weight: 800;
+  gap: 6px;
+  justify-content: center;
+  margin: 0 0 14px;
+}
+
+.story-outcome svg {
+  height: 16px;
+  width: 16px;
+}
+
+.story-chat {
+  background: var(--surface-soft);
+  border-radius: 18px;
+  display: grid;
+  gap: 10px;
+  margin-top: auto;
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 14px;
+  text-align: left;
+}
+
+.story-chat:focus-visible {
+  outline: 3px solid var(--brand-blue);
+  outline-offset: 2px;
+}
+
+.story-exchange {
+  display: grid;
+  gap: 8px;
+}
+
+.chat-question,
+.chat-answer {
+  border-radius: 16px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  margin: 0;
+  max-width: 88%;
+  padding: 9px 13px;
+}
+
+.chat-question {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+  color: var(--text);
+  justify-self: start;
+}
+
+.chat-answer {
+  background: var(--brand-blue);
+  border-bottom-right-radius: 4px;
+  color: var(--white);
+  justify-self: end;
+}
+
+.chat-quote {
+  justify-self: stretch;
+  max-width: none;
+}
+
+.story-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.story-controls button {
+  align-items: center;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  color: var(--brand-navy);
+  cursor: pointer;
+  display: flex;
+  height: 48px;
+  justify-content: center;
+  transition:
+    border-color 180ms ease,
+    background 180ms ease;
+  width: 48px;
+}
+
+.story-controls button:hover:not(:disabled) {
+  background: var(--brand-blue-light);
+  border-color: var(--brand-blue);
+}
+
+.story-controls button:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.stories-cta {
+  margin-top: 28px;
+  text-align: center;
+}
+
+/* ------ Social band (near the bottom of the page) ------ */
+.social-band {
+  background: var(--brand-orange-light);
+  border-top: 2px solid #f4d39a;
+  padding-block: 28px;
+}
+
+.social-band-inner {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px 32px;
+  justify-content: space-between;
+}
+
+.social-band h2 {
+  font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+  margin: 0 0 2px;
+}
+
+.social-band p {
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.social-band-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.social-band-list a {
+  align-items: center;
+  background: var(--white);
+  border: 2px solid #f4d39a;
+  border-radius: 50%;
+  color: var(--brand-navy);
+  display: flex;
+  height: 52px;
+  justify-content: center;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    translate 180ms ease;
+  width: 52px;
+}
+
+.social-band-list a:hover {
+  background: var(--brand-navy);
+  color: var(--white);
+  translate: 0 -3px;
+}
+
+.social-band-list svg {
+  height: 24px;
+  width: 24px;
+}
+
+/* ------ Footer legal links ------ */
+.footer-legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+
+.footer-legal a {
+  color: #aec3df;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.footer-legal a:hover {
+  color: #ffd582;
+}
+
+@media (min-width: 921px) {
+  .footer-bottom {
+    grid-template-columns: auto auto 1fr;
+  }
+}
+
+@media (max-width: 920px) {
+  .destinations-route {
+    display: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .destination-tabs {
+    border-radius: 22px;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .destination-tabs button {
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .destinations-plane {
+    animation: none;
+    offset-distance: 50%;
+  }
+
+  .destination-card:hover,
+  .social-band-list a:hover {
+    translate: none;
+  }
+}
+
+/* ======================================================================
+   Language switcher (English / தமிழ்) and Tamil typography
+   ====================================================================== */
+
+.language-switcher {
+  position: relative;
+}
+
+.language-button {
+  align-items: center;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 99px;
+  color: var(--brand-navy);
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.82rem;
+  font-weight: 800;
+  gap: 6px;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 7px 12px;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.language-button svg {
+  flex: none;
+  height: 18px;
+  width: 18px;
+}
+
+.language-button:hover,
+.language-switcher[data-open="true"] .language-button {
+  background: var(--brand-blue-light);
+  border-color: var(--brand-blue);
+  color: var(--brand-blue);
+}
+
+.language-button:focus-visible,
+.language-menu button:focus-visible {
+  outline: 3px solid var(--brand-blue);
+  outline-offset: 2px;
+}
+
+.language-button[aria-busy="true"] svg {
+  animation: spin 1s linear infinite;
+}
+
+.language-menu {
+  animation: language-menu-in 180ms ease-out;
+  background: var(--white);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  display: grid;
+  gap: 2px;
+  min-width: 190px;
+  padding: 6px;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 8px);
+  z-index: 130;
+}
+
+.language-menu button {
+  align-items: center;
+  background: none;
+  border: 0;
+  border-radius: 10px;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.95rem;
+  font-weight: 700;
+  gap: 12px;
+  justify-content: space-between;
+  min-height: 44px;
+  padding: 8px 12px;
+  text-align: left;
+  transition: background 150ms ease;
+}
+
+.language-menu button:hover {
+  background: var(--brand-blue-light);
+}
+
+.language-menu button.is-selected {
+  color: var(--brand-blue);
+  font-weight: 900;
+}
+
+.language-menu button svg {
+  flex: none;
+  height: 18px;
+  width: 18px;
+}
+
+@keyframes language-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes language-menu-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .language-menu {
+    animation-name: language-menu-fade;
+  }
+
+  .language-button[aria-busy="true"] svg {
+    animation: none;
+  }
+}
+
+/* Header: keep the switcher beside the menu button on small screens. */
+@media (max-width: 920px) {
+  .header-actions .language-switcher {
+    margin-right: 4px;
+  }
+}
+
+/* Logo + switcher row on pages without the full header. */
+.utility-top {
+  align-items: center;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 34px;
+}
+
+.utility-top > a {
+  display: inline-flex;
+}
+
+.utility-top .language-switcher {
+  text-align: left;
+}
+
+/* ------ Tamil typography ------
+   Tamil vowel signs sit above and below the line, so headings need more line
+   height than Latin; letter spacing breaks conjuncts, so it is removed; long
+   compound words may wrap instead of overflowing narrow screens. */
+:lang(ta) h1,
+:lang(ta) h2,
+:lang(ta) h3,
+:lang(ta) h4 {
+  letter-spacing: 0;
+  line-height: 1.38;
+  overflow-wrap: break-word;
+}
+
+:lang(ta) .eyebrow,
+:lang(ta) .button,
+:lang(ta) .desktop-nav a,
+:lang(ta) .story-slide h3,
+:lang(ta) .purpose-label,
+:lang(ta) .form-badge,
+:lang(ta) .destination-tabs button {
+  letter-spacing: 0;
+}
+
+:lang(ta) p,
+:lang(ta) li,
+:lang(ta) dd,
+:lang(ta) label,
+:lang(ta) .button {
+  overflow-wrap: break-word;
+}
+
+:lang(ta) .button {
+  line-height: 1.35;
+  text-align: center;
+}
+
+/* Tamil headings: a slightly smaller scale, as Tamil words run longer. */
+:lang(ta) h1 {
+  font-size: clamp(1.95rem, 3.3vw, 3rem);
+}
+
+:lang(ta) h2 {
+  font-size: clamp(1.6rem, 2.7vw, 2.5rem);
+}
+
+:lang(ta) .hero h1 {
+  font-size: clamp(1.85rem, 2.9vw, 3rem);
+}
+
+/* Tamil menu labels need about 640px on one line. Wide screens keep the
+   desktop menu (labels never wrap); narrower desktops use the existing
+   hamburger menu instead of squeezing labels onto two or three lines. */
+@media (min-width: 1241px) {
+  :lang(ta) .desktop-nav {
+    gap: clamp(12px, 1.3vw, 22px);
+  }
+
+  :lang(ta) .desktop-nav a {
+    font-size: 0.82rem;
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 921px) and (max-width: 1240px) {
+  :lang(ta) .desktop-nav {
+    display: none;
+  }
+
+  :lang(ta) .menu-button {
+    display: flex;
+    justify-self: end;
+  }
+
+  :lang(ta) .mobile-menu.is-open {
+    display: block;
+  }
+}
+
+/* Tamil header: keep the login link and the header button on one line, and
+   leave the login link to the footer/menu until there is room for it. */
+:lang(ta) .header-login,
+:lang(ta) .header-cta {
+  white-space: nowrap;
+}
+
+@media (min-width: 1241px) and (max-width: 1440px) {
+  :lang(ta) .header-login {
+    display: none;
+  }
+}
+
+/* ======================================================================
+   Responsive fixes (cross-width audit, 320–1920px, English and Tamil)
+   ====================================================================== */
+
+/* Modules panel on phones: Aira (360px artwork) was scaled into a 140px
+   column at 55%, spilling ~29px past both sides (clipped at the screen edge,
+   overlapping the text). Scale her to fit the column. */
+@media (max-width: 680px) {
+  .module-tableau {
+    grid-template-columns: 150px minmax(0, 1fr);
+  }
+
+  .module-tableau-aira {
+    min-height: 200px;
+  }
+
+  .module-tableau-aira > * {
+    scale: 0.42;
+  }
+}
+
+/* Very narrow phones (≤380px): keep form and page buttons on one line, and
+   give the standalone-page card a little more room. */
+@media (max-width: 380px) {
+  .form-submit,
+  .utility-shell .button,
+  .pricing-card .button {
+    font-size: 0.88rem;
+    gap: 8px;
+    padding-inline: 14px;
+  }
+
+  .utility-page {
+    padding-inline: 10px;
+  }
+
+  .utility-shell {
+    padding-inline: 16px;
+  }
+}
+
+/* Single-column hero (≤920px): let the column shrink to the screen instead of
+   to its widest unbreakable item (long Tamil words could push it to ~311px
+   on a 320px phone). */
+@media (max-width: 920px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .hero-left,
+  .hero-right,
+  .hero-content {
+    min-width: 0;
+  }
+}
+
+/* Tamil: a very long word may break rather than widen its column. */
+:lang(ta) h1,
+:lang(ta) h2,
+:lang(ta) .hero-lede,
+:lang(ta) .button {
+  overflow-wrap: anywhere;
+}
+
+/* Modules panel on the narrowest phones: stack Aira above the text so the
+   copy gets the full width (a 128px text column could not hold some Tamil
+   words). */
+@media (max-width: 420px) {
+  .module-tableau {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+  }
+
+  .module-tableau-aira {
+    min-height: 180px;
+    width: 160px;
+  }
+
+  .module-tableau-signals {
+    justify-content: center;
+    max-width: none;
+  }
+}
+
+/* Logo + language row on standalone pages: fit narrow phones. */
+.utility-top {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 420px) {
+  .utility-top .brand-logo {
+    width: 160px;
   }
 }

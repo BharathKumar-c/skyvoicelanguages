@@ -7,7 +7,10 @@ import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
 import { enquiryTypes, type Branch } from "@/content/contact";
-import { contactEnquirySchema, type ContactEnquiry } from "@/lib/enquiries/schema";
+import { useI18n } from "@/i18n/client";
+import { useLocalizedSchema, useRevalidateOnLocaleChange } from "@/i18n/forms";
+import { format } from "@/i18n/merge";
+import { contactEnquirySchemaFor, type ContactEnquiry } from "@/lib/enquiries/schema";
 import { postForm } from "@/lib/forms/post-form";
 
 type FormState =
@@ -18,6 +21,9 @@ type FormState =
 const MESSAGE_MAX = 1000;
 
 export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id" | "name">[] }) {
+  const { m } = useI18n();
+  const t = m.contactForm;
+  const schema = useLocalizedSchema(contactEnquirySchemaFor);
   const [formState, setFormState] = useState<FormState>({ type: "idle" });
   const {
     control,
@@ -25,36 +31,32 @@ export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id"
     handleSubmit,
     register,
     reset,
+    trigger,
   } = useForm<ContactEnquiry>({
-    resolver: zodResolver(contactEnquirySchema),
+    resolver: zodResolver(schema),
     defaultValues: { enquiryType: "assessment", website: "" },
   });
+  useRevalidateOnLocaleChange(trigger, Object.keys(errors));
   const messageLength = useWatch({ control, name: "message" })?.length ?? 0;
 
   const onSubmit = handleSubmit(async (values) => {
     setFormState({ type: "idle" });
 
     try {
-      const result = await postForm(
-        "/api/enquiries",
-        values,
-        "We could not send your enquiry. Please try again.",
-      );
+      const result = await postForm("/api/enquiries", values, t.errorFallback, m.common.networkError);
 
       // Clearing the form after a confirmed send prevents accidental repeats.
       reset();
       setFormState({
         type: "success",
         message:
-          result.mode === "preview"
-            ? (result.message ?? "Preview validated successfully.")
-            : "Thank you. Your enquiry has been sent and the team will reply soon.",
+          result.mode === "preview" ? (result.message ?? m.common.previewValidated) : t.success,
       });
     } catch (error) {
       setFormState({
         type: "error",
         message:
-          error instanceof Error ? error.message : "We could not send your enquiry. Please try again.",
+          error instanceof Error ? error.message : t.errorFallback,
       });
     }
   });
@@ -65,20 +67,20 @@ export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id"
   return (
     <form className="lead-form contact-form" id="enquiry-form" noValidate onSubmit={onSubmit}>
       <div className="form-heading">
-        <span className="form-badge">Courses · fees · timings · assessment</span>
-        <h2>Send us an enquiry</h2>
-        <p>All fields are required. We use your details only to reply.</p>
+        <span className="form-badge">{t.badge}</span>
+        <h2>{t.heading}</h2>
+        <p>{t.intro}</p>
       </div>
 
       <div className="form-grid">
         <div className="field field-wide">
-          <label htmlFor="enquiry-name">Full name</label>
+          <label htmlFor="enquiry-name">{t.fullName}</label>
           <input
             aria-describedby={describedBy("name")}
             aria-invalid={Boolean(errors.name)}
             autoComplete="name"
             id="enquiry-name"
-            placeholder="Your name"
+            placeholder={t.namePlaceholder}
             {...register("name")}
           />
           {errors.name ? (
@@ -89,14 +91,14 @@ export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id"
         </div>
 
         <div className="field">
-          <label htmlFor="enquiry-email">Email address</label>
+          <label htmlFor="enquiry-email">{t.email}</label>
           <input
             aria-describedby={describedBy("email")}
             aria-invalid={Boolean(errors.email)}
             autoComplete="email"
             id="enquiry-email"
             inputMode="email"
-            placeholder="you@example.com"
+            placeholder={t.emailPlaceholder}
             type="email"
             {...register("email")}
           />
@@ -108,7 +110,7 @@ export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id"
         </div>
 
         <div className="field">
-          <label htmlFor="enquiry-phone">Mobile number</label>
+          <label htmlFor="enquiry-phone">{t.mobile}</label>
           <input
             aria-describedby={describedBy("phone")}
             aria-invalid={Boolean(errors.phone)}
@@ -126,11 +128,11 @@ export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id"
         </div>
 
         <div className={`field ${branches.length ? "" : "field-wide"}`}>
-          <label htmlFor="enquiry-type">Enquiry about</label>
+          <label htmlFor="enquiry-type">{t.enquiryAbout}</label>
           <select id="enquiry-type" {...register("enquiryType")}>
             {enquiryTypes.map((type) => (
               <option key={type.value} value={type.value}>
-                {type.label}
+                {t.enquiryTypes[type.value]}
               </option>
             ))}
           </select>
@@ -138,9 +140,9 @@ export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id"
 
         {branches.length ? (
           <div className="field">
-            <label htmlFor="enquiry-branch">Preferred branch</label>
+            <label htmlFor="enquiry-branch">{t.branch}</label>
             <select id="enquiry-branch" {...register("branch")}>
-              <option value="">No preference</option>
+              <option value="">{t.noPreference}</option>
               {branches.map((branch) => (
                 <option key={branch.id} value={branch.name}>
                   {branch.name}
@@ -151,18 +153,18 @@ export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id"
         ) : null}
 
         <div className="field field-wide">
-          <label htmlFor="enquiry-message">Message</label>
+          <label htmlFor="enquiry-message">{t.message}</label>
           <textarea
             aria-describedby={describedBy("message", "enquiry-message-count")}
             aria-invalid={Boolean(errors.message)}
             id="enquiry-message"
             maxLength={MESSAGE_MAX}
-            placeholder="Your test type, target band, exam date, and your question."
+            placeholder={t.messagePlaceholder}
             rows={5}
             {...register("message")}
           />
           <span className="field-hint" id="enquiry-message-count">
-            {messageLength}/{MESSAGE_MAX} characters
+            {format(t.characterCount, { count: messageLength, max: MESSAGE_MAX })}
           </span>
           {errors.message ? (
             <span className="field-error" id="enquiry-message-error">
@@ -173,7 +175,7 @@ export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id"
       </div>
 
       <div aria-hidden="true" className="honeypot">
-        <label htmlFor="enquiry-website">Website</label>
+        <label htmlFor="enquiry-website">{m.common.honeypot}</label>
         <input autoComplete="off" id="enquiry-website" tabIndex={-1} {...register("website")} />
       </div>
 
@@ -192,11 +194,11 @@ export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id"
         {isSubmitting ? (
           <>
             <LoaderCircle aria-hidden="true" className="spin" />
-            Sending securely
+            {m.common.sendingSecurely}
           </>
         ) : (
           <>
-            Send enquiry
+            {t.submit}
             <Send aria-hidden="true" />
           </>
         )}
@@ -205,8 +207,7 @@ export function ContactForm({ branches }: { branches: readonly Pick<Branch, "id"
       <p className="form-privacy">
         <ShieldCheck aria-hidden="true" />
         <span>
-          Your details are used only to answer this enquiry. Read our{" "}
-          <Link href="/privacy">privacy notice</Link>.
+          {t.privacy} {m.common.readOur} <Link href="/privacy">{m.common.privacyNotice}</Link>.
         </span>
       </p>
     </form>

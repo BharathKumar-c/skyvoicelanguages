@@ -72,7 +72,8 @@ export const socialLinks: { platform: SocialPlatform; url: string }[] = [];
 
 export const enquiryTypes = [
   { value: "assessment", label: "Free assessment" },
-  { value: "courses", label: "Courses and formats" },
+  { value: "courses", label: "IELTS courses and formats" },
+  { value: "pte", label: "PTE coaching" },
   { value: "fees", label: "Fees and payment" },
   { value: "schedule", label: "Class timings" },
   { value: "other", label: "Something else" },

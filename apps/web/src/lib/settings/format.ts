@@ -1,3 +1,5 @@
+import { features } from "@/config/site";
+
 import type { SiteSettings } from "./schema";
 
 /** "17499" → "₹17,499"; empty → null (show "fee on request"). */
@@ -13,6 +15,9 @@ export function whatsappHref(settings: SiteSettings) {
   if (settings.integrations.whatsapp.provider === "none" || !settings.contact.whatsapp) return null;
   return `https://wa.me/${telDigits(settings.contact.whatsapp).replace("+", "")}`;
 }
+
+/** The student-portal link to show, or "" while the feature is switched off (see `features`). */
+export const studentPortalUrl = (settings: SiteSettings) => (features.studentLogin ? settings.company.portalUrl : "");
 
 /** Absolute URL on the configured domain. */
 export const siteUrl = (settings: SiteSettings, pathname = "") => `${settings.company.domain}${pathname}`;

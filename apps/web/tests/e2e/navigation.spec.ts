@@ -1,9 +1,9 @@
 import { expect, test } from "@playwright/test";
 
-const menuItems = ["Home", "Fees", "FAQ", "About Us", "Contact Us"];
+const menuItems = ["Home", "About Us", "Our Expertise", "IELTS & PTE", "Why Choose Us", "Contact Us"];
 const campaign = "/free-ielts-assessment";
 
-test("primary navigation lists exactly Home, Fees, FAQ, About Us, Contact Us", async ({
+test("primary navigation lists the six site pages in order", async ({
   page,
   isMobile,
 }) => {
@@ -21,30 +21,35 @@ test("footer no longer links Method or Modules", async ({ page }) => {
   await expect(footer.getByRole("link", { name: "Home" })).toHaveAttribute("href", campaign);
 });
 
-test("each desktop menu item reaches the right page and section", async ({ page, isMobile }) => {
+test("footer links Disclaimer, Privacy Policy, and Terms", async ({ page }) => {
+  await page.goto("/about");
+  const legal = page.getByRole("navigation", { name: "Legal" });
+  await expect(legal.getByRole("link")).toHaveText(["Disclaimer", "Privacy Policy", "Terms"]);
+  await legal.getByRole("link", { name: "Disclaimer" }).click();
+  await expect(page).toHaveURL(/\/disclaimer$/);
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Disclaimer");
+});
+
+test("each desktop menu item reaches its page", async ({ page, isMobile }) => {
   test.skip(isMobile, "Desktop navigation only");
   const nav = page.getByRole("navigation", { name: "Primary navigation" });
 
   await page.goto("/contact");
-  await nav.getByRole("link", { name: "Home" }).click();
+  await nav.getByRole("link", { name: "Home", exact: true }).click();
   await expect(page).toHaveURL(new RegExp(`${campaign}$`));
-  await expect(page.getByRole("heading", { level: 1 })).toContainText("Stuck at Band 5 or 6?");
+  await expect(page.locator("#assessment-form")).toBeVisible();
 
-  for (const [label, section] of [
-    ["Fees", "fees"],
-    ["FAQ", "faq"],
+  for (const [label, path, heading] of [
+    ["About Us", "/about", "IELTS coaching that starts with a diagnosis."],
+    ["Our Expertise", "/our-expertise", "What we teach, and who teaches it."],
+    ["IELTS & PTE", "/ielts-pte-coaching-chennai", "IELTS and PTE coaching for Chennai and beyond."],
+    ["Why Choose Us", "/why-choose-us", "Why students choose Sky Voice."],
+    ["Contact Us", "/contact", "Talk to the Sky Voice team."],
   ] as const) {
-    await page.goto("/about");
-    await nav.getByRole("link", { name: label }).click();
-    await expect(page).toHaveURL(new RegExp(`${campaign}#${section}$`));
-    await expect(page.locator(`#${section}`)).toBeInViewport();
+    await nav.getByRole("link", { name: label, exact: true }).click();
+    await expect(page).toHaveURL(new RegExp(`${path}$`));
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(heading);
   }
-
-  await nav.getByRole("link", { name: "About Us" }).click();
-  await expect(page).toHaveURL(/\/about$/);
-  await nav.getByRole("link", { name: "Contact Us" }).click();
-  await expect(page).toHaveURL(/\/contact$/);
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Talk to the Sky Voice team.");
 });
 
 test("the root URL lands on the campaign page", async ({ page }) => {
@@ -59,7 +64,8 @@ test("mobile menu opens, navigates, and closes with Escape", async ({ page, isMo
   const menu = page.getByRole("navigation", { name: "Mobile navigation" });
 
   await toggle.click();
-  await expect(menu.getByRole("link").filter({ hasNotText: /assessment/i })).toHaveText(menuItems);
+  // The last link is the header button from Website Settings.
+  await expect(menu.getByRole("link").filter({ hasNotText: /assessment|enquire|login/i })).toHaveText(menuItems);
   await page.keyboard.press("Escape");
   await expect(menu).toBeHidden();
 
@@ -79,7 +85,19 @@ test("hero and plan CTAs scroll to the assessment form", async ({ page }) => {
   await expect(page.locator("#method")).toBeInViewport();
 });
 
-for (const path of [campaign, "/about", "/contact", "/privacy", "/terms", "/thank-you"]) {
+for (const path of [
+  campaign,
+  "/about",
+  "/contact",
+  "/our-expertise",
+  "/ielts-pte-coaching-chennai",
+  "/why-choose-us",
+  "/enquire-now",
+  "/disclaimer",
+  "/privacy",
+  "/terms",
+  "/thank-you",
+]) {
   test(`${path} loads without console errors and fits a tablet viewport`, async ({ page }) => {
     const errors: string[] = [];
     page.on("console", (message) => {
@@ -168,4 +186,25 @@ test.describe("Home on the home page", () => {
     expect(await scrollY(page)).toBe(0);
     await expect(homeIn(page, isMobile)).toHaveAttribute("aria-current", "page");
   });
+});
+
+test("widening past the mobile layout closes the menu and unlocks scrolling", async ({ page, isMobile }) => {
+  test.skip(isMobile, "Resizes the desktop viewport");
+  await page.setViewportSize({ height: 900, width: 800 });
+  await page.goto("/about");
+  await page.getByRole("button", { name: "Open navigation" }).click();
+  await expect(page.locator("#mobile-menu")).toHaveClass(/is-open/);
+  await expect(page.locator("body")).toHaveAttribute("data-menu-open", "true");
+
+  await page.setViewportSize({ height: 900, width: 1100 });
+  await expect(page.locator("#mobile-menu")).not.toHaveClass(/is-open/);
+  await expect(page.locator("body")).not.toHaveAttribute("data-menu-open", "true");
+  await expect(page.getByRole("navigation", { name: "Primary navigation" })).toBeVisible();
+});
+
+test("Student login stays hidden until the feature is approved", async ({ page, isMobile }) => {
+  await page.goto("/ielts-pte-coaching-chennai");
+  if (isMobile) await page.getByRole("button", { name: "Open navigation" }).click();
+  await expect(page.getByRole("link", { name: /Student login/i })).toHaveCount(0);
+  await expect(page.locator(".header-login, .mobile-login")).toHaveCount(0);
 });

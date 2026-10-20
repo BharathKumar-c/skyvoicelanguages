@@ -15,6 +15,7 @@ import {
   MessagesSquare,
   MousePointerClick,
   Plane,
+  Quote,
   Route,
   SearchCheck,
   ShieldCheck,
@@ -35,33 +36,33 @@ import type { SkillSignalModule } from "@/components/mascot";
 import { BrandLogo } from "@/components/brand-logo";
 import { DrawLine } from "@/components/draw-line";
 import { FaqList } from "@/components/faq-list";
+import { IeltsDestinations } from "@/components/ielts-destinations";
 import { InteractiveWaves } from "@/components/interactive-waves";
 import { LeadForm } from "@/components/lead-form";
 import { Reveal } from "@/components/reveal";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { ServiceVideo } from "@/components/service-video";
+import { SocialBand } from "@/components/social-band";
+import { SuccessStories } from "@/components/success-stories";
 import { landingVideos } from "@/config/media";
 import { siteConfig } from "@/config/site";
-import { audiences, methodSteps, modules, scoreGaps, trustPoints } from "@/content/landing";
+import { audiences, methodSteps, modules, scoreGaps } from "@/content/landing";
+import { format } from "@/i18n/merge";
+import { getMessages } from "@/i18n/server";
 import { brandLogos, formatFee, siteUrl } from "@/lib/settings/format";
 import type { SiteSettings } from "@/lib/settings/schema";
 import { getSettings } from "@/lib/settings/store";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSettings();
+  const [settings, m] = await Promise.all([getSettings(), getMessages()]);
   const url = siteUrl(settings, siteConfig.campaignPath);
+  const t = m.campaign.meta;
   return {
-    title: "Online IELTS Coaching & Free Assessment",
-    description:
-      "Find the exact IELTS skills holding back your score. Book a free online assessment for a personalised Academic or General Training roadmap.",
+    title: t.title,
+    description: t.description,
     alternates: { canonical: url },
-    openGraph: {
-      title: "Know what is holding back your IELTS score",
-      description:
-        "Free IELTS assessment, a clear preparation roadmap, and personalised online coaching for Academic and General Training.",
-      url,
-    },
+    openGraph: { title: t.ogTitle, description: t.ogDescription, url },
   };
 }
 
@@ -107,10 +108,17 @@ const structuredDataFor = (settings: SiteSettings) => ({
 });
 
 export default async function FreeIeltsAssessmentPage() {
-  const settings = await getSettings();
+  const [settings, m] = await Promise.all([getSettings(), getMessages()]);
+  const t = m.campaign;
+  const s = m.shared;
   const { courses, content } = settings;
+  const stories = settings.results.testimonials.filter((story) => story.published && story.consent);
   const { hero } = content;
-  const videos = landingVideos(settings);
+  const baseVideos = landingVideos(settings);
+  const videos = {
+    hero: { ...baseVideos.hero, title: m.client.video.heroTitle, label: m.client.video.heroLabel },
+    service: { ...baseVideos.service, title: m.client.video.serviceTitle, label: m.client.video.serviceLabel },
+  };
   // Underline the configured words only when they end the second line.
   const underline =
     hero.titleUnderline && hero.titleLine2.endsWith(hero.titleUnderline) ? hero.titleUnderline : "";
@@ -141,7 +149,7 @@ export default async function FreeIeltsAssessmentPage() {
                       <Sparkles aria-hidden="true" />
                       {hero.eyebrow}
                     </span>
-                    <span className="availability-dot">Academic + General</span>
+                    <span className="availability-dot">{t.availability}</span>
                   </div>
                   <h1>
                     {hero.titleLine1}
@@ -186,7 +194,7 @@ export default async function FreeIeltsAssessmentPage() {
                       context="hero-speaking"
                       eager
                       size="xl"
-                      aria-label="Aira, your SkyVoice IELTS guide, presents your next score move"
+                      aria-label={t.heroAiraLabel}
                     />
                     <AiraGroundShadow width={190} />
                   </div>
@@ -200,7 +208,7 @@ export default async function FreeIeltsAssessmentPage() {
               </div>
               <div className="hero-form-wrap hero-enter hero-enter-3">
                 <div className="hero-form-accent" aria-hidden="true">
-                  <span>Start here</span>
+                  <span>{t.startHere}</span>
                   <ArrowRight />
                 </div>
                 <LeadForm assessmentDuration={courses.assessmentDuration} idPrefix="assessment" />
@@ -208,8 +216,8 @@ export default async function FreeIeltsAssessmentPage() {
             </div>
           </div>
 
-          <div className="site-shell trust-strip" aria-label="Course highlights">
-            {trustPoints.map((item, index) => (
+          <div className="site-shell trust-strip" aria-label={t.trustLabel}>
+            {m.landing.trustPoints.map((item, index) => (
               <div className="trust-item" key={item.value}>
                 <span className="trust-icon" aria-hidden="true">
                   {index === 0 ? <BadgeCheck /> : null}
@@ -227,25 +235,22 @@ export default async function FreeIeltsAssessmentPage() {
         <section aria-labelledby="video-title" className="section video-section" id="video">
           <div className="site-shell video-shell">
             <Reveal className="section-heading centered-heading video-heading">
-              <span className="eyebrow">Meet Sky Voice</span>
-              <h2 id="video-title">See how one assessment turns into a clear plan.</h2>
-              <p>
-                A short introduction to the free assessment, the personalised roadmap,
-                and how coaching works week to week.
-              </p>
+              <span className="eyebrow">{t.video.eyebrow}</span>
+              <h2 id="video-title">{t.video.title}</h2>
+              <p>{t.video.body}</p>
             </Reveal>
             <Reveal className="video-stage" delay={0.06}>
               <ServiceVideo video={videos.service} />
             </Reveal>
             <div className="video-points">
               <span>
-                <SearchCheck aria-hidden="true" /> Find your current level
+                <SearchCheck aria-hidden="true" /> {t.video.points[0]}
               </span>
               <span>
-                <Target aria-hidden="true" /> Spot the module holding you back
+                <Target aria-hidden="true" /> {t.video.points[1]}
               </span>
               <span>
-                <Route aria-hidden="true" /> Leave with a written roadmap
+                <Route aria-hidden="true" /> {t.video.points[2]}
               </span>
             </div>
           </div>
@@ -254,52 +259,40 @@ export default async function FreeIeltsAssessmentPage() {
         <section className="section transformation" id="results">
           <div className="site-shell split-layout">
             <Reveal className="section-copy">
-              <span className="eyebrow">A clearer way forward</span>
+              <span className="eyebrow">{t.transformation.eyebrow}</span>
               <h2>
-                From “I keep practising” to
-                <span> “I know what to fix.”</span>
+                {t.transformation.titleLead}
+                <span>{t.transformation.titleEmphasis}</span>
               </h2>
-              <p>
-                More mock tests do not automatically create progress. A useful plan
-                connects one specific score gap to one specific correction—then gives
-                you a chance to apply it again.
-              </p>
+              <p>{t.transformation.body}</p>
               <ul className="check-list">
-                <li>
-                  <CheckCircle2 aria-hidden="true" />
-                  Start from your actual level
-                </li>
-                <li>
-                  <CheckCircle2 aria-hidden="true" />
-                  Prioritise the modules that matter most
-                </li>
-                <li>
-                  <CheckCircle2 aria-hidden="true" />
-                  Build toward a realistic target and timeline
-                </li>
+                {t.transformation.checks.map((item) => (
+                  <li key={item}>
+                    <CheckCircle2 aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
               </ul>
-              <p className="proof-note">
-                Verified student scorecards will be published here only after consent.
-              </p>
+              <p className="proof-note">{t.transformation.proofNote}</p>
             </Reveal>
 
             <Reveal className="score-journey" delay={0.08}>
               <div className="score-card score-card-before">
-                <span>Before</span>
+                <span>{t.transformation.before}</span>
                 <strong>6.0</strong>
-                <small>Practising, but unsure why the score is not moving</small>
+                <small>{t.transformation.beforeNote}</small>
               </div>
               <div className="score-route" aria-hidden="true">
                 <DrawLine className="route-line" delay={0.35} />
                 <span>
                   <Route />
                 </span>
-                <b>Personalised roadmap</b>
+                <b>{t.transformation.route}</b>
               </div>
               <div className="score-card score-card-after">
-                <span>Target</span>
+                <span>{t.transformation.target}</span>
                 <strong>7.0</strong>
-                <small>A clear plan for the next correction and practice cycle</small>
+                <small>{t.transformation.targetNote}</small>
               </div>
             </Reveal>
           </div>
@@ -308,12 +301,9 @@ export default async function FreeIeltsAssessmentPage() {
         <section className="section section-soft" id="why-stuck">
           <div className="site-shell feature-split">
             <Reveal className="feature-head">
-              <span className="eyebrow">Why scores get stuck</span>
-              <h2>Practice tells you the score. Diagnosis tells you what to change.</h2>
-              <p>
-                To move a band, you need four answers that another random mock rarely
-                gives you.
-              </p>
+              <span className="eyebrow">{t.whyStuck.eyebrow}</span>
+              <h2>{t.whyStuck.title}</h2>
+              <p>{t.whyStuck.body}</p>
             </Reveal>
             <Reveal className="feature-art" delay={0.06}>
               <div className="feature-art-stage">
@@ -334,7 +324,7 @@ export default async function FreeIeltsAssessmentPage() {
               </div>
             </Reveal>
             <div className="feature-body gap-grid">
-              {scoreGaps.map((gap, index) => (
+              {scoreGaps(m.landing).map((gap, index) => (
                 <div className="gap-card" key={gap.title}>
                   <span className="number-chip">0{index + 1}</span>
                   <gap.icon aria-hidden="true" />
@@ -350,22 +340,22 @@ export default async function FreeIeltsAssessmentPage() {
           <div className="site-shell">
             <Reveal className="section-heading method-heading">
               <div>
-                <span className="eyebrow">The Sky Voice method</span>
-                <h2>Your preparation should be personal. Your weaknesses already are.</h2>
+                <span className="eyebrow">{t.method.eyebrow}</span>
+                <h2>{t.method.title}</h2>
               </div>
               <Link className="text-link" href="#assessment-form">
-                Start with steps 1 and 2—free
+                {t.method.link}
                 <ChevronRight aria-hidden="true" />
               </Link>
             </Reveal>
 
             <div className="method-path">
               <DrawLine className="method-line" duration={1.2} />
-              {methodSteps.map((step) => (
+              {methodSteps(m.landing).map((step) => (
                 <div className="method-step" key={step.number}>
                   <div className={`method-marker ${step.free ? "is-free" : ""}`}>
                     <step.icon aria-hidden="true" />
-                    {step.free ? <span>Free</span> : null}
+                    {step.free ? <span>{s.free}</span> : null}
                   </div>
                   <span className="step-number">{step.number}</span>
                   <h3>{step.label}</h3>
@@ -379,12 +369,9 @@ export default async function FreeIeltsAssessmentPage() {
         <section className="section modules-section" id="modules">
           <div className="site-shell">
             <Reveal className="section-heading centered-heading">
-              <span className="eyebrow">Four modules · one connected plan</span>
-              <h2>Train each skill the way the examiner sees it.</h2>
-              <p>
-                Listening, Reading, Writing, and Speaking need different techniques—and
-                one roadmap that keeps them moving together.
-              </p>
+              <span className="eyebrow">{t.modules.eyebrow}</span>
+              <h2>{t.modules.title}</h2>
+              <p>{t.modules.body}</p>
             </Reveal>
 
             <Reveal className="module-tableau" delay={0.04}>
@@ -393,14 +380,14 @@ export default async function FreeIeltsAssessmentPage() {
                   <AiraContext
                     context="feedback"
                     size="xl"
-                    aria-label="Aira connects feedback across all four IELTS skills"
+                    aria-label={t.modules.airaLabel}
                   />
                   <AiraGroundShadow tone="light" width={190} />
                 </div>
               </div>
               <div className="module-tableau-copy">
-                <strong>One guide. Four connected skill signals.</strong>
-                <p>Aira turns feedback from each module into one clear next step.</p>
+                <strong>{t.modules.tableauTitle}</strong>
+                <p>{t.modules.tableauBody}</p>
                 <div className="module-tableau-signals" aria-hidden="true">
                   {(["listening", "reading", "writing", "speaking"] as const).map(
                     (skill) => (
@@ -417,8 +404,8 @@ export default async function FreeIeltsAssessmentPage() {
               </div>
             </Reveal>
 
-            <div aria-label="The four IELTS modules" className="module-grid" role="region" tabIndex={0}>
-              {modules.map((module, index) => (
+            <div aria-label={t.modules.regionLabel} className="module-grid" role="region" tabIndex={0}>
+              {modules(m.landing).map((module, index) => (
                 <div
                   className={`module-card module-card-${index + 1}`}
                   key={module.name}
@@ -426,14 +413,14 @@ export default async function FreeIeltsAssessmentPage() {
                   <div className="module-signal" aria-hidden="true">
                     <SkillSignal
                       className="module-signal-image"
-                      module={module.name.toLowerCase() as SkillSignalModule}
+                      module={module.signal as SkillSignalModule}
                       state="active"
                       size={152}
                       decorative
                     />
                     <SkillSignal
                       className="module-signal-success"
-                      module={module.name.toLowerCase() as SkillSignalModule}
+                      module={module.signal as SkillSignalModule}
                       state="success"
                       size={152}
                       decorative
@@ -460,8 +447,8 @@ export default async function FreeIeltsAssessmentPage() {
                   <GraduationCapIcon />
                 </span>
                 <div>
-                  <strong>IELTS Academic</strong>
-                  <p>University admission and professional registration.</p>
+                  <strong>{s.ieltsAcademic}</strong>
+                  <p>{t.modules.academicBody}</p>
                 </div>
               </div>
               <div>
@@ -469,11 +456,11 @@ export default async function FreeIeltsAssessmentPage() {
                   <PlaneIcon />
                 </span>
                 <div>
-                  <strong>IELTS General Training</strong>
-                  <p>Work, migration, and permanent-residency pathways.</p>
+                  <strong>{s.ieltsGeneral}</strong>
+                  <p>{t.modules.generalBody}</p>
                 </div>
               </div>
-              <Link href="#assessment-form">Not sure? We’ll help you choose.</Link>
+              <Link href="#assessment-form">{t.modules.chooseLink}</Link>
             </div>
           </div>
         </section>
@@ -481,39 +468,36 @@ export default async function FreeIeltsAssessmentPage() {
         <section className="section portal-section" id="portal">
           <div className="site-shell portal-grid">
             <Reveal className="portal-copy">
-              <span className="eyebrow">Practice portal</span>
-              <h2>Practise inside the format. Get help at the moment you need it.</h2>
-              <p>
-                Classes teach the technique. The portal helps you make it automatic in
-                an exam-like computer-delivered environment.
-              </p>
+              <span className="eyebrow">{t.portal.eyebrow}</span>
+              <h2>{t.portal.title}</h2>
+              <p>{t.portal.body}</p>
               <div className="portal-features">
                 {courses.portalPracticeSets ? (
                   <div>
                     <strong>{courses.portalPracticeSets}</strong>
-                    <span>practice sets</span>
+                    <span>{t.portal.practiceSets}</span>
                   </div>
                 ) : null}
                 <div>
                   <strong>4</strong>
-                  <span>IELTS modules</span>
+                  <span>{t.portal.modules}</span>
                 </div>
                 <div>
                   <strong>A + G</strong>
-                  <span>test types</span>
+                  <span>{t.portal.testTypes}</span>
                 </div>
               </div>
               <p className="inline-note">
                 <Clock3 aria-hidden="true" />
                 {courses.portalAccessDuration
-                  ? `Portal access: ${courses.portalAccessDuration}.`
-                  : "Access duration will be displayed after final client confirmation."}
+                  ? format(t.portal.access, { duration: courses.portalAccessDuration })
+                  : t.portal.accessPending}
               </p>
             </Reveal>
 
             <div className="portal-stage">
               <Reveal
-                ariaLabel="IELTS practice portal concept preview"
+                ariaLabel={t.portal.previewLabel}
                 className="portal-preview"
                 delay={0.08}
                 role="region"
@@ -523,24 +507,25 @@ export default async function FreeIeltsAssessmentPage() {
                   <span />
                   <span />
                   <span />
-                  <small>Concept preview · final screenshots pending</small>
+                  <small>{t.portal.windowBar}</small>
                 </div>
                 <div className="portal-body">
                   <aside>
                     <BrandLogo src={brandLogos(settings).default} />
-                    <nav aria-label="Concept portal navigation">
+                    <nav aria-label={t.portal.navLabel}>
                       <span className="active">
-                        <Headphones aria-hidden="true" /> Practice
+                        <Headphones aria-hidden="true" /> {t.portal.navPractice}
                       </span>
                       <span>
-                        <Target aria-hidden="true" /> Progress
+                        <Target aria-hidden="true" /> {t.portal.navProgress}
                       </span>
                       <span>
-                        <MessageCircleMore aria-hidden="true" /> Tutor
+                        <MessageCircleMore aria-hidden="true" /> {t.portal.navTutor}
                       </span>
                     </nav>
                   </aside>
-                  <div className="portal-question">
+                  {/* Example exam content: kept in English in every language. */}
+                  <div className="portal-question" lang="en">
                     <div className="portal-topline">
                       <span>Listening · Set 12</span>
                       <b>
@@ -577,8 +562,8 @@ export default async function FreeIeltsAssessmentPage() {
         <section className="section audience-section" id="audience">
           <div className="site-shell feature-split">
             <Reveal className="feature-head">
-              <span className="eyebrow">Built around real life</span>
-              <h2>For people preparing with a deadline, a job, or a second attempt.</h2>
+              <span className="eyebrow">{t.audience.eyebrow}</span>
+              <h2>{t.audience.title}</h2>
             </Reveal>
             <Reveal className="feature-art" delay={0.06}>
               <div className="feature-art-stage">
@@ -599,7 +584,7 @@ export default async function FreeIeltsAssessmentPage() {
               </div>
             </Reveal>
             <div className="feature-body audience-grid">
-              {audiences.map((audience) => (
+              {audiences(m.landing).map((audience) => (
                 <div className="audience-card" key={audience.title}>
                   <audience.icon aria-hidden="true" />
                   <div>
@@ -610,21 +595,41 @@ export default async function FreeIeltsAssessmentPage() {
               ))}
             </div>
             <div className="feature-foot not-for-card">
-              <span>Probably not for you if…</span>
-              <p>
-                You only want last-minute exam tips at 7.5+, or the lowest-cost
-                40-student lecture batch. Sky Voice is built around small groups and
-                personalised 1-on-1 attention.
-              </p>
+              <span>{t.audience.notForTitle}</span>
+              <p>{t.audience.notForBody}</p>
             </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="destinations-title" className="section destinations-section" id="destinations">
+          <div aria-hidden="true" className="destinations-route">
+            <svg height="120" viewBox="0 0 900 120" width="900">
+              <path d="M 10 100 C 250 0, 650 0, 890 100" />
+              <circle className="route-start" cx="10" cy="100" r="7" />
+              <circle className="route-end" cx="890" cy="100" r="7" />
+            </svg>
+            <span className="destinations-plane">
+              <Plane />
+            </span>
+          </div>
+          <div className="site-shell">
+            <Reveal className="section-heading centered-heading">
+              <span className="eyebrow">{t.destinations.eyebrow}</span>
+              <h2 id="destinations-title">{t.destinations.title}</h2>
+              <p>{t.destinations.body}</p>
+            </Reveal>
+            <Reveal delay={0.06}>
+              <IeltsDestinations />
+            </Reveal>
+            <p className="destinations-note">{t.destinations.note}</p>
           </div>
         </section>
 
         <section className="section fees-section" id="fees">
           <div className="site-shell">
             <Reveal className="section-heading centered-heading">
-              <span className="eyebrow">Clear formats · transparent fees</span>
-              <h2>Two ways to train. One personalised method.</h2>
+              <span className="eyebrow">{t.fees.eyebrow}</span>
+              <h2>{t.fees.title}</h2>
               {courses.feeNote ? <p>{courses.feeNote}</p> : null}
             </Reveal>
             <div className="pricing-grid">
@@ -633,7 +638,7 @@ export default async function FreeIeltsAssessmentPage() {
                   className={`pricing-card ${plan.featured ? "is-featured" : ""}`}
                   key={plan.name}
                 >
-                  {plan.featured ? <span className="popular-badge">Most focused</span> : null}
+                  {plan.featured ? <span className="popular-badge">{s.mostFocused}</span> : null}
                   <div className="pricing-title">
                     <span>
                       {plan.featured ? <MessagesSquare aria-hidden="true" /> : <Users aria-hidden="true" />}
@@ -645,12 +650,12 @@ export default async function FreeIeltsAssessmentPage() {
                   </div>
                   <dl className="price-list">
                     <div>
-                      <dt>IELTS Academic</dt>
-                      <dd>{formatFee(plan.academicFee) ?? "Fee on request"}</dd>
+                      <dt>{s.ieltsAcademic}</dt>
+                      <dd>{formatFee(plan.academicFee) ?? s.feeOnRequest}</dd>
                     </div>
                     <div>
-                      <dt>IELTS General Training</dt>
-                      <dd>{formatFee(plan.generalFee) ?? "Fee on request"}</dd>
+                      <dt>{s.ieltsGeneral}</dt>
+                      <dd>{formatFee(plan.generalFee) ?? s.feeOnRequest}</dd>
                     </div>
                   </dl>
                   <ul className="plan-features">
@@ -670,14 +675,14 @@ export default async function FreeIeltsAssessmentPage() {
                       </li>
                     ) : null}
                     <li>
-                      <Check aria-hidden="true" /> Writing and Speaking feedback
+                      <Check aria-hidden="true" /> {s.writingSpeakingFeedback}
                     </li>
                   </ul>
                   <Link
                     className={`button ${plan.featured ? "button-accent" : "button-secondary"}`}
                     href="#assessment-form"
                   >
-                    Find my best format
+                    {t.fees.findFormat}
                     <ArrowRight aria-hidden="true" />
                   </Link>
                 </div>
@@ -686,13 +691,42 @@ export default async function FreeIeltsAssessmentPage() {
             <div className="price-note">
               <WandSparkles aria-hidden="true" />
               <div>
-                <strong>Not sure which format fits?</strong>
-                <p>Your free assessment ends with a format recommendation—before you pay.</p>
+                <strong>{t.fees.noteTitle}</strong>
+                <p>{t.fees.noteBody}</p>
                 {courses.installmentInfo ? (
                   <p className="price-installment">{courses.installmentInfo}</p>
                 ) : null}
               </div>
             </div>
+          </div>
+        </section>
+
+        <section aria-labelledby="stories-title" className="section stories-section" id="stories">
+          <div className="site-shell">
+            <Reveal className="section-heading centered-heading">
+              <span className="eyebrow">{t.stories.eyebrow}</span>
+              <h2 id="stories-title">{t.stories.title}</h2>
+              <p>{t.stories.body}</p>
+            </Reveal>
+            {stories.length ? (
+              <Reveal delay={0.06}>
+                <SuccessStories stories={stories} />
+              </Reveal>
+            ) : (
+              <div className="pending-card">
+                <Quote aria-hidden="true" />
+                <div>
+                  <strong>{t.stories.pendingTitle}</strong>
+                  <p>{t.stories.pendingBody}</p>
+                </div>
+              </div>
+            )}
+            <p className="stories-cta">
+              <Link className="button button-accent" href="#final-assessment">
+                {t.stories.cta}
+                <ArrowRight aria-hidden="true" />
+              </Link>
+            </p>
           </div>
         </section>
 
@@ -716,50 +750,46 @@ export default async function FreeIeltsAssessmentPage() {
                 <span className="proof-caption-icon">
                   <TrendingUp aria-hidden="true" />
                 </span>
-                <strong>Progress you can explain</strong>
-                Not a mystery score. A visible chain from feedback to correction.
+                <strong>{t.proof.captionTitle}</strong>
+                {t.proof.caption}
               </p>
               <div className="proof-float proof-float-one">
                 <CheckCircle2 aria-hidden="true" />
-                Task 2 structure
+                {t.proof.floats[0]}
               </div>
               <div className="proof-float proof-float-two">
                 <CheckCircle2 aria-hidden="true" />
-                Reading timing
+                {t.proof.floats[1]}
               </div>
               <div className="proof-float proof-float-three">
                 <CheckCircle2 aria-hidden="true" />
-                Speaking depth
+                {t.proof.floats[2]}
               </div>
             </Reveal>
             <Reveal className="section-copy" delay={0.08}>
-              <span className="eyebrow">Proof, not promises</span>
-              <h2>Every claim should be traceable to real student work.</h2>
-              <p>
-                Sky Voice will publish score reports, verified reviews, and student
-                stories only with evidence and consent. Until then, the method—not an
-                invented testimonial—does the talking.
-              </p>
+              <span className="eyebrow">{t.proof.eyebrow}</span>
+              <h2>{t.proof.title}</h2>
+              <p>{t.proof.body}</p>
               <div className="proof-standards">
                 <div>
                   <BadgeCheck aria-hidden="true" />
                   <span>
-                    <strong>Real score reports</strong>
-                    Published after verification
+                    <strong>{t.proof.standards[0].title}</strong>
+                    {t.proof.standards[0].body}
                   </span>
                 </div>
                 <div>
                   <Video aria-hidden="true" />
                   <span>
-                    <strong>Student stories</strong>
-                    Shared only with permission
+                    <strong>{t.proof.standards[1].title}</strong>
+                    {t.proof.standards[1].body}
                   </span>
                 </div>
                 <div>
                   <Star aria-hidden="true" />
                   <span>
-                    <strong>Live reviews</strong>
-                    Connected to a verified source
+                    <strong>{t.proof.standards[2].title}</strong>
+                    {t.proof.standards[2].body}
                   </span>
                 </div>
               </div>
@@ -770,15 +800,11 @@ export default async function FreeIeltsAssessmentPage() {
         <section className="section faq-section" id="faq">
           <div className="site-shell faq-grid">
             <Reveal className="faq-intro">
-              <span className="eyebrow">Questions before you book</span>
-              <h2>Clarity should start before the assessment.</h2>
-              <p>
-                These answers cover the decisions we can make honestly today. Course
-                access, instalment options, and other policies will appear only after
-                final confirmation.
-              </p>
+              <span className="eyebrow">{t.faq.eyebrow}</span>
+              <h2>{t.faq.title}</h2>
+              <p>{t.faq.body}</p>
               <Link className="button button-secondary" href="#final-assessment">
-                I’m ready to start
+                {t.faq.ready}
                 <ArrowRight aria-hidden="true" />
               </Link>
             </Reveal>
@@ -794,34 +820,19 @@ export default async function FreeIeltsAssessmentPage() {
           <div aria-hidden="true" className="final-orbit final-orbit-two" />
           <div className="site-shell final-grid">
             <Reveal className="final-copy">
-              <span className="eyebrow eyebrow-on-dark">Your next step is simple</span>
-              <h2>Don’t prepare blindly. Know where you stand.</h2>
-              <p>
-                Book your free IELTS assessment and leave with your current level, weak
-                modules, and a clear preparation roadmap.
-              </p>
+              <span className="eyebrow eyebrow-on-dark">{t.final.eyebrow}</span>
+              <h2>{t.final.title}</h2>
+              <p>{t.final.body}</p>
               <ol className="next-steps">
-                <li>
-                  <span>1</span>
-                  <div>
-                    <strong>Share five quick details</strong>
-                    <p>Tell us your test type, city, and target.</p>
-                  </div>
-                </li>
-                <li>
-                  <span>2</span>
-                  <div>
-                    <strong>Fix an online assessment slot</strong>
-                    <p>The team follows up on WhatsApp to arrange the time.</p>
-                  </div>
-                </li>
-                <li>
-                  <span>3</span>
-                  <div>
-                    <strong>Receive your roadmap</strong>
-                    <p>Know the weak modules and the best preparation format.</p>
-                  </div>
-                </li>
+                {t.final.steps.map((step, index) => (
+                  <li key={step.title}>
+                    <span>{index + 1}</span>
+                    <div>
+                      <strong>{step.title}</strong>
+                      <p>{step.body}</p>
+                    </div>
+                  </li>
+                ))}
               </ol>
             </Reveal>
             <Reveal className="final-form-card" delay={0.08}>
@@ -829,14 +840,15 @@ export default async function FreeIeltsAssessmentPage() {
             </Reveal>
           </div>
         </section>
+        <SocialBand />
       </main>
 
       <SiteFooter />
 
-      <aside aria-label="Mobile assessment shortcut" className="mobile-cta-bar">
+      <aside aria-label={t.mobileBarLabel} className="mobile-cta-bar">
         <Link className="button button-accent" href="#assessment-form">
           <MousePointerClick aria-hidden="true" />
-          Free assessment
+          {t.mobileBar}
         </Link>
       </aside>
     </>

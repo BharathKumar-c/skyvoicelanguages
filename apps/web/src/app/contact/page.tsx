@@ -21,22 +21,19 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { SocialIcon, socialLabels } from "@/components/social-icon";
 import { assessmentHref, siteConfig } from "@/config/site";
+import { format } from "@/i18n/merge";
+import { getMessages } from "@/i18n/server";
 import { siteUrl, telDigits as digits, whatsappHref as whatsappLink } from "@/lib/settings/format";
 import { getSettings } from "@/lib/settings/store";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await getSettings();
-  const name = settings.company.name;
+  const [settings, m] = await Promise.all([getSettings(), getMessages()]);
+  const title = format(m.contact.meta.title, { company: settings.company.name });
   return {
-    title: `Contact ${name}`,
-    description:
-      "Ask Sky Voice about IELTS coaching, fees, class timings, or the free assessment. Send an enquiry and the team will reply.",
+    title,
+    description: m.contact.meta.description,
     alternates: { canonical: siteUrl(settings, "/contact") },
-    openGraph: {
-      title: `Contact ${name}`,
-      description: "Questions about IELTS coaching, fees, or the free assessment? Send an enquiry.",
-      url: siteUrl(settings, "/contact"),
-    },
+    openGraph: { title, description: m.contact.meta.ogDescription, url: siteUrl(settings, "/contact") },
   };
 }
 
@@ -62,7 +59,9 @@ function DetailRow({
 }
 
 export default async function ContactPage() {
-  const settings = await getSettings();
+  const [settings, m] = await Promise.all([getSettings(), getMessages()]);
+  const t = m.contact;
+  const opensWhatsapp = m.client.common.opensWhatsapp;
   const { contact, company } = settings;
   const contactDetails = { ...contact, centreName: company.name };
   const { branches } = contact;
@@ -117,7 +116,7 @@ export default async function ContactPage() {
         <section aria-labelledby="contact-title" className="page-hero">
           <div className="site-shell page-hero-grid">
             <div className="page-hero-copy hero-enter">
-              <span className="eyebrow">Contact Sky Voice</span>
+              <span className="eyebrow">{t.eyebrow}</span>
               <h1 id="contact-title">{contact.pageTitle}</h1>
               <p className="page-hero-lede">{contact.pageIntro}</p>
               <div className="hero-actions">
@@ -126,7 +125,7 @@ export default async function ContactPage() {
                     {phone ? (
                       <a className="button button-secondary button-large" href={`tel:${digits(phone)}`}>
                         <Phone aria-hidden="true" />
-                        Call us
+                        {t.callUs}
                       </a>
                     ) : null}
                     {whatsappHref ? (
@@ -137,8 +136,8 @@ export default async function ContactPage() {
                         target="_blank"
                       >
                         <MessageCircle aria-hidden="true" />
-                        WhatsApp
-                        <span className="sr-only"> (opens WhatsApp)</span>
+                        {t.whatsapp}
+                        <span className="sr-only">{opensWhatsapp}</span>
                       </a>
                     ) : null}
                     {contactDetails.email ? (
@@ -147,18 +146,18 @@ export default async function ContactPage() {
                         href={`mailto:${contactDetails.email}`}
                       >
                         <Mail aria-hidden="true" />
-                        Email
+                        {t.email}
                       </a>
                     ) : null}
                   </>
                 ) : (
                   <a className="button button-primary button-large" href="#enquiry-form">
-                    Send an enquiry
+                    {t.sendEnquiry}
                     <ArrowRight aria-hidden="true" />
                   </a>
                 )}
                 <Link className="button button-accent button-large" href={assessmentHref}>
-                  Book my free assessment
+                  {m.shared.bookAssessment}
                 </Link>
               </div>
             </div>
@@ -185,11 +184,11 @@ export default async function ContactPage() {
         <section aria-labelledby="details-title" className="section contact-section">
           <div className="site-shell contact-grid">
             <Reveal className="contact-details">
-              <span className="eyebrow">Contact information</span>
+              <span className="eyebrow">{t.infoEyebrow}</span>
               <h2 id="details-title">{contactDetails.centreName}</h2>
               <dl className="contact-list">
                 {contactDetails.address.length ? (
-                  <DetailRow icon={MapPin} label="Office address">
+                  <DetailRow icon={MapPin} label={t.officeAddress}>
                     <address>
                       {contactDetails.address.map((line) => (
                         <span className="branch-address-line" key={line}>
@@ -200,7 +199,7 @@ export default async function ContactPage() {
                   </DetailRow>
                 ) : null}
                 {contactDetails.phones.length ? (
-                  <DetailRow icon={Phone} label={contactDetails.phones.length > 1 ? "Phone numbers" : "Phone"}>
+                  <DetailRow icon={Phone} label={contactDetails.phones.length > 1 ? t.phones : t.phone}>
                     {contactDetails.phones.map((number) => (
                       <a className="contact-link" href={`tel:${digits(number)}`} key={number}>
                         {number}
@@ -209,22 +208,22 @@ export default async function ContactPage() {
                   </DetailRow>
                 ) : null}
                 {whatsappHref && contactDetails.whatsapp ? (
-                  <DetailRow icon={MessageCircle} label="WhatsApp">
+                  <DetailRow icon={MessageCircle} label={t.whatsapp}>
                     <a className="contact-link" href={whatsappHref} rel="noopener noreferrer" target="_blank">
                       {contactDetails.whatsapp}
-                      <span className="sr-only"> (opens WhatsApp)</span>
+                      <span className="sr-only">{opensWhatsapp}</span>
                     </a>
                   </DetailRow>
                 ) : null}
                 {contactDetails.email ? (
-                  <DetailRow icon={Mail} label="Email">
+                  <DetailRow icon={Mail} label={t.email}>
                     <a className="contact-link" href={`mailto:${contactDetails.email}`}>
                       {contactDetails.email}
                     </a>
                   </DetailRow>
                 ) : null}
                 {contactDetails.hours.length ? (
-                  <DetailRow icon={Clock3} label="Business hours">
+                  <DetailRow icon={Clock3} label={t.businessHours}>
                     {contactDetails.hours.map((line) => (
                       <span className="branch-address-line" key={line}>
                         {line}
@@ -233,7 +232,7 @@ export default async function ContactPage() {
                   </DetailRow>
                 ) : null}
                 {contactDetails.weeklyHoliday ? (
-                  <DetailRow icon={CalendarOff} label="Weekly holiday">
+                  <DetailRow icon={CalendarOff} label={t.weeklyHoliday}>
                     {contactDetails.weeklyHoliday}
                   </DetailRow>
                 ) : null}
@@ -242,23 +241,21 @@ export default async function ContactPage() {
                 <p className="contact-pending">
                   <Clock3 aria-hidden="true" />
                   <span>
-                    {hasDirectContact
-                      ? "Remaining contact details will be published once confirmed."
-                      : "Phone, WhatsApp, email, and business hours will be published once Sky Voice confirms them. Until then, the enquiry form reaches the team."}
+                    {hasDirectContact ? t.remainingPending : t.allPending}
                   </span>
                 </p>
               ) : null}
 
               <div className="contact-social">
                 <h3>
-                  <Share2 aria-hidden="true" /> Follow Sky Voice
+                  <Share2 aria-hidden="true" /> {t.follow}
                 </h3>
                 {socialLinks.length ? (
                   <ul className="social-list">
                     {socialLinks.map((link) => (
                       <li key={link.platform}>
                         <a
-                          aria-label={`${socialLabels[link.platform]} (opens in a new tab)`}
+                          aria-label={`${socialLabels[link.platform]}${m.client.common.opensNewTab}`}
                           className="social-link"
                           href={link.url}
                           rel="noopener noreferrer"
@@ -270,7 +267,7 @@ export default async function ContactPage() {
                     ))}
                   </ul>
                 ) : (
-                  <p className="muted-note">Official social profiles will be linked here once confirmed.</p>
+                  <p className="muted-note">{t.socialPending}</p>
                 )}
               </div>
             </Reveal>
@@ -283,11 +280,9 @@ export default async function ContactPage() {
         <section aria-labelledby="locations-title" className="section locations-section">
           <div className="site-shell">
             <Reveal className="section-heading centered-heading">
-              <span className="eyebrow">Office locations</span>
-              <h2 id="locations-title">Find a Sky Voice office.</h2>
-              {branches.length ? (
-                <p>Choose a branch to see it on the map or get directions.</p>
-              ) : null}
+              <span className="eyebrow">{t.locationsEyebrow}</span>
+              <h2 id="locations-title">{t.locationsTitle}</h2>
+              {branches.length ? <p>{t.locationsBody}</p> : null}
             </Reveal>
             {branches.length ? (
               <BranchLocations branches={branches} />
@@ -295,12 +290,8 @@ export default async function ContactPage() {
               <div className="pending-card">
                 <Building2 aria-hidden="true" />
                 <div>
-                  <strong>Coaching is fully online.</strong>
-                  <p>
-                    Classes, practice, and feedback all happen online, so you can train
-                    from anywhere. Any office or branch addresses will be listed here,
-                    with maps and directions, once Sky Voice confirms them.
-                  </p>
+                  <strong>{t.onlineTitle}</strong>
+                  <p>{t.onlineBody}</p>
                 </div>
               </div>
             )}
@@ -310,14 +301,14 @@ export default async function ContactPage() {
         <section aria-labelledby="contact-faq-title" className="section faq-section">
           <div className="site-shell faq-grid">
             <Reveal className="faq-intro">
-              <span className="eyebrow">Before you write</span>
-              <h2 id="contact-faq-title">Quick answers to common questions.</h2>
+              <span className="eyebrow">{t.faqEyebrow}</span>
+              <h2 id="contact-faq-title">{t.faqTitle}</h2>
               <p>
-                For questions about the course itself, the{" "}
+                {t.faqBodyBefore}{" "}
                 <Link className="text-link-inline" href={`${siteConfig.campaignPath}#faq`}>
-                  coaching page FAQ
+                  {t.faqLink}
                 </Link>{" "}
-                covers format, timing, and the assessment in more detail.
+                {t.faqBodyAfter}
               </p>
             </Reveal>
             <FaqList idPrefix="contact-faq" items={contactFaqs} />

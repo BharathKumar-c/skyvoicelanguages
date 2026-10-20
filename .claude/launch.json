@@ -4,8 +4,37 @@
     {
       "name": "web",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["dev"],
+      "runtimeArgs": [
+        "dev"
+      ],
       "port": 3000
+    },
+    {
+      "name": "web-sample",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": [
+        "/c",
+        "set SAMPLE_CONTENT=on&& pnpm dev"
+      ],
+      "port": 3000
+    },
+    {
+      "name": "web-sample-build",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": [
+        "/c",
+        "set SAMPLE_CONTENT=on&& pnpm build && pnpm --filter @skyvoice/web exec next start -p 3101"
+      ],
+      "port": 3101
+    },
+    {
+      "name": "web-prod",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": [
+        "/c",
+        "set SAMPLE_CONTENT=off&& pnpm --filter @skyvoice/web exec next start -p 3101"
+      ],
+      "port": 3101
     }
   ]
 }

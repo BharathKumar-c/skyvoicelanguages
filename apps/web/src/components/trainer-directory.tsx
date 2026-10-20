@@ -5,6 +5,8 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 import type { Trainer } from "@/content/about";
+import { useI18n } from "@/i18n/client";
+import { format } from "@/i18n/merge";
 
 import { ServiceVideo } from "./service-video";
 
@@ -31,6 +33,7 @@ function TrainerPhoto({ trainer, sizes }: { trainer: Trainer; sizes: string }) {
 const FOCUSABLE = 'a[href], button:not([disabled]), video[controls], [tabindex]:not([tabindex="-1"])';
 
 function TrainerProfile({ trainer, onClose }: { trainer: Trainer; onClose: () => void }) {
+  const t = useI18n().m.trainer;
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
   const titleId = `trainer-${trainer.id}-title`;
@@ -79,7 +82,7 @@ function TrainerProfile({ trainer, onClose }: { trainer: Trainer; onClose: () =>
     >
       <div className="dialog-card trainer-dialog" ref={dialogRef}>
         <button
-          aria-label={`Close ${trainer.name}'s profile`}
+          aria-label={format(t.closeProfile, { name: trainer.name })}
           className="dialog-close"
           onClick={onClose}
           ref={closeRef}
@@ -97,7 +100,7 @@ function TrainerProfile({ trainer, onClose }: { trainer: Trainer; onClose: () =>
             <h2 id={titleId}>{trainer.name}</h2>
             {trainer.experienceYears ? (
               <p className="trainer-meta">
-                <Clock3 aria-hidden="true" /> {trainer.experienceYears}+ years of teaching
+                <Clock3 aria-hidden="true" /> {format(t.yearsTeaching, { years: trainer.experienceYears })}
               </p>
             ) : null}
           </div>
@@ -108,7 +111,7 @@ function TrainerProfile({ trainer, onClose }: { trainer: Trainer; onClose: () =>
         <div className="trainer-dialog-grid">
           {trainer.qualifications.length ? (
             <div>
-              <h3>Qualifications</h3>
+              <h3>{t.qualifications}</h3>
               <ul className="trainer-list">
                 {trainer.qualifications.map((item) => (
                   <li key={item}>
@@ -120,7 +123,7 @@ function TrainerProfile({ trainer, onClose }: { trainer: Trainer; onClose: () =>
           ) : null}
           {trainer.achievements?.length ? (
             <div>
-              <h3>Achievements</h3>
+              <h3>{t.achievements}</h3>
               <ul className="trainer-list">
                 {trainer.achievements.map((item) => (
                   <li key={item}>
@@ -132,7 +135,7 @@ function TrainerProfile({ trainer, onClose }: { trainer: Trainer; onClose: () =>
           ) : null}
           {trainer.expertise.length ? (
             <div>
-              <h3>Skills and expertise</h3>
+              <h3>{t.expertise}</h3>
               <ul className="trainer-chips">
                 {trainer.expertise.map((item) => (
                   <li key={item}>{item}</li>
@@ -142,7 +145,7 @@ function TrainerProfile({ trainer, onClose }: { trainer: Trainer; onClose: () =>
           ) : null}
         </div>
 
-        <h3 className="trainer-video-title">Video introduction</h3>
+        <h3 className="trainer-video-title">{t.videoIntro}</h3>
         <ServiceVideo
           variant="compact"
           video={
@@ -151,8 +154,8 @@ function TrainerProfile({ trainer, onClose }: { trainer: Trainer; onClose: () =>
               type: "video/mp4",
               captions: null,
               poster: "/assets/generated/images/service-video-poster-feature.webp",
-              title: `Meet ${trainer.name}`,
-              label: "Introduction",
+              title: format(t.meet, { name: trainer.name }),
+              label: t.introduction,
             }
           }
           whenUnavailable="notice"
@@ -164,6 +167,7 @@ function TrainerProfile({ trainer, onClose }: { trainer: Trainer; onClose: () =>
 
 /** Responsive trainer cards with a full-profile dialog. */
 export function TrainerDirectory({ trainers }: { trainers: Trainer[] }) {
+  const t = useI18n().m.trainer;
   const [openId, setOpenId] = useState<string | null>(null);
   const triggers = useRef(new Map<string, HTMLButtonElement>());
   const open = trainers.find((trainer) => trainer.id === openId) ?? null;
@@ -185,7 +189,7 @@ export function TrainerDirectory({ trainers }: { trainers: Trainer[] }) {
               <TrainerPhoto sizes="(max-width: 680px) 100vw, (max-width: 1080px) 50vw, 360px" trainer={trainer} />
               <span className="trainer-video-badge">
                 <PlayCircle aria-hidden="true" />
-                {trainer.video?.src ? "Video introduction" : "Video coming soon"}
+                {trainer.video?.src ? t.videoIntro : t.videoSoon}
               </span>
             </div>
             <div className="trainer-body">
@@ -193,7 +197,7 @@ export function TrainerDirectory({ trainers }: { trainers: Trainer[] }) {
               <p className="trainer-role">{trainer.designation}</p>
               {trainer.experienceYears ? (
                 <p className="trainer-meta">
-                  <Clock3 aria-hidden="true" /> {trainer.experienceYears}+ years of teaching
+                  <Clock3 aria-hidden="true" /> {format(t.yearsTeaching, { years: trainer.experienceYears })}
                 </p>
               ) : null}
               {trainer.qualifications.length ? (
@@ -213,7 +217,8 @@ export function TrainerDirectory({ trainers }: { trainers: Trainer[] }) {
                 }}
                 type="button"
               >
-                View profile<span className="sr-only"> of {trainer.name}</span>
+                {t.viewProfile}
+                <span className="sr-only">{format(t.viewProfileOf, { name: trainer.name })}</span>
               </button>
             </div>
           </li>

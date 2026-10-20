@@ -6,12 +6,8 @@ import Image from "next/image";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
 import { serviceVideo, type VideoConfig } from "@/config/media";
-
-const overviewSteps = [
-  "Find your current level",
-  "Spot the module holding you back",
-  "Leave with a written roadmap",
-];
+import { useI18n } from "@/i18n/client";
+import { format } from "@/i18n/merge";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -45,6 +41,7 @@ export function ServiceVideo({
   whenUnavailable = "overview",
   className,
 }: ServiceVideoProps) {
+  const t = useI18n().m.video;
   const titleId = useId();
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [started, setStarted] = useState(false);
@@ -148,7 +145,7 @@ export function ServiceVideo({
         <span className="service-video-kicker">
           {hasVideo ? <Play fill="currentColor" /> : <Clock3 />}
           {video.label}
-          {hasVideo ? null : " · coming soon"}
+          {hasVideo ? null : t.comingSoon}
         </span>{" "}
         <strong>{video.title}</strong>
       </span>
@@ -175,14 +172,14 @@ export function ServiceVideo({
           >
             <source src={video.src} type={video.type} />
             {video.captions ? (
-              <track default kind="captions" label="English" src={video.captions} srcLang="en" />
+              <track default kind="captions" label={t.captions} src={video.captions} srcLang="en" />
             ) : null}
           </motion.video>
         ) : null}
 
         {started && video.src ? (
           <button
-            aria-label="Expand video to full screen"
+            aria-label={t.expand}
             className="service-video-expand"
             onClick={expand}
             type="button"
@@ -194,7 +191,7 @@ export function ServiceVideo({
         {!started && !interactive ? (
           <div className="service-video-preview is-unavailable">
             {previewContent}
-            <span className="sr-only">{`${video.title}: video coming soon.`}</span>
+            <span className="sr-only">{format(t.comingSoonNotice, { title: video.title })}</span>
           </div>
         ) : null}
 
@@ -205,8 +202,8 @@ export function ServiceVideo({
               // voice-control users can say what they see.
               aria-label={
                 hasVideo
-                  ? `Play video: ${video.label}, ${video.title}`
-                  : `${video.label} · coming soon: ${video.title}. See what the free assessment covers`
+                  ? format(t.play, { label: video.label, title: video.title })
+                  : format(t.openOverview, { label: video.label, title: video.title })
               }
               className="service-video-preview"
               exit={{ opacity: 0 }}
@@ -234,7 +231,7 @@ export function ServiceVideo({
         >
           <div className="dialog-card">
             <button
-              aria-label="Close assessment overview"
+              aria-label={t.closeOverview}
               className="dialog-close"
               onClick={() => setOverviewOpen(false)}
               ref={closeRef}
@@ -242,17 +239,11 @@ export function ServiceVideo({
             >
               <X aria-hidden="true" />
             </button>
-            <span className="eyebrow">Your first clear step</span>
-            <h2 id={titleId}>
-              Know what to practise before you practise more.
-            </h2>
-            <p>
-              The trainer-led video will be added after final production approval. The
-              free assessment already has one simple job: turn a vague score problem
-              into an actionable plan.
-            </p>
+            <span className="eyebrow">{t.overviewEyebrow}</span>
+            <h2 id={titleId}>{t.overviewTitle}</h2>
+            <p>{t.overviewBody}</p>
             <ul className="dialog-list">
-              {overviewSteps.map((step) => (
+              {t.overviewSteps.map((step) => (
                 <li key={step}>
                   <Check aria-hidden="true" />
                   {step}
@@ -264,7 +255,7 @@ export function ServiceVideo({
               href="#assessment-form"
               onClick={() => setOverviewOpen(false)}
             >
-              Book my free assessment
+              {t.overviewCta}
             </a>
           </div>
         </div>
